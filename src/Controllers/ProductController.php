@@ -11,10 +11,10 @@ use App\Upload\Upload;
 use Slim\Flash\Messages;
 use Slim\Collection;
 use App\Validation\ValidatorInterface;
-use GuzzleHttp\Client;
 use Slim\Interfaces\RouterInterface;
 use Exception;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 use App\Entities\Product;
@@ -46,26 +46,6 @@ class ProductController
     }
 
     public function infoAction(Request $request, Response $response, array $args)
-    {
-        try {
-            $apiRequest = $this->guzzle->request('GET', 'products/date', [
-                'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
-                    'Content-Language' => 'es'
-                ]
-            ]);
-
-            $product = json_decode($apiRequest->getBody());
-
-            return $this->view->render($response, 'product/show.twig', [
-                'product' => $product,
-            ]);
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
-        }
-    }
-
-    public function jsonInfoAction(Request $request, Response $response, array $args)
     {
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [

@@ -55,8 +55,19 @@ class RegistrationController
 
     public function productAction(Request $request, Response $response, array $args)
     {
+        try {
+            $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [
+                'headers' => [
+                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Content-Language' => 'es'
+                ]
+            ]);
+        } catch (RequestException $e) {
+            return $this->returnError($response, $e);
+        }
+
         return $this->view->render($response, 'registration/scan.twig', [
-            'product_id' => $args['id']
+            'product' => json_decode($apiRequest->getBody())
         ]);
     }
 

@@ -5,22 +5,32 @@
 {% endblock %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
+    <a href="{{ path_for('registration.create', {'id': product.id}) }}" class="scan-menu">
         <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="scan-menu">
+    <a href="{{ path_for('product.registrations.all', {'id': product.id}) }}" class="scan-menu">
         <i class="fa fa-search fa-2x" aria-hidden="true"></i>
     </a>
 {% endblock %}
 
 {% block content %}
-    <div class="container play">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
-                <p class="text-center" style="margin-top: 50px;">
-                    <a href="#0"><i class="fa fa-play-circle fa-5x" aria-hidden="true"></i></a><br>
-                    <select class="form-control"></select>
-                </p>
+    <div class="play">
+        <p class="text-center">
+            <img src="{{ product.img }}" alt="{{ product.title }}" class="img-responsive">
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center">{{ product.name }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <p class="text-center">
+                        <a href="#0"><i class="fa fa-qrcode fa-5x" aria-hidden="true"></i></a><br>
+                        <select class="form-control"></select>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -58,7 +68,7 @@
         var info = function () {
             $.ajax({
                 type: "GET",
-                url: "/product/info/json/{{ product_id }}",
+                url: "/product/info/{{ product.id }}",
                 dataType: "json",
                 context: this,
                 success: function(a) {

@@ -26,8 +26,7 @@ $app->group('', function () {
     // Product Group
     $this->group('/product', function () {
         // All Products
-        $this->get('/info', 'ProductController:infoAction')->setName('product.info');
-        $this->get('/info/json/{id:[0-9]+}', 'ProductController:jsonInfoAction')->setName('product.info.json');
+        $this->get('/inf/{id:[0-9]+}', 'ProductController:jsonInfoAction')->setName('product.info');
         $this->get('/{id:[0-9]+}/registrations/all', 'ProductController:allRegistrationsAction')->setName('product.registrations.all');
         $this->get('/{id:[0-9]+}/registrations/{type:[a-z0-9-]+}', 'ProductController:registrationsAction')->setName('product.registrations');
     });

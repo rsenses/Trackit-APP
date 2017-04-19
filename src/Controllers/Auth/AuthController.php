@@ -14,6 +14,8 @@ use Slim\Interfaces\RouterInterface;
 use Respect\Validation\Validator as v;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 use App\Entities\User;
 
@@ -21,15 +23,17 @@ class AuthController
 {
     private $oauth;
     private $flash;
+    private $guzzle;
     private $logger;
     private $router;
     private $validator;
     private $view;
 
-    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, GenericProvider $oauth, RouterInterface $router)
+    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, GenericProvider $oauth, RouterInterface $router, Client $guzzle)
     {
         $this->oauth = $oauth;
         $this->flash = $flash;
+        $this->guzzle = $guzzle;
         $this->logger = $logger;
         $this->router = $router;
         $this->validator = $validator;
@@ -64,7 +68,25 @@ class AuthController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
-        return $response->withRedirect($this->router->pathFor('product.info'));
+        try {
+            $apiRequest = $this->guzzle->request('GET', 'products/date', [
+                'headers' => [
+                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Content-Language' => 'es'
+                ]
+            ]);
+
+            $product = json_decode($apiRequest->getBody());
+        } catch (RequestException $e) {
+            if ($e->getResponse()->getStatusCode() === 400) {
+                return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+            } else {
+                $this->flash->addMessage('danger', $e->getMessage());
+            }
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
+
+        return $response->withRedirect($this->router->pathFor('registration.verification', ['id' => $product->id]));
     }
 
     public function getSignOutAction(Request $request, Response $response, array $args)

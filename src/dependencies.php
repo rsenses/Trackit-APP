@@ -19,7 +19,8 @@ $container['AuthController'] =  function ($container) {
         $container->flash,
         $container->validator,
         $container->oauth,
-        $container->router
+        $container->router,
+        $container->guzzle
     );
 };
 
