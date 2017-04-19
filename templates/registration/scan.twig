@@ -15,6 +15,7 @@
 
 {% block content %}
     <a href="#0" onclick="decoder.play()">PLAY</a>
+    <select></select>
     <canvas>
     </canvas>
 {% endblock %}
@@ -141,7 +142,6 @@
                 }
             }
         };
-        var decoder = new WebCodeCamJS("canvas").init(arg).play();
-        decoder.buildSelectMenu('environment', index);
+        var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
     </script>
 {% endblock %}
