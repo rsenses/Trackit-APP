@@ -119,14 +119,14 @@
                 },
                 complete: function() {
                     // Previous run complete, schedule the next run
-                    setTimeout(info, 5000);
+                    setTimeout(info, 10000);
                 }
             });
         }
 
         info();
 
-        setTimeout(info, 5000);
+        setTimeout(info, 10000);
 
         $('.verification a').click(function(event) {
             event.preventDefault();
