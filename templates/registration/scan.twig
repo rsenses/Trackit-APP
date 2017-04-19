@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product.id}) }}" class="scan-menu">
+    <a href="{{ path_for('registration.create', {'id': product.product_id}) }}" class="scan-menu">
         <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product.id}) }}" class="scan-menu">
+    <a href="{{ path_for('product.registrations.all', {'id': product.product_id}) }}" class="scan-menu">
         <i class="fa fa-search fa-2x" aria-hidden="true"></i>
     </a>
 {% endblock %}
@@ -68,7 +68,7 @@
         var info = function () {
             $.ajax({
                 type: "GET",
-                url: "/product/info/{{ product.id }}",
+                url: "/product/info/{{ product.product_id }}",
                 dataType: "json",
                 context: this,
                 success: function(a) {
