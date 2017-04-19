@@ -1,0 +1,62 @@
+{% extends 'layouts/private.twig' %}
+
+{% block content %}
+    {% if products %}
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- start: page -->
+                <section class="panel next-events">
+                    <header class="panel-heading">
+                        <p><a href="{{ path_for('product.new', {'lang': lang}) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Crear un evento</a></p>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-striped mb-none datatables">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Nombre</th>
+                                    <th>Ubicación</th>
+                                    <th>Aforo</th>
+                                    <th>Inscritos</th>
+                                    <th>Fecha Inico</th>
+                                    <th>Fecha Fin</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in products %}
+                                    <tr class="gradeX">
+                                        <td><img src="{{ product.image }}" alt="{{ product.name }}"></td>
+                                        <td><a href="{{ path_for('registration.all', {'lang': lang, 'id': product.product_id }) }}">{{ product.name }}</a></td>
+                                        <td><a href="{{ path_for('place.edit', {'lang': lang, 'id': product.place_id }) }}">{{ product.place.name }}</a></td>
+                                        <td>{{ product.capacity }}</td>
+                                        <td>{{ product.registrations.count }}</td>
+                                        <td>{{ product.date_start.format('d-m-Y H:i:s') }}</td>
+                                        <td>{{ product.date_end.format('d-m-Y H:i:s') }}</td>
+                                        <td><a href="{{ path_for('registration.all', {'lang': lang, 'id': product.product_id }) }}"><i class="fa fa-group" aria-hidden="true"></i></a></td>
+                                        <td><a href="{{ path_for('product.edit', {'lang': lang, 'id': product.product_id }) }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-xs-12">
+                <p>No tiene ningún evento pendiente:</p>
+                <p><a href="{{ path_for('product.new', {'lang': lang}) }}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Crear un evento</a></p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="{{ base_url() }}/assets/javascripts/theme.events.js"></script>
+{% endblock %}

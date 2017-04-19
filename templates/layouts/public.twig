@@ -1,0 +1,42 @@
+<!doctype html>
+<html class="no-js" lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <!-- Page Title Here -->
+        <title>Trackit suite</title>
+        <!-- Page Description Here -->
+        <meta name="description" content="Trackit suite, el sistema de gestión de eventos definitivo">
+        <!-- Disable screen scaling-->
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 trackit">
+                    <p class="text-center">
+                        <img src="/images/logo_trackit.png" alt="Trackit">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- All Javascript plugins goes here -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        {% include 'partials/analytics.twig' %}
+    </body>
+
+</html>

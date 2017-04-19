@@ -1,0 +1,170 @@
+{% extends 'layouts/private.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            <section class="panel">
+                <form class="form-horizontal" method="POST" action="{{ path_for('product.save', {'lang': lang}) }}" enctype="multipart/form-data">
+                    <header class="panel-heading">
+                        <h2 class="panel-title"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo Evento</h2>
+                    </header>
+                    <div class="panel-body">
+                        <div class="form-group{{ validation_errors.name ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label" for="name">Nombre</label>
+                            <div class="col-md-9">
+                                <input class="form-control" id="name" type="text" name="name" value="{{ old_input.name }}">
+                                {% if validation_errors.name %}
+                                    <span class="help-block">
+                                        {{ validation_errors.name | first }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <fieldset>
+                            <legend>Imagen</legend>
+                            <div class="form-group{{ validation_errors.image ? ' has-error' : '' }}">
+                                <label class="col-md-3 control-label" for="image">Principal</label>
+                                <div class="col-md-9">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                        <div class="input-append">
+                                            <div class="uneditable-input">
+                                                <!-- <i class="fa fa-file fileupload-exists"></i> -->
+                                                <span class="fileupload-preview"></span>
+                                            </div>
+                                            <input type="file" name="image" id="image">
+                                        </div>
+                                    </div>
+                                    {% if validation_errors.image %}
+                                        <span class="help-block">
+                                            {{ validation_errors.image | first }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group{{ validation_errors.slider ? ' has-error' : '' }}">
+                                <label class="col-md-3 control-label" for="slider">Slider</label>
+                                <div class="col-md-9">
+                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                        <div class="input-append">
+                                            <div class="uneditable-input">
+                                                <!-- <i class="fa fa-file fileupload-exists"></i> -->
+                                                <span class="fileupload-preview"></span>
+                                            </div>
+                                            <input type="file" name="slider" id="slider">
+                                        </div>
+                                    </div>
+                                    {% if validation_errors.slider %}
+                                        <span class="help-block">
+                                            {{ validation_errors.slider | first }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Fecha</legend>
+                            <div class="form-group{{ validation_errors.date_start ? ' has-error' : '' }}">
+                                <label class="col-md-3 control-label">Fecha de inicio</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" name="date_start" id="date_start" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" value="{{ old_input.date_start }}">
+                                        <span class="input-group-addon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
+                                    </div>
+                                    {% if validation_errors.date_start %}
+                                        <span class="help-block">
+                                            {{ validation_errors.date_start | first }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="form-group{{ validation_errors.date_end ? ' has-error' : '' }}">
+                                <label class="col-md-3 control-label">Fecha de fin</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" name="date_end" id="date_end" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm" value="{{ old_input.date_end }}">
+                                        <span class="input-group-addon"><i class="fa fa-calendar-times-o" aria-hidden="true"></i></span>
+                                    </div>
+                                    {% if validation_errors.date_end %}
+                                        <span class="help-block">
+                                            {{ validation_errors.date_end | first }}
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <hr>
+
+                        <div class="form-group{{ validation_errors.description ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label" for="description">Descripción breve</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" rows="3" id="description" name="description">{{ old_input.description }}</textarea>
+                                {% if validation_errors.description %}
+                                    <span class="help-block">
+                                        {{ validation_errors.description | first }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group{{ validation_errors.capacity ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label" for="capacity">Aforo</label>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input id="capacity" name="capacity" class="form-control" type="text" value="{{ old_input.capacity }}">
+                                    </div>
+                                </div>
+                                {% if validation_errors.capacity %}
+                                    <span class="help-block">
+                                        {{ validation_errors.capacity | first }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="form-group{{ validation_errors.place ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label" for="place">Lugar</label>
+                            {# <div class="col-md-6"> #}
+                            <div class="col-md-9">
+                                <select data-plugin-selectTwo class="form-control populate" name="place" id="place">
+                                    <option disabled selected value data-hidden="true">Selecciona uno</option>
+                                    {% for city in places %}
+                                        <optgroup label="Madrid">
+                                            {% for place in city %}
+                                                <option value="{{ place.place_id }}"{{ place.place_id == old_input.place ? ' selected' : '' }}>{{ place.name }}</option>
+                                            {% endfor %}
+                                        </optgroup>
+                                    {% endfor %}
+                                </select>
+                                {% if validation_errors.place %}
+                                    <span class="help-block">
+                                        {{ validation_errors.place | first }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {# <div class="col-md-3">
+                                <a href="#"  class="btn btn-default simple-ajax-modal">Nuevo <i class="fa fa-plus"></i></a>
+                            </div> #}
+                        </div>
+                    </div>
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-success btn-lg pull-right">Guardar</button>
+                                {{ csrf.field | raw }}
+                            </div>
+                        </div>
+                    </footer>
+                </form>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="{{ base_url() }}/assets/vendor/bootstrap-datetimepicker/datetimepicker.es.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+{% endblock %}

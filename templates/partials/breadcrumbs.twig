@@ -1,0 +1,21 @@
+<header class="page-header">
+    <h2>{{ breadcrumbs.current }}</h2>
+
+    <div class="right-wrapper pull-right">
+        <ol class="breadcrumbs">
+            {% for route in breadcrumbs.routes %}
+                <li{% if loop.last %} class="active"{% endif %}>
+                    <a href="{{ route.url }}">
+                        {% if route.route == 'dashboard' %}
+                            <i class="fa fa-dashboard"></i>
+                        {% else %}
+                            {{ route.name }}
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+
+        <span class="sidebar-right-toggle"></span>
+    </div>
+</header>

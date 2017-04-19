@@ -1,0 +1,187 @@
+{% extends 'layouts/private.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/css/bootstrap-dialog.min.css"/>
+{% endblock %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
+        <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
+        <i class="fa fa-qrcode fa-2x" aria-hidden="true"></i>
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="registrations">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input type="text" class="search form-control" placeholder="Search" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>DNI</th>
+                                <th>Tipo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            {% for customer in registrations %}
+                                <tr>
+                                    <td class="name">
+                                        {{ customer.first_name }} {{ customer.last_name }}
+                                    </td>
+                                    <td class="nif">
+                                        {{ customer.nif }}
+                                    </td>
+                                    <td class="type">
+                                        {{ customer.type.name }}
+                                    </td>
+                                    <td class="verification">
+                                        {% if customer.verification > 0 %}
+                                            <span class="text-success">
+                                                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+                                            </span>
+                                        {% else %}
+                                            <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
+                                                <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <span id="product-name"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-users" aria-hidden="true"></i> <span id="count-registrations"></span>/<span id="count-verifications"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i> <span id="count-speakers"></span>/<span id="count-verified-speakers"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-star" aria-hidden="true"></i> <span id="count-vips"></span>/<span id="count-verified-vips"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/list.js"></script>
+    <script>
+        var customerList = new List('registrations', {
+            valueNames: [
+                'name',
+                'nif',
+                'type'
+            ],
+            shouldAccentFold: true
+        });
+
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/json/{{ product_id }}",
+                dataType: "json",
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+                },
+                error: function(a) {
+                    console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 5000);
+                }
+            });
+        }
+
+        info();
+
+        setTimeout(info, 5000);
+
+        $('.verification a').click(function(event) {
+            event.preventDefault();
+            var unique_id = $(this).data('uniqueid');
+            if (unique_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/registration/verify/"+unique_id,
+                    dataType: "json",
+                    context: this,
+                    success: function(a) {
+                        if (a.status == 'error') {
+                            type = BootstrapDialog.TYPE_DANGER;
+                            buttons = [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }];
+                        } else if (a.status == 'success') {
+                            type = BootstrapDialog.TYPE_SUCCESS;
+                            buttons = [{
+                                label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                cssClass: 'btn-success btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }, {
+                                label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                cssClass: 'btn-danger btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }];
+                            $(this).data('uniqueid', null)
+                                .removeClass('text-danger')
+                                .addClass('text-success')
+                                .children('i')
+                                .removeClass('fa-times-circle')
+                                .addClass('fa-check-circle');
+                        }
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: a.message,
+                            message: '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>',
+                            buttons: buttons,
+                            type: type
+                        });
+                    },
+                    error: function(a) {
+                        console.log(a);
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

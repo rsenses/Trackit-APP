@@ -1,0 +1,121 @@
+{% extends 'layouts/private.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/css/bootstrap-dialog.min.css"/>
+{% endblock %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
+        <i class="fa fa-qrcode fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="scan-menu">
+        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div id="create">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form action="{{ path_for('registration.save', {'id': product_id}) }}" method="POST">
+                        <div class="form-group">
+                            <label for="firstNameInput">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="firstNameInput" placeholder="Cecilia" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameInput">Apellidos <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="lastNameInput" placeholder="Rodríguez de Diego" name="last_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="emailInput" placeholder="ejemplo@gmail.com" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nifInput">DNI, pasaporte, etc</label>
+                            <input type="text" class="form-control" id="nifInput" placeholder="Nº de indentificación" name="nif">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyInput">Empresa</label>
+                            <input type="text" class="form-control" id="companyInput" placeholder="Nombre de la Empresa S.A." name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="positionInput">Cargo</label>
+                            <input type="text" class="form-control" id="positionInput" placeholder="Puesto de trabajo" name="position">
+                        </div>
+                        <div class="form-group">
+                            <label for="typeId">Tipo de registro <span class="text-danger">*</span></label>
+                            <select class="form-control" id="typeId" name="registration_type_id" required>
+                                {% for type in registration_type %}
+                                    <option value="{{ loop.index }}">{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {{ csrf.field | raw }}
+                        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                        <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-default btn-lg pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script>
+        $('form').submit(function(event) {
+            event.preventDefault();
+            var action = $(this).attr('action');
+            var method = $(this).attr('method');
+            var serializedData = $(this).serialize();
+            $.ajax({
+                type: method,
+                url: action,
+                data: serializedData,
+                context: this,
+                success: function(a) {
+                    console.log(a);
+                    if (a.status == 'error') {
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: 'Error',
+                            message: '<h4>'+a.message+'</h4>',
+                            buttons: [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }],
+                            type: BootstrapDialog.TYPE_DANGER
+                        });
+                    } else if (a.status == 'success') {
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: a.message,
+                            message: '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>',
+                            buttons: [{
+                                label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                cssClass: 'btn-success btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }, {
+                                label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                cssClass: 'btn-danger btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }],
+                            type: BootstrapDialog.TYPE_SUCCESS
+                        });
+                    }
+                },
+                error: function(a) {
+                    console.log(a);
+                }
+            });
+        });
+    </script>
+{% endblock %}

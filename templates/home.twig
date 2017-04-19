@@ -1,0 +1,304 @@
+{% extends 'layouts/public.twig' %}
+
+{% block content %}
+    <!-- BEGIN OF Quick nav icons at left -->
+    <nav class="quick-link count-6 nav-left">
+        <ul id="qmenu">
+            <li data-menuanchor="home">
+                <a href="#home" class=""><i class="icon ion ion-home"></i>
+                    </a>
+                <span class="title">Inicio</span>
+            </li>
+            <li data-menuanchor="register">
+                <a href="#register"><i class="icon ion ion-compose"></i>
+                    </a>
+                <span class="title">contacta</span>
+            </li>
+            <li data-menuanchor="about-us">
+                <a href="#about-us"><i class="icon ion ion-android-information"></i>
+                    </a>
+                <span class="title">nosotros</span>
+            </li>
+            <li data-menuanchor="contact">
+                <a href="#contact"><i class="icon ion ion-android-call"></i>
+                    </a>
+                <span class="title">llámanos</span>
+            </li>
+            <li data-menuanchor="contact">
+                <a href="#contact/message"><i class="icon ion ion-email"></i>
+                    </a>
+                <span class="title">Escríbenos</span>
+            </li>
+        </ul>
+    </nav>
+    <!-- END OF Quick nav icons at left -->
+    <!-- BEGIN OF site cover -->
+    <div class="page-cover" id="home">
+        <!-- Cover Background -->
+        <div class="cover-bg pos-abs full-size bg-img" data-image-src="{{ base_url() }}/img/bg-default.jpg"></div>
+        <!-- BEGIN OF Slideshow Background -->
+        <div class="cover-bg pos-abs full-size slide-show">
+            <i class="img" data-src="{{ base_url() }}/img/bg-slide1.jpg"></i>
+            <i class="img" data-src="{{ base_url() }}/img/bg-slide2.jpg"></i>
+            <i class="img" data-src="{{ base_url() }}/img/bg-slide3.jpg"></i>
+            <i class="img" data-src="{{ base_url() }}/img/bg-slide4.jpg"></i>
+        </div>
+        <!-- END OF Slideshow Background -->
+        <!-- Solid color as filter or as background -->
+        <div class="cover-bg pos-abs full-size bg-color" data-bgcolor="rgba(51, 2, 48, 0.12)"></div>
+    </div>
+    <!--END OF site Cover -->
+    <!-- BEGIN OF site main content content here -->
+    <main class="page-main" id="mainpage">
+        <!-- Begin of home page -->
+        <div class="section page-home page page-cent" id="s-home">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img class="h-logo" src="{{ base_url() }}/img/logo_only.png" alt="Logo">
+            </div>
+            <!-- Content -->
+            <section class="content">
+                <header class="header">
+                    <div class="h-left">
+                        <h2><strong>Gestión</strong> integral</h2>
+                    </div>
+                    <div class="h-right">
+                        <h3>de <br>eventos</h3>
+                        <h4 class="subhead"><a href="#when">Próximamente</a></h4>
+                    </div>
+                </header>
+            </section>
+            <!-- Scroll down button -->
+            <footer class="p-footer p-scrolldown">
+                <a href="#when">
+                    <div class="arrow-d">
+                        <div class="circle"></div>
+                    </div>
+                </a>
+            </footer>
+        </div>
+        <!-- End of home page -->
+        <!-- Begin of timer page -->
+        <div class="section page-when page page-cent" id="s-when">
+            <section class="content">
+                <div class="clock clock-countdown">
+                    <div class="site-config" data-date="01/01/2018 23:00:00" data-date-timezone="+0"></div>
+                    <header class="header">
+                        En <strong>breve</strong>
+                    </header>
+                    <div class="elem-left">
+                        <div class="digit hours">00</div>
+                        <div class="text">hrs</div>
+                    </div>
+                    <div class="elem-center">
+                        <!-- Optional text at top or image logo -->
+                        <!--<span class="text top">here in</span>-->
+                        <!-- Optional logo at top -->
+                        <span class="text top"><img class="img" alt="Logo" src="{{ base_url() }}/img/logo_large.png"></span>
+                        <div class="digit days">000</div>
+                        <div class="text">días</div>
+                    </div>
+                    <div class=" elem-right">
+                        <div class="digit minutes">00</div>
+                        <div class="text">min</div>
+                    </div>
+                    <!-- second knob here -->
+                    <div class="second">
+                        <input class="knob container" id="second-knob" data-width="400" data-height="400" data-displayInput=false data-fgColor="#fff" data-bgColor="rgba(255,255,255,0)" data-thickness=".07" value="0" data-displayPrevious=true data-max="6000" />
+                    </div>
+                </div>
+            </section>
+            <footer class="p-footer p-scrolldown">
+                <a href="#register">
+                    <div class="arrow-d">
+                        <div class="circle"></div>
+                    </div>
+                </a>
+            </footer>
+        </div>
+        <!-- End of timer page -->
+        <!-- Begin of register page -->
+        <div class="section page-register page page-cent " id="s-register">
+            <section class="content">
+                <header class="p-title">
+                    <h3>Te informamos <i class="ion ion-compose"></i></h3>
+                </header>
+                <div>
+                    <form id="mail-subscription" class="form magic send_email_form" method="get" action="ajaxserver/serverfile.php">
+                        <p class="invite center">Envíanos tu correo electrónico y te mantendremos informado :</p>
+                        <div class="fields clearfix">
+                            <div class="input">
+                                <label for="reg-email">Email </label>
+                                <input id="reg-email" class="email_f" name="email" type="email" required placeholder="tucorreo@tucorreo" data-validation-type="email">
+                            </div>
+                            <div class="buttons">
+                                <button id="submit-email" class="button email_b" name="submit_email">Ok</button>
+                            </div>
+                        </div>
+                        <p class="email-ok invisible"><strong>Thank you</strong> for your subscription. We will inform you.</p>
+                    </form>
+                </div>
+            </section>
+            <footer class="p-footer p-scrolldown">
+                <a href="#about-us">
+                    <div class="arrow-d">
+                        <div class="circle"></div>
+                    </div>
+                </a>
+            </footer>
+        </div>
+        <!-- End of register page -->
+        <!-- Begin of about us page -->
+        <div class="section page-about page page-cent" id="s-about-us">
+            <section class="content">
+                <header class="p-title">
+                    <h3>Metech<i class="ion ion-android-information">
+                            </i>
+                        </h3>
+                    <h2>Somos <span class="bold">creadores</span> de <span class="bold">ideas</span> maravillosas</h2>
+                </header>
+                <article class="text">
+                    <p><strong>Metech, Transformación Digital </strong></p>
+                    <p>Desde Metech tenemos muy claro que vivimos inmersos en una auténtica revolución. Por ello, desarrollamos herramientas orientadas a liderar el proceso de transformación digital de las empresas. </p>
+                    <p>Decidiendo, planificando y gestionando la producción de contenidos digitales. Coordinamos proyectos cuyo objetivo es la integración de procesos administrativos y de gestión tradicional dentro del entorno digital. Inmersos en la continua búsqueda de nuevos canales, productos y servicios en el ámbito de la economía digital. </p>
+                    <p>En definitiva, una compañía enfocada en la búsqueda continua de oportunidades estratégicas utilizando como medio las nuevas tecnologías, aplicando nuevas lógicas, para que el negocio de las compañías tradicionales sea más eficiente y permita nuevas oportunidades.</p>
+                    <p>Por ello hemos desarrollado un ecosistema orientado a la gestión de procesos en el área del marketing y eventos, denominado <strong>Trackit Suite</strong>, con dos focos principales: el responsable de marketing y el cliente, sin olvidar las áreas de logística y coordinación del evento en sala (staff, product managers, etc.).</p>
+                </article>
+            </section>
+            <footer class="p-footer p-scrolldown">
+                <a href="#contact">
+                    <div class="arrow-d">
+                        <div class="circle"></div>
+                    </div>
+                </a>
+            </footer>
+        </div>
+        <!-- End of about us page -->
+        <!-- Begin of Contact page   -->
+        <div class="section page-contact page page-cent  bg-color" data-bgcolor="rgba(95, 25, 208, 0.88)s" id="s-contact">
+            <!-- Begin of contact information -->
+            <div class="slide" id="information" data-anchor="information">
+                <section class="content">
+                    <header class="p-title">
+                        <h3>Contacto<i class="ion ion-location">
+                                </i>
+                            </h3>
+                        <ul class="buttons">
+                            <li class="show-for-medium-up">
+                                <a title="About" href="#about-us"><i class="ion ion-android-information"></i></a>
+                            </li>
+                            <!--<li>
+                                    <a title="Contact" href="#contact/information"><i class="ion ion-location"></i></a>
+                                </li>-->
+                            <li>
+                                <a title="Message" href="#contact/message"><i class="ion ion-email"></i></a>
+                            </li>
+                        </ul>
+                    </header>
+                    <!-- Begin Of Page SubSction -->
+                    <div class="contact">
+                        <div class="row">
+                            <div class="medium-6 columns left">
+                                <ul>
+                                    <li>
+                                        <h4>Correo electrónico</h4>
+                                        <p><a href="mailto://contact@mail.com">info@metech.es</a></p>
+                                    </li>
+                                    <li>
+                                        <h4>Dirección</h4>
+                                        <p>Valle de Tobalina 16, nave 7
+                                            <br>28021 Madrid · Spain</p>
+                                    </li>
+                                    <li>
+                                        <h4>Teléfono</h4>
+                                        <p>+34 91 723 02 09</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="medium-6 columns social-links right">
+                                <ul>
+                                    <!-- legal notice -->
+                                    <li class="show-for-medium-up">
+                                        <h4>Website</h4>
+                                        <p><a href="http://www.trackitsuite.com">www.trackitsuite.com</a></p>
+                                    </li>
+                                    <li class="show-for-medium-up">
+                                        <h4>Síguenos en las redes</h4>
+                                        <!-- Begin of Social links -->
+                                        <div class="socialnet">
+                                            <a href="#"><i class="ion ion-social-facebook"></i></a>
+                                            <a href="#"><i class="ion ion-social-instagram"></i></a>
+                                            <a href="#"><i class="ion ion-social-twitter"></i></a>
+                                            <a href="#"><i class="ion ion-social-pinterest"></i></a>
+                                            <a href="#"><i class="ion ion-social-tumblr"></i></a>
+                                        </div>
+                                        <!-- End of Social links -->
+                                    </li>
+                                    <li>
+                                        <p><img src="{{ base_url() }}/img/logo_large.png" alt="Logo" class="logo"></p>
+                                        <p class="small">Desarrollado por <strong><a href="../../index.html">Expomark</a></strong>. Todos los derechos reservados 2016</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of page SubSection -->
+                </section>
+            </div>
+            <!-- end of contact information -->
+            <!-- begin of contact message -->
+            <div class="slide" id="message" data-anchor="message">
+                <section class="content">
+                    <header class="p-title">
+                        <h3>Contacta con nosotros<i class="ion ion-email">
+                                </i>
+                            </h3>
+                        <ul class="buttons">
+                            <li class="show-for-medium-up">
+                                <a title="About" href="#about-us"><i class="ion ion-android-information"></i></a>
+                            </li>
+                            <li>
+                                <a title="Contact" href="#contact/information"><i class="ion ion-location"></i></a>
+                            </li>
+                        </ul>
+                    </header>
+                    <!-- Begin Of Page SubSction -->
+                    <div class="page-block c-right v-zoomIn">
+                        <div class="wrapper">
+                            <div>
+                                <form class="message form send_message_form" method="get" action="ajaxserver/serverfile.php">
+                                    <div class="fields clearfix">
+                                        <div class="input">
+                                            <label for="mes-name">Nombre </label>
+                                            <input id="mes-name" name="name" type="text" placeholder="Tu nombre" required>
+                                        </div>
+                                        <div class="buttons">
+                                            <button id="submit-message" class="button email_b" name="submit_message">Ok</button>
+                                        </div>
+                                    </div>
+                                    <div class="fields clearfix">
+                                        <div class="input">
+                                            <label for="mes-email">Correo </label>
+                                            <input id="mes-email" type="email" placeholder="Tu correo electrónico" name="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="fields clearfix no-border">
+                                        <label for="mes-text">Mensaje </label>
+                                        <textarea id="mes-text" placeholder="Message ..." name="Cuéntanos..." required></textarea>
+                                        <div>
+                                            <p class="message-ok invisible">Tu mensaje ha sido enviado, gracias.</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Of Page SubSction -->
+                </section>
+            </div>
+            <!-- End of contact message -->
+        </div>
+        <!-- End of Contact page  -->
+    </main>
+    <!-- END OF site main content content here -->
+{% endblock %}
