@@ -105,9 +105,7 @@ class ProductController
     private function returnError(Response $response, RequestException $e)
     {
         if ($e->getResponse()->getStatusCode() === 400) {
-            $responseBody = json_decode($e->getResponse()->getBody());
-
-            $this->flash->addMessage('danger', $responseBody->message);
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
         } else {
             $this->flash->addMessage('danger', $e->getMessage());
         }

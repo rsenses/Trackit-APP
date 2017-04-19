@@ -43,6 +43,7 @@
     <script src="{{ base_url() }}/js/qrcodelib.js"></script>
     <script src="{{ base_url() }}/js/webcodecamjs.js"></script>
     <script>
+        var decode = true;
         var info = function () {
             $.ajax({
                 type: "GET",
@@ -81,53 +82,63 @@
             beep: '{{ base_url() }}/audio/beep.mp3',                 // string, audio file location
             decoderWorker: '{{ base_url() }}/js/DecoderWorker.js',
             resultFunction: function(result) {
-                decoder.pause();
-                var type, buttons;
-                $.ajax({
-                    type: "GET",
-                    url: "/registration/verify/"+ result.code,
-                    dataType: "json",
-                    success: function(a) {
-                        if (a.status == 'error') {
-                            type = BootstrapDialog.TYPE_DANGER;
-                            buttons = [{
-                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                                cssClass: 'btn-primary btn-lg',
-                                action: function(dialog) {
-                                    dialog.close();
-                                }
-                            }];
-                        } else if (a.status == 'success') {
-                            type = BootstrapDialog.TYPE_SUCCESS;
-                            buttons = [{
-                                label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
-                                cssClass: 'btn-success btn-lg',
-                                action: function(dialog) {
-                                    dialog.close();
-                                }
-                            }, {
-                                label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
-                                cssClass: 'btn-danger btn-lg',
-                                action: function(dialog) {
-                                    dialog.close();
-                                }
-                            }];
-                        }
-                        BootstrapDialog.show({
-                            size: BootstrapDialog.SIZE_LARGE,
-                            title: a.message,
-                            message: '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>',
-                            buttons: buttons,
-                            type: type,
-                            onhidden: function(dialog) {
-                                decoder.play();
+                console.log(decode);
+                console.log(result.code);
+                // decoder.pause();
+                var type, buttons, message, title;
+                if (decode === true) {
+                    decode = false;
+                    $.ajax({
+                        type: "GET",
+                        url: "/registration/verify/"+ result.code,
+                        dataType: "json",
+                        success: function(a) {
+                            if (a.status == 'error') {
+                                type = BootstrapDialog.TYPE_DANGER;
+                                title = 'Error';
+                                message = '<h4>'+a.message+'</h4>';
+                                buttons = [{
+                                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                    cssClass: 'btn-primary btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }];
+                            } else if (a.status == 'success') {
+                                type = BootstrapDialog.TYPE_SUCCESS;
+                                title = a.message;
+                                message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                                buttons = [{
+                                    label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                    cssClass: 'btn-success btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }, {
+                                    label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                    cssClass: 'btn-danger btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }];
                             }
-                        });
-                    },
-                    error: function(a) {
-                        console.log(a);
-                    }
-                });
+                            BootstrapDialog.show({
+                                size: BootstrapDialog.SIZE_LARGE,
+                                title: title,
+                                message: message,
+                                buttons: buttons,
+                                type: type,
+                                onhidden: function(dialog) {
+                                    decode = true;
+                                    // decoder.play();
+                                }
+                            });
+                        },
+                        error: function(a) {
+                            console.log(a);
+                        }
+                    });
+                }
             }
         };
         var decoder = new WebCodeCamJS("canvas").init(arg).play();

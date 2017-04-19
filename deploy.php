@@ -36,7 +36,7 @@ server('scl-prs3', 'scl.prs3.expomark.es', 22)
 // your project from this repository.
 set('repository', 'git@bitbucket.org:expomark/trackit-app.git');
 
-set('shared_dirs', ['storage/logs', 'storage/cache', 'public/.well-known', 'public/uploads']);
+set('shared_dirs', ['storage/logs', 'storage/cache', 'public/.well-known']);
 
 set('shared_files', ['src/settings.php']);
 

@@ -140,6 +140,8 @@
                     success: function(a) {
                         if (a.status == 'error') {
                             type = BootstrapDialog.TYPE_DANGER;
+                            title = 'Error';
+                            message = '<h4>'+a.message+'</h4>';
                             buttons = [{
                                 label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',
@@ -149,6 +151,8 @@
                             }];
                         } else if (a.status == 'success') {
                             type = BootstrapDialog.TYPE_SUCCESS;
+                            title = a.message;
+                            message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
                             buttons = [{
                                 label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
                                 cssClass: 'btn-success btn-lg',
@@ -171,8 +175,8 @@
                         }
                         BootstrapDialog.show({
                             size: BootstrapDialog.SIZE_LARGE,
-                            title: a.message,
-                            message: '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>',
+                            title: title,
+                            message: message,
                             buttons: buttons,
                             type: type
                         });
