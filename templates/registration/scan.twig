@@ -14,8 +14,16 @@
 {% endblock %}
 
 {% block content %}
-    <a href="#0" onclick="decoder.play()">PLAY</a>
-    <select></select>
+    <div class="container play">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                <p class="text-center" style="margin-top: 50px;">
+                    <a href="#0"><i class="fa fa-play-circle fa-5x" aria-hidden="true"></i></a><br>
+                    <select class="form-control"></select>
+                </p>
+            </div>
+        </div>
+    </div>
     <canvas>
     </canvas>
 {% endblock %}
@@ -142,6 +150,12 @@
                 }
             }
         };
-        var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg).play();
+        var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg);
+
+        $('.play a').click(function(event) {
+            event.preventDefault();
+            $('.play').hide();
+            decoder.play();
+        });
     </script>
 {% endblock %}
