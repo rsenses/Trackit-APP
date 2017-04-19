@@ -14,7 +14,9 @@
 {% endblock %}
 
 {% block content %}
-    <canvas></canvas>
+    <a href="#0" onclick="decoder.play()">PLAY</a>
+    <canvas>
+    </canvas>
 {% endblock %}
 
 {% block footer %}
@@ -82,8 +84,6 @@
             beep: '{{ base_url() }}/audio/beep.mp3',                 // string, audio file location
             decoderWorker: '{{ base_url() }}/js/DecoderWorker.js',
             resultFunction: function(result) {
-                console.log(decode);
-                console.log(result.code);
                 // decoder.pause();
                 var type, buttons, message, title;
                 if (decode === true) {
