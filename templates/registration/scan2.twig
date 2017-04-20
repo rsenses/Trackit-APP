@@ -113,6 +113,7 @@
 
                 navigator.mediaDevices.enumerateDevices().then(function(devices) {
                     let sourceId = null;
+                    let constraints;
                     devices.forEach(function(device) {
                         if (device.kind == 'videoinput') {
                             console.log(device.label + ': ' + device.deviceId);
@@ -125,11 +126,21 @@
                     if (!sourceId) {
                         throw 'no video input';
                     }
-                    let constraints = {
-                        video: {
-                            optional: [{sourceId: sourceId}]
-                        }
-                    };
+                    if (navigator.mozGetUserMedia) {
+                        constraints = {
+                            video: {
+                                facingMode: {
+                                    exact: 'environment'
+                                }
+                            }
+                        };
+                    } else {
+                        constraints = {
+                            video: {
+                                optional: [{sourceId: sourceId}]
+                            }
+                        };
+                    }
                     console.log(constraints);
                     navigator.getUserMedia(constraints, successCallback, errorCallback);
                 })
