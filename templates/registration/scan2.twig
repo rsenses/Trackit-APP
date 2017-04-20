@@ -98,6 +98,10 @@
         var context = canvas.getContext("2d");
         var width, height;
 
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.requestAnimationFrame = requestAnimationFrame;
+
         width = parseInt(canvas.style.width);
         height = parseInt(canvas.style.height);
 
@@ -105,41 +109,34 @@
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
             if (navigator.getUserMedia) {
-    //             navigator.getUserMedia({video: {
-    // facingMode: {
-    //   exact: 'environment'
-    //   }
-    // }}, successCallback, errorCallback);
-
-                navigator.mediaDevices.enumerateDevices().then(function(devices) {
-                    let sourceId = null;
-                    let constraints;
-                    devices.forEach(function(device) {
-                        if (device.kind == 'videoinput') {
-                            console.log(device.label + ': ' + device.deviceId);
+                if (navigator.mozGetUserMedia) {
+                    navigator.getUserMedia({video: true}, successCallback, errorCallback);
+                } else {
+                    navigator.mediaDevices.enumerateDevices().then(function(devices) {
+                        let sourceId = null;
+                        let constraints;
+                        devices.forEach(function(device) {
+                            if (device.kind == 'videoinput') {
+                                console.log(device.label + ': ' + device.deviceId);
+                            }
+                            if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
+                                sourceId = device.deviceId;
+                            }
+                            console.log(sourceId);
+                        });
+                        if (!sourceId) {
+                            throw 'no video input';
                         }
-                        if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
-                            sourceId = device.deviceId;
-                        }
-                        console.log(sourceId);
-                    });
-                    if (!sourceId) {
-                        throw 'no video input';
-                    }
-                    if (navigator.mozGetUserMedia) {
-                        navigator.getUserMedia({video: true}, successCallback, errorCallback);
-                    } else {
                         navigator.getUserMedia({
                             video: {
                                 optional: [{sourceId: sourceId}]
                             }
                         }, successCallback, errorCallback);
-                    }
-                })
-                .catch(function(err) {
-                    console.log(err.name + ": " + err.message);
-                });
-
+                    })
+                    .catch(function(err) {
+                        console.log(err.name + ": " + err.message);
+                    });
+                }
                 requestAnimationFrame(tick);
             } else {
                 // Navegador no soportado
@@ -157,6 +154,9 @@
             video.onloadedmetadata = function(e) {
                 width = this.videoWidth,
                 height = this.videoHeight;
+
+                console.log(width);
+                console.log(height);
 
                 canvas.width = width;
                 canvas.height = height;
