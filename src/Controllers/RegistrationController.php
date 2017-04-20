@@ -53,7 +53,7 @@ class RegistrationController
         $this->view = $view;
     }
 
-    public function productAction(Request $request, Response $response, array $args)
+    public function productOldAction(Request $request, Response $response, array $args)
     {
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [
@@ -71,7 +71,7 @@ class RegistrationController
         ]);
     }
 
-    public function productBetaAction(Request $request, Response $response, array $args)
+    public function productAction(Request $request, Response $response, array $args)
     {
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [

@@ -34,8 +34,8 @@ $app->group('', function () {
     // Registration Group
     $this->group('/registration', function () {
         // Product QR Screen
+        $this->get('/old/verification/product/{id:[0-9]+}', 'RegistrationController:productOldAction')->setName('registration.verification.old');
         $this->get('/verification/product/{id:[0-9]+}', 'RegistrationController:productAction')->setName('registration.verification');
-        $this->get('/beta/verification/product/{id:[0-9]+}', 'RegistrationController:productBetaAction')->setName('registration.verification.beta');
         // Verify
         $this->get('/verify/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:verifyAction')->setName('registration.verify');
         // Toggle Verification
