@@ -100,7 +100,7 @@
         var width, height;
 
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
         width = parseInt(canvas.style.width);
@@ -122,56 +122,20 @@
                 };
             }
             navigator.mediaDevices.getUserMedia(constraints)
-            .then(stream => (successCallback(stream)))
-            .catch(e => (console.log(e)));
+            .then(stream => successCallback(stream))
+            .catch(e => console.log(e.name + ": "+ e.message));
 
             requestAnimationFrame(tick);
-            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-            // if (navigator.getUserMedia) {
-            //     if (navigator.mozGetUserMedia) {
-            //         navigator.getUserMedia({video: true}, successCallback, errorCallback);
-            //     } else {
-            //         navigator.mediaDevices.enumerateDevices().then(function(devices) {
-            //             let sourceId = null;
-            //             let constraints;
-            //             devices.forEach(function(device) {
-            //                 if (device.kind == 'videoinput') {
-            //                     console.log(device.label + ': ' + device.deviceId);
-            //                 }
-            //                 if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
-            //                     sourceId = device.deviceId;
-            //                 }
-            //                 console.log(sourceId);
-            //             });
-            //             if (!sourceId) {
-            //                 throw 'no video input';
-            //             }
-            //             navigator.getUserMedia({
-            //                 video: {
-            //                     optional: [{sourceId: sourceId}]
-            //                 }
-            //             }, successCallback, errorCallback);
-            //         })
-            //         .catch(function(err) {
-            //             console.log(err.name + ": " + err.message);
-            //         });
-            //     }
-            //     requestAnimationFrame(tick);
-            // } else {
-            //     // Navegador no soportado
-            // }
         }
 
         function successCallback(stream) {
-            // if (window.URL) {
-            //     video.src = window.URL.createObjectURL(stream);
-            // } else if (video.mozSrcObject !== undefined) {
-            //     video.mozSrcObject = stream;
-            // } else {
-            //     video.src = stream;
-            // }
-            video.srcObject = stream
+            if (window.URL) {
+                video.src = window.URL.createObjectURL(stream);
+            } else if (video.srcObject !== undefined) {
+                video.srcObject = stream;
+            } else {
+                video.src = stream;
+            }
             video.onloadedmetadata = function(e) {
                 width = this.videoWidth,
                 height = this.videoHeight;
