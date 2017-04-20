@@ -25,7 +25,7 @@ $container['AuthController'] =  function ($container) {
 };
 
 $container['PrintController'] =  function ($container) {
-    return new App\Controllers\Auth\PrintController(
+    return new App\Controllers\PrintController(
         $container->view,
         $container->logger,
         $container->flash,
@@ -33,7 +33,9 @@ $container['PrintController'] =  function ($container) {
         $container->oauth,
         $container->router,
         $container->guzzle,
-        $container->printer
+        $container->printer,
+        $container->qrcode,
+        $container->gdpos
     );
 };
 

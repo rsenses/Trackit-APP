@@ -25,6 +25,16 @@ $container['printer'] = function ($container) {
     return new Mike42\Escpos\Printer($connector);
 };
 
+// QRCode Generator
+$container['qrcode'] = function ($container) {
+    return new Endroid\QrCode\QrCode();
+};
+
+// GdEscposImage
+$container['gdpos'] = function ($container) {
+    return new Mike42\Escpos\GdEscposImage();
+};
+
 // Twig
 $container['view'] = function ($container) {
     $settings = $container->get('settings')['view'];

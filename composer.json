@@ -25,7 +25,9 @@
         "oscarotero/psr7-middlewares": "^3.18",
         "league/oauth2-client": "^2.2",
         "guzzlehttp/guzzle": "^6.2",
-        "mike42/escpos-php": "^1.5"
+        "mike42/escpos-php": "^1.5",
+        "endroid/qrcode": "^2.0",
+        "khanamiryan/qrcode-detector-decoder": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
