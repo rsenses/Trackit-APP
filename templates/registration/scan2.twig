@@ -128,11 +128,7 @@
                     }
                     if (navigator.mozGetUserMedia) {
                         constraints = {
-                            video: {
-                                facingMode: {
-                                    exact: 'environment'
-                                }
-                            }
+                            video: true
                         };
                     } else {
                         constraints = {
