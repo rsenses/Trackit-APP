@@ -35,7 +35,7 @@
         </div>
     </div>
     <video id="video" autoplay="true" style="display:none;"></video>
-    <canvas id="canvas" style="width:480px; height:640px;"></canvas>
+    <canvas id="canvas"></canvas>
 {% endblock %}
 
 {% block footer %}
@@ -96,13 +96,19 @@
         var video = document.getElementById("video");
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
+        var width, height;
 
-        var width = parseInt(canvas.style.width);
-        var height = parseInt(canvas.style.height);
+        width = parseInt(canvas.style.width);
+        height = parseInt(canvas.style.height);
 
         function decoderPlay() {
-            canvas.width = width;
-            canvas.height = height;
+            video.addEventListener("loadedmetadata", function (e) {
+                width = this.videoWidth,
+                height = this.videoHeight;
+
+                canvas.width = width;
+                canvas.height = height;
+            }, false );
 
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
