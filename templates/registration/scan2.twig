@@ -28,7 +28,7 @@
                 <div class="col-xs-12 col-sm-4 col-sm-offset-4">
                     <p class="text-center">
                         <a href="#0"><i class="fa fa-qrcode fa-5x" aria-hidden="true"></i></a><br>
-                        <select class="form-control"></select>
+                        {# <select class="form-control"></select> #}
                     </p>
                 </div>
             </div>
@@ -98,23 +98,48 @@
         var context = canvas.getContext("2d");
         var width, height;
 
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.requestAnimationFrame = requestAnimationFrame;
+
         width = parseInt(canvas.style.width);
         height = parseInt(canvas.style.height);
 
         function decoderPlay() {
-            video.addEventListener("loadedmetadata", function (e) {
-                width = this.videoWidth,
-                height = this.videoHeight;
-
-                canvas.width = width;
-                canvas.height = height;
-            }, false );
-
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
             if (navigator.getUserMedia) {
-                navigator.getUserMedia({video: true}, successCallback, errorCallback);
+                if (navigator.mozGetUserMedia) {
+                    navigator.getUserMedia({video: true}, successCallback, errorCallback);
+                } else {
+                    navigator.mediaDevices.enumerateDevices().then(function(devices) {
+                        let sourceId = null;
+                        let constraints;
+                        devices.forEach(function(device) {
+                            if (device.kind == 'videoinput') {
+                                console.log(device.label + ': ' + device.deviceId);
+                            }
+                            if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
+                                sourceId = device.deviceId;
+                            }
+                            console.log(sourceId);
+                        });
+                        if (!sourceId) {
+                            throw 'no video input';
+                        }
+                        navigator.getUserMedia({
+                            video: {
+                                optional: [{sourceId: sourceId}]
+                            }
+                        }, successCallback, errorCallback);
+                    })
+                    .catch(function(err) {
+                        console.log(err.name + ": " + err.message);
+                    });
+                }
                 requestAnimationFrame(tick);
+            } else {
+                // Navegador no soportado
             }
         }
 
@@ -126,6 +151,16 @@
             } else {
                 video.src = stream;
             }
+            video.onloadedmetadata = function(e) {
+                width = this.videoWidth,
+                height = this.videoHeight;
+
+                console.log(width);
+                console.log(height);
+
+                canvas.width = width;
+                canvas.height = height;
+            };
         }
 
         function errorCallback() {}
@@ -136,10 +171,65 @@
                 // Load the video onto the canvas
                 context.drawImage(video, 0, 0, width, height);
                 // Load the image data from the canvas
+
                 var imageData = context.getImageData(0, 0, width, height);
                 var decoded = jsQR.decodeQRFromImage(imageData.data, imageData.width, imageData.height);
+
                 if (decoded) {
-                    alert(decoded);
+                    var type, buttons, message, title;
+                    if (decode === true) {
+                        decode = false;
+                        $.ajax({
+                            type: "GET",
+                            url: "/registration/verify/"+ decoded,
+                            dataType: "json",
+                            success: function(a) {
+                                if (a.status == 'error') {
+                                    type = BootstrapDialog.TYPE_DANGER;
+                                    title = 'Error';
+                                    message = '<h4>'+a.message+'</h4>';
+                                    buttons = [{
+                                        label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                        cssClass: 'btn-primary btn-lg',
+                                        action: function(dialog) {
+                                            dialog.close();
+                                        }
+                                    }];
+                                } else if (a.status == 'success') {
+                                    type = BootstrapDialog.TYPE_SUCCESS;
+                                    title = a.message;
+                                    message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                                    buttons = [{
+                                        label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                        cssClass: 'btn-success btn-lg',
+                                        action: function(dialog) {
+                                            dialog.close();
+                                        }
+                                    }, {
+                                        label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                        cssClass: 'btn-danger btn-lg',
+                                        action: function(dialog) {
+                                            dialog.close();
+                                        }
+                                    }];
+                                }
+                                BootstrapDialog.show({
+                                    size: BootstrapDialog.SIZE_LARGE,
+                                    title: title,
+                                    message: message,
+                                    buttons: buttons,
+                                    type: type,
+                                    onhidden: function(dialog) {
+                                        decode = true;
+                                        // decoder.play();
+                                    }
+                                });
+                            },
+                            error: function(a) {
+                                console.log(a);
+                            }
+                        });
+                    }
                 }
             }
         }
