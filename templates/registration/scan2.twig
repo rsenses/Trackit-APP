@@ -107,7 +107,21 @@
         height = parseInt(canvas.style.height);
 
         function decoderPlay() {
-            navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: 'environment'}}})
+            var constraints;
+            if (navigator.mozGetUserMedia) {
+                constraints = {
+                    video: true
+                };
+            } else {
+                constraints = {
+                    video: {
+                        facingMode: {
+                            exact: 'environment'
+                        }
+                    }
+                };
+            }
+            navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => (successCallback(stream)))
             .catch(e => (console.log(e)));
 
