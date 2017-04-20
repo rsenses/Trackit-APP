@@ -19,6 +19,12 @@ $container['guzzle'] = function ($container) {
     return new GuzzleHttp\Client($settings);
 };
 
+// Printer
+$container['printer'] = function ($container) {
+    $connector = new Mike42\Escpos\PrintConnectors\NetworkPrintConnector("192.168.1.100", 9100);
+    return new Mike42\Escpos\Printer($connector);
+};
+
 // Twig
 $container['view'] = function ($container) {
     $settings = $container->get('settings')['view'];

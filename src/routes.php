@@ -5,6 +5,11 @@
 $app->get('[/]', 'HomeController:indexAction')->setName('home');
 
 // Guest users routes
+$app->group('/print', function () {
+    // Sign In
+    $this->get('/test', 'PrintController:testAction')->setName('print.test');
+});
+// Guest users routes
 $app->group('/auth', function () {
     // Sign In
     $this->get('/signin', 'AuthController:getSignInAction')->setName('auth.signin');

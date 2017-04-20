@@ -24,6 +24,19 @@ $container['AuthController'] =  function ($container) {
     );
 };
 
+$container['PrintController'] =  function ($container) {
+    return new App\Controllers\Auth\PrintController(
+        $container->view,
+        $container->logger,
+        $container->flash,
+        $container->validator,
+        $container->oauth,
+        $container->router,
+        $container->guzzle,
+        $container->printer
+    );
+};
+
 $container['ProductController'] =  function ($container) {
     return new App\Controllers\ProductController(
         $container->view,
