@@ -61,6 +61,7 @@
 
 {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
     <script src="{{ base_url() }}/js/jsQR.js"></script>
     <script>
         var decode = true;
@@ -106,51 +107,57 @@
         height = parseInt(canvas.style.height);
 
         function decoderPlay() {
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            navigator.mediaDevices.getUserMedia({video: {facingMode: {exact: 'environment'}}})
+            .then(stream => (successCallback(stream)))
+            .catch(e => (console.log(e)));
 
-            if (navigator.getUserMedia) {
-                if (navigator.mozGetUserMedia) {
-                    navigator.getUserMedia({video: true}, successCallback, errorCallback);
-                } else {
-                    navigator.mediaDevices.enumerateDevices().then(function(devices) {
-                        let sourceId = null;
-                        let constraints;
-                        devices.forEach(function(device) {
-                            if (device.kind == 'videoinput') {
-                                console.log(device.label + ': ' + device.deviceId);
-                            }
-                            if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
-                                sourceId = device.deviceId;
-                            }
-                            console.log(sourceId);
-                        });
-                        if (!sourceId) {
-                            throw 'no video input';
-                        }
-                        navigator.getUserMedia({
-                            video: {
-                                optional: [{sourceId: sourceId}]
-                            }
-                        }, successCallback, errorCallback);
-                    })
-                    .catch(function(err) {
-                        console.log(err.name + ": " + err.message);
-                    });
-                }
-                requestAnimationFrame(tick);
-            } else {
-                // Navegador no soportado
-            }
+            requestAnimationFrame(tick);
+            // navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            // if (navigator.getUserMedia) {
+            //     if (navigator.mozGetUserMedia) {
+            //         navigator.getUserMedia({video: true}, successCallback, errorCallback);
+            //     } else {
+            //         navigator.mediaDevices.enumerateDevices().then(function(devices) {
+            //             let sourceId = null;
+            //             let constraints;
+            //             devices.forEach(function(device) {
+            //                 if (device.kind == 'videoinput') {
+            //                     console.log(device.label + ': ' + device.deviceId);
+            //                 }
+            //                 if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
+            //                     sourceId = device.deviceId;
+            //                 }
+            //                 console.log(sourceId);
+            //             });
+            //             if (!sourceId) {
+            //                 throw 'no video input';
+            //             }
+            //             navigator.getUserMedia({
+            //                 video: {
+            //                     optional: [{sourceId: sourceId}]
+            //                 }
+            //             }, successCallback, errorCallback);
+            //         })
+            //         .catch(function(err) {
+            //             console.log(err.name + ": " + err.message);
+            //         });
+            //     }
+            //     requestAnimationFrame(tick);
+            // } else {
+            //     // Navegador no soportado
+            // }
         }
 
         function successCallback(stream) {
-            if (window.URL) {
-                video.src = window.URL.createObjectURL(stream);
-            } else if (video.mozSrcObject !== undefined) {
-                video.mozSrcObject = stream;
-            } else {
-                video.src = stream;
-            }
+            // if (window.URL) {
+            //     video.src = window.URL.createObjectURL(stream);
+            // } else if (video.mozSrcObject !== undefined) {
+            //     video.mozSrcObject = stream;
+            // } else {
+            //     video.src = stream;
+            // }
+            video.srcObject = stream
             video.onloadedmetadata = function(e) {
                 width = this.videoWidth,
                 height = this.videoHeight;
