@@ -127,9 +127,10 @@
                     }
                     let constraints = {
                         video: {
-                            sourceId: sourceId
+                            optional: [{sourceId: sourceId}]
                         }
                     };
+                    console.log(constraints);
                     navigator.getUserMedia(constraints, successCallback, errorCallback);
                 })
                 .catch(function(err) {
