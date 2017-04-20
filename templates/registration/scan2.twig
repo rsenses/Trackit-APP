@@ -1,0 +1,147 @@
+{% extends 'layouts/private.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/css/bootstrap-dialog.min.css"/>
+{% endblock %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.create', {'id': product.product_id}) }}" class="scan-menu">
+        <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('product.registrations.all', {'id': product.product_id}) }}" class="scan-menu">
+        <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="play">
+        <p class="text-center">
+            <img src="{{ product.img }}" alt="{{ product.title }}" class="img-responsive">
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center">{{ product.name }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <p class="text-center">
+                        <a href="#0"><i class="fa fa-qrcode fa-5x" aria-hidden="true"></i></a><br>
+                        <select class="form-control"></select>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <video id="video" autoplay="true" style="display:none;"></video>
+    <canvas id="canvas" style="width:640px; height:480px;"></canvas>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <span id="product-name"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-users" aria-hidden="true"></i> <span id="count-registrations"></span>/<span id="count-verifications"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i> <span id="count-speakers"></span>/<span id="count-verified-speakers"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-star" aria-hidden="true"></i> <span id="count-vips"></span>/<span id="count-verified-vips"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/jsQR.js"></script>
+    <script>
+        var decode = true;
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product.product_id }}",
+                dataType: "json",
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+                },
+                error: function(a) {
+                    console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 10000);
+                }
+            });
+        }
+
+        info();
+
+        setTimeout(info, 10000);
+
+        var video = document.getElementById("video");
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        var width = parseInt(canvas.style.width);
+        var height = parseInt(canvas.style.height);
+
+        function decoderPlay() {
+            canvas.width = width;
+            canvas.height = height;
+
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({video: true}, successCallback, errorCallback);
+                requestAnimationFrame(tick);
+            }
+        }
+
+        function successCallback(stream) {
+            if (window.URL) {
+                video.src = window.URL.createObjectURL(stream);
+            } else if (video.mozSrcObject !== undefined) {
+                video.mozSrcObject = stream;
+            } else {
+                video.src = stream;
+            }
+        }
+
+        function errorCallback() {}
+
+        function tick() {
+            requestAnimationFrame(tick);
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                // Load the video onto the canvas
+                context.drawImage(video, 0, 0, width, height);
+                // Load the image data from the canvas
+                var imageData = context.getImageData(0, 0, width, height);
+                var decoded = jsQR.decodeQRFromImage(imageData.data, imageData.width, imageData.height);
+                if (decoded) {
+                    alert(decoded);
+                }
+            }
+        }
+
+        $('.play a').click(function(event) {
+            event.preventDefault();
+            $('.play').hide();
+            decoderPlay();
+        });
+    </script>
+{% endblock %}
