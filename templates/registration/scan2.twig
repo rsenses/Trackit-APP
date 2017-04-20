@@ -120,6 +120,7 @@
                         if (device.kind == 'videoinput' && (!sourceId || device.label.indexOf('back') >= 0)) {
                             sourceId = device.deviceId;
                         }
+                        console.log(sourceId);
                     });
                     if (!sourceId) {
                         throw 'no video input';
