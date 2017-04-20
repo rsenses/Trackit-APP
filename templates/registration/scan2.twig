@@ -127,18 +127,14 @@
                         throw 'no video input';
                     }
                     if (navigator.mozGetUserMedia) {
-                        constraints = {
-                            video: true
-                        };
+                        navigator.getUserMedia({video: true}, successCallback, errorCallback);
                     } else {
-                        constraints = {
+                        navigator.getUserMedia({
                             video: {
                                 optional: [{sourceId: sourceId}]
                             }
-                        };
+                        }, successCallback, errorCallback);
                     }
-                    console.log(constraints);
-                    navigator.getUserMedia(constraints, successCallback, errorCallback);
                 })
                 .catch(function(err) {
                     console.log(err.name + ": " + err.message);
@@ -151,7 +147,13 @@
         }
 
         function successCallback(stream) {
-            video.src = window.URL.createObjectURL(stream);
+            if (window.URL) {
+                video.src = window.URL.createObjectURL(stream);
+            } else if (video.mozSrcObject !== undefined) {
+                video.mozSrcObject = stream;
+            } else {
+                video.src = stream;
+            }
             video.onloadedmetadata = function(e) {
                 width = this.videoWidth,
                 height = this.videoHeight;
@@ -159,13 +161,6 @@
                 canvas.width = width;
                 canvas.height = height;
             };
-            // if (window.URL) {
-            //     video.src = window.URL.createObjectURL(stream);
-            // } else if (video.mozSrcObject !== undefined) {
-            //     video.mozSrcObject = stream;
-            // } else {
-            //     video.src = stream;
-            // }
         }
 
         function errorCallback() {}
