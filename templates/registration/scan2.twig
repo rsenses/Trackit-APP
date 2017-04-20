@@ -111,7 +111,11 @@
                 .then(function(devices) {
                     devices.forEach(function(device) {
                         if (device.kind == 'videoinput') {
-                            console.log(device.label + " id = " + device.deviceId);
+                            if (device.label.indexOf('back') >= 0) {
+                                console.log(device.label + " id = " + device.deviceId);
+                            } else {
+                                console.log("NOP" + device.label + " id = " + device.deviceId);
+                            }
                         }
                     });
                 })
