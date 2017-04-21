@@ -14,23 +14,22 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
 
-        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
     </head>
 
     <body>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 trackit">
-                    <p class="text-center">
-                        <img src="/images/logo_trackit.png" alt="Trackit">
-                    </p>
+                    <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
                 </div>
             </div>
         </div>
-        <div class="container">
+        <main class="container">
             {% block content %}{% endblock %}
-        </div>
+        </main>
 
         <!-- All Javascript plugins goes here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

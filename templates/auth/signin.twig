@@ -2,11 +2,11 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-xs-12 login">
+        <div class="col-xs-8 col-xs-offset-2 login">
             {% include 'partials/flash.twig' %}
-            <form action="{{ path_for('auth.signin') }}" method="POST" class="login">
+            <form action="{{ path_for('auth.signin') }}" method="POST">
+                <h4>Iniciar sesión</h4>
                 <div class="form-group{{ validation_errors.email ? ' has-error' : '' }}">
-                    <label for="email">Usuario</label>
                     <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ old_input.email }}">
                     {% if validation_errors.email %}
                         <span class="help-block">
@@ -15,7 +15,6 @@
                     {% endif %}
                 </div>
                 <div class="form-group{{ validation_errors.password ? ' has-error' : '' }}">
-                    <label for="password">Contraseña</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                     {% if validation_errors.password %}
                         <span class="help-block">
@@ -23,9 +22,14 @@
                         </span>
                     {% endif %}
                 </div>
-                <div class="form-group text-center">
-                    <button type="submit"class="btn btn-link btn-block btn-lg" ><i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i></button>
-                    {{ csrf.field | raw }}
+                <div class="row">
+                    <div class="col-xs-6 text-left">
+                        <a href="#">No recuerdo la contraseña</a>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <button type="submit" class="btn-circle btn-xl" ><i class="icon-check" aria-hidden="true"></i></button>
+                        {{ csrf.field | raw }}
+                    </div>
                 </div>
             </form>
         </div>
