@@ -20,17 +20,16 @@
     </head>
 
     <body>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 trackit">
-                    <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
-                </div>
-            </div>
-        </div>
-        <main class="container">
+    <div class="overlay"></div>
+        <header>
+            {% block head %}{% endblock %}
+        </header>
+        <main>
             {% block content %}{% endblock %}
         </main>
-
+        <footer>
+            {% block footer %}{% endblock %}
+        </footer>
         <!-- All Javascript plugins goes here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
