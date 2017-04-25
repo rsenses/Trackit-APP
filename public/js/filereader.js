@@ -8,7 +8,7 @@ var FileReaderHelper = function() {
     var init = function(types, readAs, callBack, multy) {
         multy = typeof multy == 'undefined' ? false : multy;
         var input = document.createElement('input');
-        input.style.cssText = 'display: none;';
+        input.main.cssText = 'display: none;';
         input.type = "file";
         if (multy) input.multiple = true;
         document.querySelector('body').appendChild(input);
