@@ -6,10 +6,16 @@
 
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
-        <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+        <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
-        <i class="fa fa-qrcode fa-2x" aria-hidden="true"></i>
+{#     <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}">
+        <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
+    </a> #}
+{#     <a href="{{ path_for('registration.verification', {'id': product_id}) }}">
+        <i class="icon-camera fa-2x" aria-hidden="true"></i>
+    </a> #}
+    <a href="#" class="logo">
+        <img src="/images/oracle-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}
 
@@ -18,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="text" class="search form-control" placeholder="Search" />
+                    <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva por Nombre o DNI - Introduce tres caracteres mínimo" />
                 </div>
             </div>
             <div class="row">
@@ -32,7 +38,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody class="list">
+                        <tbody class="list hide">
                             {% for customer in registrations %}
                                 <tr>
                                     <td class="name">
@@ -73,7 +79,6 @@
                     <span id="product-name"></span>
                 </div>
                 <div class="col-xs-4 col-sm-2">
-                    <i class="fa fa-users" aria-hidden="true"></i> <span id="count-registrations"></span>/<span id="count-verifications"></span>
                 </div>
                 <div class="col-xs-4 col-sm-2">
                     <i class="fa fa-graduation-cap" aria-hidden="true"></i> <span id="count-speakers"></span>/<span id="count-verified-speakers"></span>
@@ -82,12 +87,17 @@
                     <i class="fa fa-star" aria-hidden="true"></i> <span id="count-vips"></span>/<span id="count-verified-vips"></span>
                 </div>
             </div>
+             <div class="chart-box">
+                <div class="chart-title"><i class="icon-people" aria-hidden="true"></i> <span id="count-registrations"></span>/<span id="count-verifications"></span></div>
+                <div class="chart chart-1" id="math-registratians-verified" data-percent=""><span><br><small>confirmados</small></span></div>
+             </div>
         </div>
     </footer>
 {% endblock %}
 
 {% block scripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
     <script>
         var customerList = new List('registrations', {
@@ -122,11 +132,25 @@
                     setTimeout(info, 10000);
                 }
             });
-        }
-
-        info();
-
-        setTimeout(info, 10000);
+        };
+        var loadChart = function () {
+            var registrations = $('#count-registrations').text();
+            var verifications = $('#count-verifications').text();
+            var percent = Math.floor((verifications / registrations) * 100);
+            $('#math-registratians-verified').attr('data-percent', percent);
+            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
+            $('.chart').animate({opacity: 1}, 3000);
+            $('#math-registratians-verified').easyPieChart({
+                animate: 3000,
+                barColor: '#FFF',
+                trackColor: '#666',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                size: 100
+            });
+        };
 
         $('.verification a').click(function(event) {
             event.preventDefault();
@@ -186,6 +210,20 @@
                     }
                 });
             }
+        });
+        $(window).load(function() {
+            $('input.search').on('keyup', function () {
+                var key = $('input.search').val();
+                if (key.length >= 3) {
+                    $('.list').removeClass('hide');
+                } else {
+                    $('.list').delay(1000).addClass('hide');
+                }
+            });
+            info();
+            loadChart();
+        setTimeout(info, 10000);
+        setTimeout(loadChart, 16000);
         });
     </script>
 {% endblock %}

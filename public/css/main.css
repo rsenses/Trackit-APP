@@ -9,7 +9,7 @@ html {
     padding: 15px 0;
 }
 body {
-    background-color: #008adb;
+    background-color: #d5212f;
     height: 100vh;
     position: relative;
     font-size: 16px;
@@ -22,18 +22,19 @@ button {
     content: '';
     height: 100vh;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
-    background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%); /* FF3.6-15 */
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%);
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#d5212f',GradientType=1 );
 }
 .img-block {
     margin: 0 auto;
 }
 
 input.form-control,
+select,
 input {
     border-radius: 0;
     border: 0 none;
@@ -62,7 +63,7 @@ body {
     overflow-x: hidden;
 }
 .menu-wrapper {
-    background-color: #0051b2;
+    background-color: #d5212f;
     height: 80px;
     padding: 5px 0;
     position: fixed;
@@ -143,56 +144,6 @@ body {
     bottom: 0;
     padding-bottom: 30px;
 } 
-/* .sidebar-nav li:before {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    content: '';
-    -webkit-transition: width .2s ease-in;
-    -moz-transition: width .2s ease-in;
-    -ms-transition: width .2s ease-in;
-    transition: width .2s ease-in;
-    background-color: #1c1c1c;
-} */
-/* .sidebar-nav li:first-child a {
-    color: #fff;
-    background-color: #1a1a1a;
-} */
-/* .sidebar-nav li:nth-child(2):before {
-    background-color: #ec1b5a;
-}
-.sidebar-nav li:nth-child(3):before {
-    background-color: #79aefe;
-}
-.sidebar-nav li:nth-child(4):before {
-    background-color: #314190;
-}
-.sidebar-nav li:nth-child(5):before {
-    background-color: #279636;
-}
-.sidebar-nav li:nth-child(6):before {
-    background-color: #7d5d81;
-}
-.sidebar-nav li:nth-child(7):before {
-    background-color: #ead24c;
-}
-.sidebar-nav li:nth-child(8):before {
-    background-color: #2d2366;
-}
-.sidebar-nav li:nth-child(9):before {
-    background-color: #35acdf;
-}
-.sidebar-nav li:hover:before,
-.sidebar-nav li.open:hover:before {
-    width: 100%;
-    -webkit-transition: width .2s ease-in;
-    -moz-transition: width .2s ease-in;
-    -ms-transition: width .2s ease-in;
-    transition: width .2s ease-in;
-} */
 .sidebar-nav li a {
     font-size: 1.6em;
     display: block;
@@ -377,7 +328,9 @@ main.is-closed {
     line-height: 70px;
 }
 .menu-wrapper a.logo {
-    min-width: 70%;
+    position: absolute;
+    right: calc(50% - 145px);
+    left: calc(50% - 145px);
 }
 
 /** LOGIN **/
@@ -394,11 +347,11 @@ main.is-closed {
 .login>div {
     vertical-align: middle;
 }
-.login label,
+label,
 .login a {
     color: #FFFFFF;
 }
-.login form {
+form {
     padding-top: 40px;
 }
 .login input {
@@ -430,19 +383,34 @@ canvas {
     width: 100%;
 }
 
+#registrations table {
+    background-color: #eaeaea;
+    -webkit-transition: all .35s ease-in-out;
+}
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+#registrations .list {
+    display: table-row-group;
+}
+#registrations .list.hide {
+    display: none;
+}
+
 #registrations, #create {
-    background-color: #fff;
+    /* background-color: #fff; */
     padding-top: 15px;
 }
 #product-info {
-    background-color: #008adb;
+    background-color: #d5212f;
 }
 #create {
     padding-bottom: 15px;
 }
 
 #registrations .search {
-    margin-bottom: 15px;
+    padding: 30px;
+    margin: 15px auto;
 }
 
 .btn-circle {
@@ -462,6 +430,11 @@ canvas {
   width: 70px;
   height: 70px;
 }
+.btn,
+.btn:hover, .bth:active {
+    border-radius: 0px;
+    border: 0 none;
+}
 
 footer {
     position: fixed;
@@ -470,3 +443,27 @@ footer {
     padding: 15px;
     color: #fff;
 }
+footer .chart-box {
+    max-width: 100px;
+}
+footer .chart {
+    text-align: center;
+}
+footer .chart span {
+    text-align: center;
+    position: absolute;
+    top: calc(50% - 1.875rem);
+    left: calc(50% - 1.875rem);
+    bottom: 50%;
+    right: calc(50% - 1.875rem);
+    font-size: 1.8rem;
+    line-height: 1rem;
+    opacity: 0;
+}
+footer .chart span small {
+    font-size: .8rem;
+}
+footer .chart-title {
+    text-align: center;
+    font-weight: 700;
+   
