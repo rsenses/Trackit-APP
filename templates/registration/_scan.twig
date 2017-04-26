@@ -1,0 +1,177 @@
+{% extends 'layouts/private.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/css/bootstrap-dialog.min.css"/>
+{% endblock %}
+
+{% block menu %}
+    <a href="#">
+        <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}">
+        <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('registration.verification', {'id': product_id}) }}">
+        <i class="icon-camera fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="#" class="logo">
+        <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="play">
+        <p class="text-center">
+            <img src="{{ product.img }}" alt="{{ product.title }}" class="img-responsive">
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="text-center">{{ product.name }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                    <p class="text-center">
+                        <a href="#0"><i class="icon-camera fa-5x" aria-hidden="true"></i></a><br>
+                        <select class="form-control"></select>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <canvas>
+    </canvas>
+{% endblock %}
+
+{% block footer %}
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <span id="product-name"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-users" aria-hidden="true"></i> <span id="count-registrations"></span>/<span id="count-verifications"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i> <span id="count-speakers"></span>/<span id="count-verified-speakers"></span>
+                </div>
+                <div class="col-xs-4 col-sm-2">
+                    <i class="fa fa-star" aria-hidden="true"></i> <span id="count-vips"></span>/<span id="count-verified-vips"></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/qrcodelib.js"></script>
+    <script src="{{ base_url() }}/js/webcodecamjs.js"></script>
+    <script>
+        var decode = true;
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product.product_id }}",
+                dataType: "json",
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+                },
+                error: function(a) {
+                    console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 10000);
+                }
+            });
+        }
+
+        info();
+
+        setTimeout(info, 10000);
+
+        var txt = "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
+        var arg = {
+            flipVertical: false,
+            width: 640,                             // canvas width
+            height: 320,                            // canvas height
+            zoom: -1,                               // if zoom = -1, auto zoom for optimal resolution else int
+            beep: '{{ base_url() }}/audio/beep.mp3',                 // string, audio file location
+            decoderWorker: '{{ base_url() }}/js/DecoderWorker.js',
+            resultFunction: function(result) {
+                // decoder.pause();
+                var type, buttons, message, title;
+                if (decode === true) {
+                    decode = false;
+                    $.ajax({
+                        type: "GET",
+                        url: "/registration/verify/"+ result.code,
+                        dataType: "json",
+                        success: function(a) {
+                            if (a.status == 'error') {
+                                type = BootstrapDialog.TYPE_DANGER;
+                                title = 'Error';
+                                message = '<h4>'+a.message+'</h4>';
+                                buttons = [{
+                                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                    cssClass: 'btn-primary btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }];
+                            } else if (a.status == 'success') {
+                                type = BootstrapDialog.TYPE_SUCCESS;
+                                title = a.message;
+                                message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                                buttons = [{
+                                    label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                    cssClass: 'btn-success btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }, {
+                                    label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                    cssClass: 'btn-danger btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }];
+                            }
+                            BootstrapDialog.show({
+                                size: BootstrapDialog.SIZE_LARGE,
+                                title: title,
+                                message: message,
+                                buttons: buttons,
+                                type: type,
+                                onhidden: function(dialog) {
+                                    decode = true;
+                                    // decoder.play();
+                                }
+                            });
+                        },
+                        error: function(a) {
+                            console.log(a);
+                        }
+                    });
+                }
+            }
+        };
+        var decoder = new WebCodeCamJS("canvas").buildSelectMenu('select', 'environment|back').init(arg);
+
+        $('.play a').click(function(event) {
+            event.preventDefault();
+            $('.play').hide();
+            decoder.play();
+        });
+    </script>
+{% endblock %}
