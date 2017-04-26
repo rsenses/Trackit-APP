@@ -62,20 +62,22 @@ class PrintController
         $qrCode = $this->gdpos;
         $qrCode->readImageFromGdResource($im);
 
+        $this->printer->initialize();
+
         $this->printer->setJustification(Printer::JUSTIFY_CENTER);
         $this->printer->text("Telva Novias\n");
         $this->printer->setEmphasis(true);
         $this->printer->setTextSize(2, 1);
         $this->printer->text("Isidro Sánchez\n");
-        $this->printer->bitImage($qrCode);
-        $this->printer->text("\n");
+        $this->printer->bitImageColumnFormat($qrCode);
         $this->printer->feed();
+        $this->printer->text("\n");
 
         $this->printer->setEmphasis(false);
         $this->printer->setTextSize(1, 1);
         $this->printer->text("Talleres:\n");
-        $this->printer->text("• Taller de lo que sea\n");
-        $this->printer->text("• Otro Taller mas\n");
+        $this->printer->text("- Taller de lo que sea\n");
+        $this->printer->text("- Otro Taller mas\n");
         $this->printer->text("\n\n\n\n");
 
         $this->printer->cut();

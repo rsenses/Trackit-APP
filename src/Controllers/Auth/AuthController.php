@@ -86,7 +86,7 @@ class AuthController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
-        return $response->withRedirect($this->router->pathFor('registration.verification', ['id' => $product->id]));
+        return $response->withRedirect($this->router->pathFor('product.registrations.all', ['id' => $product->id]));
     }
 
     public function getSignOutAction(Request $request, Response $response, array $args)

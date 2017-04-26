@@ -21,7 +21,7 @@ $container['guzzle'] = function ($container) {
 
 // Printer
 $container['printer'] = function ($container) {
-    $connector = new Mike42\Escpos\PrintConnectors\NetworkPrintConnector("192.168.1.100", 9100);
+    $connector = new Mike42\Escpos\PrintConnectors\NetworkPrintConnector("192.168.1.220", 9100);
     return new Mike42\Escpos\Printer($connector);
 };
 
