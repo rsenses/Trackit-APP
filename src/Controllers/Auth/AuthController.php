@@ -47,24 +47,20 @@ class AuthController
 
     public function postSignInAction(Request $request, Response $response, array $args)
     {
-        // $validation = $this->validator->validate($request, [
-        //     'email' => v::noWhitespace()->notEmpty()->email(),
-        //     'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('!·$%&/()=?¿¡^*+[]¨{},;.:-_#@'),
-        // ]);
+        $validation = $this->validator->validate($request, [
+            'email' => v::noWhitespace()->notEmpty()->email(),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('!·$%&/()=?¿¡^*+[]¨{},;.:-_#@'),
+        ]);
 
-        // if ($validation->failed()) {
-        //     return $response->withRedirect($this->router->pathFor('auth.signin'));
-        // }
+        if ($validation->failed()) {
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
 
         try {
             // Try to get an access token using the resource owner password credentials grant.
-            // $_SESSION['accessToken'] = $this->oauth->getAccessToken('password', [
-            //     'username' => filter_var($request->getParam('email'), FILTER_SANITIZE_EMAIL),
-            //     'password' => filter_var($request->getParam('password'), FILTER_SANITIZE_STRING)
-            // ]);
             $_SESSION['accessToken'] = $this->oauth->getAccessToken('password', [
-                'username' => filter_var('azafata2@ue.es', FILTER_SANITIZE_EMAIL),
-                'password' => filter_var('eventosue', FILTER_SANITIZE_STRING)
+                'username' => filter_var($request->getParam('email'), FILTER_SANITIZE_EMAIL),
+                'password' => filter_var($request->getParam('password'), FILTER_SANITIZE_STRING)
             ]);
         } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
             $this->flash->addMessage('danger', $e->getMessage());
