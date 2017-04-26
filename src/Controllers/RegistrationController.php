@@ -84,7 +84,7 @@ class RegistrationController
             return $this->returnError($response, $e);
         }
 
-        return $this->view->render($response, 'registration/scan2.twig', [
+        return $this->view->render($response, 'registration/scan.twig', [
             'product' => json_decode($apiRequest->getBody())
         ]);
     }
