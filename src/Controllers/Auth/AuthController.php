@@ -49,7 +49,7 @@ class AuthController
     {
         $validation = $this->validator->validate($request, [
             'email' => v::noWhitespace()->notEmpty()->email(),
-            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('!·$%&/()=?¿¡^*+[]¨{},;.:-_#@'),
+            'password' => v::noWhitespace()->notEmpty()->length(8)->alnum('!Â·$%&/()=?Â¿Â¡^*+[]Â¨{},;.:-_#@'),
         ]);
 
         if ($validation->failed()) {
