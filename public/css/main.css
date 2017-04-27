@@ -408,7 +408,9 @@ canvas {
 #create {
     padding-bottom: 15px;
 }
-
+#product-name {
+    color: #FFF;
+}
 #registrations .search {
     padding: 30px;
     margin: 15px auto;
@@ -480,3 +482,11 @@ footer .well ul {
     margin: 0;
     width: 100%;
 }
+@media(max-width:767px){}
+@media(min-width:768px){}
+@media(min-width:992px){
+    input.search {
+        font-size: 1.5em;
+    }
+}
+@media(min-width:1200px){}

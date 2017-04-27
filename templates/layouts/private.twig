@@ -26,7 +26,7 @@
     <div class="overlay"></div>
         <div id="wrapper">
             <header>
-                <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+{#                 <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                     <ul class="nav sidebar-nav">
                         <li class="sidebar-brand">
                             <a href="#">
@@ -56,20 +56,20 @@
                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="https://api.trackitsuite.com">
                             </div>
                         </li>
-<!--                         <li>
+                        <li>
                             <a href="https://szimek.github.io/signature_pad/">Firma</a>
-                        </li> -->
+                        </li> 
                         <li>
                             <a href="{{ path_for('auth.signout') }}"><i class="icon-user-unfollow fa-2x"></i></a>
                         </li>
                     </ul>
-                </nav>
+                </nav> #}
                 <div class="menu-wrapper">
-                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+  {#                   <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                         <span class="hamb-top"></span>
                         <span class="hamb-middle"></span>
                         <span class="hamb-bottom"></span>
-                    </button>
+                    </button> #}
                     {% block menu %}{% endblock %}
                 </div>
             </header>                    
