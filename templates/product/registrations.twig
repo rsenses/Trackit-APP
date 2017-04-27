@@ -65,9 +65,11 @@
                                     <td class="status">
                                         {% if customer.is_authorized == 0 %}
                                             Denegado
-                                        {% elseif customer.is_confirmed == 0 %}
+                                        {% endif %}
+                                        {% if customer.is_confirmed == 0 %}
                                             No Confirmado
-                                        {% elseif customer.is_cancelled == 1 %}
+                                        {% endif %}
+                                        {% if customer.is_cancelled == 1 %}
                                             No Asiste
                                         {% endif %}
                                     </td>
