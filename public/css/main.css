@@ -445,6 +445,7 @@ footer {
     width: 100%;
     padding: 15px;
     color: #fff;
+    background-color: #d5212f;
 }
 footer .chart-box {
     max-width: 100px;

@@ -232,25 +232,23 @@
         
         setTimeout(info, 10000);
 
-        // setTimeout(function(loadChart) {
-        //     var registrationsAssistants = $('#count-rexgistrations').text();
-        //     var verificationsAssistants = $('#count-verifications').text();
-        //     var percentAssistants = Math.floor((verificationsAssistants / registrationsAssistants) * 100);
+        setTimeout(function(loadChart) {
 
-        //     // var registrationsVips = $('#count-vips').text();
-        //     // var verificationsVips = $('#count-verified-vips').text();
-        //     // var percentVips = Math.floor(( registrationsVips / verificationsVips) * 100);
+            var registrationsAssistants = $('#count-registrations').text();
+            var verificationsAssistants = $('#count-verifications').text();
+            var percentAssistants = Math.floor((verificationsAssistants / registrationsAssistants) * 100);
+            var registrationsSpeakers = $('#count-speakers').text();
+            var verificationsSpeakers = $('#count-verified-speakers').text();
+            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            var registrationsVips = $('#count-vips').text();
+            var verificationsVips = $('#count-verified-vips').text();
+            var percentVips = Math.floor((verificationsVips / registrationsVips) * 100);
 
-        //     // var registrationsSpeakers = $('#count-speakers').text();
-        //     // var verificationsSpeakers = $('#count-verified-speakers').text();
-        //     // var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
+            $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            $('.chart-3').data('easyPieChart').update(percentVips);
             
-
-            
-        //     $('.chart-1').data('easyPieChart').update(percentAssistants);
-        //     // $('.chart-2').data('easyPieChart').update(percentVips);
-        //     // $('.chart-3').data('easyPieChart').update(percentSpeakers);
-        // }, 5000);
+        }, 5000);
 
         $('.verification a').click(function(event) {
             event.preventDefault();
