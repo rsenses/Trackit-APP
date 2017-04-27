@@ -42,8 +42,6 @@
                                 <th>Nombre</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th>Tipo</th>
-                                <th>Estado</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -51,27 +49,23 @@
                             {% for customer in registrations %}
                                 <tr>
                                     <td class="name">
-                                        {{ customer.first_name }} {{ customer.last_name }}
+                                        {{ customer.first_name }} {{ customer.last_name }} <br>
+                                        <small>{{ customer.type.name }}
+                                        {% if customer.is_authorized == 0 %}
+                                             | Denegado
+                                        {% endif %}
+                                        {% if customer.is_confirmed == 0 %}
+                                             | No Confirmado
+                                        {% endif %}
+                                        {% if customer.is_cancelled == 1 %}
+                                             | No Asiste
+                                        {% endif %}</small>
                                     </td>
                                     <td class="nif">
                                         {{ customer.nif }}
                                     </td>
                                     <td class="company">
                                         {{ customer.company }}
-                                    </td>
-                                    <td class="type">
-                                        {{ customer.type.name }}
-                                    </td>
-                                    <td class="status">
-                                        {% if customer.is_authorized == 0 %}
-                                            Denegado
-                                        {% endif %}
-                                        {% if customer.is_confirmed == 0 %}
-                                            No Confirmado
-                                        {% endif %}
-                                        {% if customer.is_cancelled == 1 %}
-                                            No Asiste
-                                        {% endif %}
                                     </td>
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
@@ -91,7 +85,7 @@
                         </tbody>
                         <tbody class="nolist">
                             <tr>
-                                <td class="name" colspan="6">
+                                <td class="name" colspan="4">
                                     Actualmente no se muestran resultados
                                 </td>
                             </tr>
@@ -160,9 +154,7 @@
             valueNames: [
                 'name',
                 'nif',
-                'company',
-                'type',
-                'status'
+                'company'
             ],
             shouldAccentFold: true
         });

@@ -390,6 +390,7 @@ canvas {
 }
 .table > tbody > tr > td {
     vertical-align: middle;
+    font-size: 14px;
 }
 #registrations .list {
     display: table-row-group;
