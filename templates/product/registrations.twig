@@ -41,7 +41,9 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>DNI</th>
+                                <th>Empresa</th>
                                 <th>Tipo</th>
+                                <th>Estado</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -54,8 +56,20 @@
                                     <td class="nif">
                                         {{ customer.nif }}
                                     </td>
+                                    <td class="company">
+                                        {{ customer.company }}
+                                    </td>
                                     <td class="type">
                                         {{ customer.type.name }}
+                                    </td>
+                                    <td class="status">
+                                        {% if customer.is_authorized == 0 %}
+                                            Denegado
+                                        {% elseif customer.is_confirmed == 0 %}
+                                            No Confirmado
+                                        {% elseif customer.is_cancelled == 1 %}
+                                            No Asiste
+                                        {% endif %}
                                     </td>
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
@@ -63,9 +77,11 @@
                                                 <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
-                                            <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
-                                                <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
-                                            </a>
+                                            {% if customer.is_authorized == 1 %}
+                                                <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -142,7 +158,9 @@
             valueNames: [
                 'name',
                 'nif',
-                'type'
+                'company',
+                'type',
+                'status'
             ],
             shouldAccentFold: true
         });
@@ -178,7 +196,7 @@
                 }
             });
         };
-        
+
 
 
         var loadChart = function (a) {
@@ -229,8 +247,9 @@
         };
 
         info();
-        
+
         setTimeout(info, 10000);
+
 
         $('.verification a').click(function(event) {
             event.preventDefault();

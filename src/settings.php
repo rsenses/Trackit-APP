@@ -67,9 +67,7 @@ return [
                 'VIP',
                 'Ponente',
                 'Prensa',
-                'Staff',
-                'Denegado',
-                'No Confirmado'
+                'Staff'
             ]
         ]
         // DB Settings
