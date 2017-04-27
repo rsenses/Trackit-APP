@@ -106,7 +106,7 @@
 {% block footer %}
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-4 col-sm-4">
+                <div class="col-xs-4 col-sm-4 col-xs-offset-2">
                      <div class="chart-box">
                         <div class="chart chart-1" data-percent=""><i class="icon-people" aria-hidden="true"></i></div>
                      </div>
@@ -114,14 +114,14 @@
                         <span class="text-lg" id="count-verifications"></span>/<span id="count-registrations"></span> <br>Asistentes
                     </div>
                 </div>
-                <div class="col-xs-4 col-sm-4">
+{#                 <div class="col-xs-4 col-sm-4">
                      <div class="chart-box">
                         <div class="chart chart-2" data-percent=""><i class="icon-bubbles" aria-hidden="true"></i></div>
                      </div>
                     <div class="chart-title">
                         <span id="count-verified-speakers"></span>/<span id="count-speakers"></span> <br>Ponentes
                     </div>
-                </div>
+                </div> #}
                 <div class="col-xs-4 col-sm-4">
                      <div class="chart-box">
                         <div class="chart chart-3" data-percent=""><i class="icon-diamond" aria-hidden="true"></i></div>
@@ -187,6 +187,7 @@
                     var dateEnd = new Date(a.date_end);
                     $('#date-start').text(dateStart.getDate()+'-'+(dateStart.getMonth() + 1)+'-'+dateStart.getFullYear()+' '+dateStart.getHours() + ":" + (dateStart.getMinutes() < 10 ? '0' : '') + dateStart.getMinutes());
                     $('#date-end').text(dateEnd.getDate()+'-'+(dateEnd.getMonth() + 1)+'-'+dateEnd.getFullYear()+' '+dateEnd.getHours() + ":" + (dateEnd.getMinutes() < 10 ? '0' : '') + dateEnd.getMinutes());
+                    loadChart(a);
                 },
                 error: function(a) {
                     console.log(a);
@@ -194,17 +195,14 @@
                 complete: function() {
                     // Previous run complete, schedule the next run
                     setTimeout(info, 10000);
-                    setTimeout(loadChart, 600);
                 }
             });
         };
 
 
 
-        var loadChart = function () {
-            var registrationsAssistants = $('#count-registrations').text();
-            var verificationsAssistants = $('#count-verifications').text();
-            var percentAssistants = Math.floor((verificationsAssistants / registrationsAssistants) * 100);
+        var loadChart = function (a) {
+            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
             $('.chart-title, .chart span').animate({opacity: 1}, 3000);
             $('.chart').animate({opacity: 1}, 3000);
             $('.chart-1').attr('data-percent', percentAssistants);
@@ -218,24 +216,21 @@
                 lineCap: 'butt',
                 size: 100
             });
-            var registrationsSpeakers = $('#count-speakers').text();
-            var verificationsSpeakers = $('#count-verified-speakers').text();
-            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
-            $('.chart-2').attr('data-percent', percentSpeakers);
-            $('.chart-2').easyPieChart({
-                animate: 1000,
-                barColor: '#FFF',
-                trackColor: '#666',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'butt',
-                size: 100
-            });
-            var registrationsVips = $('#count-vips').text();
-            var verificationsVips = $('#count-verified-vips').text();
-            var percentVips = Math.floor((verificationsVips / registrationsVips) * 100);
-            console.log("percentVips", percentVips);
+            // var registrationsSpeakers = $('#count-speakers').text();
+            // var verificationsSpeakers = $('#count-verified-speakers').text();
+            // var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            // $('.chart-2').attr('data-percent', percentSpeakers);
+            // $('.chart-2').easyPieChart({
+            //     animate: 1000,
+            //     barColor: '#FFF',
+            //     trackColor: '#666',
+            //     scaleColor: false,
+            //     lineWidth: 20,
+            //     trackWidth: 16,
+            //     lineCap: 'butt',
+            //     size: 100
+            // });
+            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
             $('.chart-3').attr('data-percent', percentVips);
             $('.chart-3').easyPieChart({
                 animate: 2000,
@@ -247,30 +242,16 @@
                 lineCap: 'butt',
                 size: 100
             });
+
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
+            // $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            $('.chart-3').data('easyPieChart').update(percentVips);
         };
+
         info();
 
         setTimeout(info, 10000);
 
-        // setTimeout(function(loadChart) {
-        //     var registrationsAssistants = $('#count-rexgistrations').text();
-        //     var verificationsAssistants = $('#count-verifications').text();
-        //     var percentAssistants = Math.floor((verificationsAssistants / registrationsAssistants) * 100);
-
-        //     // var registrationsVips = $('#count-vips').text();
-        //     // var verificationsVips = $('#count-verified-vips').text();
-        //     // var percentVips = Math.floor(( registrationsVips / verificationsVips) * 100);
-
-        //     // var registrationsSpeakers = $('#count-speakers').text();
-        //     // var verificationsSpeakers = $('#count-verified-speakers').text();
-        //     // var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
-
-
-
-        //     $('.chart-1').data('easyPieChart').update(percentAssistants);
-        //     // $('.chart-2').data('easyPieChart').update(percentVips);
-        //     // $('.chart-3').data('easyPieChart').update(percentSpeakers);
-        // }, 5000);
 
         $('.verification a').click(function(event) {
             event.preventDefault();

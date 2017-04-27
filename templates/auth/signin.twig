@@ -12,7 +12,8 @@
                 <form action="{{ path_for('auth.signin') }}" method="POST">
                     <h4>Iniciar sesión</h4>
                     <div class="form-group{{ validation_errors.email ? ' has-error' : '' }}">
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ old_input.email }}">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="staff1@ue.es">
+                        {# <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ old_input.email }}"> #}
                         {% if validation_errors.email %}
                             <span class="help-block">
                                 {{ validation_errors.email | first }}
@@ -20,7 +21,7 @@
                         {% endif %}
                     </div>
                     <div class="form-group{{ validation_errors.password ? ' has-error' : '' }}">
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="eventosue">
                         {% if validation_errors.password %}
                             <span class="help-block">
                                 {{ validation_errors.password | first }}
@@ -29,7 +30,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6 text-left">
-                            <a href="#">No recuerdo la contraseña</a>
+                            {# <a href="#">No recuerdo la contraseña</a> #}
                         </div>
                         <div class="col-xs-6 text-right">
                             <button type="submit" class="btn-xl"><i class="icon-check" aria-hidden="true"></i></button>

@@ -438,13 +438,18 @@ canvas {
     border-radius: 0px;
     border: 0 none;
 }
-
+.alert-warning {
+    background-color: #efd759;
+    border: 0 none;
+    color: #333;
+}
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     padding: 15px;
     color: #fff;
+    background-color: #d5212f;
 }
 footer .chart-box {
     max-width: 100px;
