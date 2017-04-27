@@ -104,16 +104,10 @@
                         BootstrapDialog.show({
                             size: BootstrapDialog.SIZE_LARGE,
                             title: a.message,
-                            message: '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>',
+                            message: '<h4>'+a.user+'</h4>',
                             buttons: [{
-                                label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
-                                cssClass: 'btn-success btn-lg',
-                                action: function(dialog) {
-                                    dialog.close();
-                                }
-                            }, {
-                                label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
-                                cssClass: 'btn-danger btn-lg',
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
                                 action: function(dialog) {
                                     dialog.close();
                                 }
