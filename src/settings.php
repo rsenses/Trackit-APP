@@ -67,7 +67,9 @@ return [
                 'VIP',
                 'Ponente',
                 'Prensa',
-                'Staff'
+                'Staff',
+                'Acompañante VIP',
+                'Acompañante Oracle'
             ]
         ]
     ],
