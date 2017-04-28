@@ -240,11 +240,6 @@
             $('.chart-3').data('easyPieChart').update(percentVips);
         };
 
-        info();
-
-        setTimeout(info, 10000);
-
-
         $('.verification a').click(function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
@@ -314,7 +309,9 @@
                 });
             }
         });
-        $(window).load(function() {
+        $(document).ready(function() {
+            info();
+
             $('input.search').on('keyup', function () {
                 var key = $('input.search').val();
                 if (key.length >= 3) {

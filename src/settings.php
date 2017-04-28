@@ -51,8 +51,8 @@ return [
                 'base_uri' => 'https://api.trackitsuite.com/',
             ],
             'oauth' => [
-                'clientId' => 'android',    // The client ID assigned to you by the provider
-                'clientSecret' => '74756db3-8361-47d4-bb7f-e28eb319647e',   // The client password assigned to you by the provider
+                'clientId' => 'app',    // The client ID assigned to you by the provider
+                'clientSecret' => 'e37e672b-61fb-441c-a308-a451553d0718',   // The client password assigned to you by the provider
                 'redirectUri' => 'http://example.com/your-redirect-url/',
                 'urlAuthorize' => 'https://api.trackitsuite.com/oauth/token',
                 'urlAccessToken' => 'https://api.trackitsuite.com/oauth/token',
@@ -70,18 +70,5 @@ return [
                 'Staff'
             ]
         ]
-        // DB Settings
-        // 'db' => [
-        //     'driver' => 'mysql',
-        //     'host' => 'exlocalhost',
-        //     'port' => '3306',
-        //     'database' => 'trackit',
-        //     'username' => 'root',
-        //     'password' => '*Med1aS*',
-        //     'charset' => 'utf8mb4',
-        //     'collation' => 'utf8mb4_unicode_ci',
-        //     'prefix' => '',
-        //     'session_table' => 'session'
-        // ]
     ],
 ];

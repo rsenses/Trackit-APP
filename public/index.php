@@ -41,11 +41,13 @@ if ($settings['settings']['displayErrorDetails']) {
 //     die('Connect Error: '.$e->getMessage());
 // }
 
+ini_set('session.use_strict_mode', true);
+ini_set('session.cache_limiter', 'private');
+ini_set('session.gc_maxlifetime', 14400);
+session_set_cookie_params(14400);
 session_name($settings['settings']['session_name']);
 // $handler = New App\Session\SessionHandler($db, $settings['settings']['db']['session_table']);
 // session_set_save_handler($handler, true);
-session_set_cookie_params(14400);
-ini_set('session.gc_maxlifetime', 14400);
 session_start();
 
 $container = new \Slim\Container($settings);
