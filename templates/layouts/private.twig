@@ -26,7 +26,7 @@
     <div class="overlay"></div>
         <div id="wrapper">
             <header>
-{#                 <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+                <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                     <ul class="nav sidebar-nav">
                         <li class="sidebar-brand">
                             <a href="#">
@@ -36,40 +36,46 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda<span class="caret"></span></a>
                             <div class="dropdown-menu" role="menu">
-                                <p>Por defecto, no debe introducir la ip a menos que no se disponga de conexión a internet. En ese caso, el administrador le proporcionará la ip del servidor local.</p>
-                                <p>Introduzca su usuario y la contraseña.La sesión se bloqueará automáticamente fuera de los horarios establecidos para el evento. Una vez logueado, se muestra un resumen del evento.Escaneo de códigos QR.</p>
-                                <p>En la pantalla aparecerán distintos mensajes de incidencia identificados por un color : Color verde,Usuario validado correctamente y Color rojo : Muestra un código de error</p>
-                                <p>Si no lee el código QR, se puede realizar una inserción manual del código alfanumérico que aparece junto a él. Es posible crear nuevos registros para el evento.</p>
-                                <p>En el formulario de registro hay tres campos que deben ser rellenados obligatoriamente : Nombre,Apellidos,Correo Electrónico</p>
+                                <p>
+                                    <strong>PREFERENCIAS:</strong>
+                                    Por defecto, no debe introducir la ip a menos que no se disponga de conexión a internet. En ese caso, el administrador le proporcionará la ip del servidor local.
+                                </p>
+                                {#
+                                <p>
+                                    Introduzca su usuario y la contraseña. La sesión se bloqueará automáticamente fuera de los horarios establecidos para el evento. Una vez logueado, se muestra un resumen del evento.Escaneo de códigos QR.
+                                </p> #}
+                                <p>En la pantalla aparecerán distintos mensajes de incidencia identificados por un color: Color verde, Usuario validado correctamente y Color rojo: Muestra un código de error</p>
+{#                                 <p>Si no lee el código QR, se puede realizar una inserción manual del código alfanumérico que aparece junto a él. Es posible crear nuevos registros para el evento.</p>
+ #}                                <p>En el formulario de registro hay tres campos que deben ser rellenados obligatoriamente: Nombre,Apellidos,Correo Electrónico</p>
                                 <p>El usuario recibirá un correo de validación</p>
                             </div>
                         </li>
-                        <li class="dropdown">
+{#                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Créditos<span class="caret"></span></a>
                             <div class="dropdown-menu" role="menu">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                <p>"</p>
                             </div>
-                        </li>
+                        </li> #}
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Preferencias <span class="caret"></span></a>
                             <div class="dropdown-menu" role="menu">
                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="https://api.trackitsuite.com">
                             </div>
                         </li>
-                        <li>
+{#                         <li>
                             <a href="https://szimek.github.io/signature_pad/">Firma</a>
-                        </li> 
+                        </li>  #}
                         <li>
                             <a href="{{ path_for('auth.signout') }}"><i class="icon-user-unfollow fa-2x"></i></a>
                         </li>
                     </ul>
-                </nav> #}
+                </nav>
                 <div class="menu-wrapper">
-  {#                   <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                         <span class="hamb-top"></span>
                         <span class="hamb-middle"></span>
                         <span class="hamb-bottom"></span>
-                    </button> #}
+                    </button>
                     {% block menu %}{% endblock %}
                 </div>
             </header>                    
