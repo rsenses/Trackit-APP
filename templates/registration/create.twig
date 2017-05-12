@@ -14,8 +14,8 @@
 {#     <a href="{{ path_for('registration.verification', {'id': product_id}) }}">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
     </a> #}
-    <a href="#" class="logo">
-        <img src="/images/oracle-nav.png" alt="Trackit" class="img-responsive img-block">
+    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="logo">
+        <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}
 
@@ -59,7 +59,7 @@
                         </div>
                         {{ csrf.field | raw }}
                         <div class="col-xs-6 text-left">
-                            <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-default btn-lg"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</a>
+                            <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-default btn-lg"><i class="fa fa-trash" aria-hidden="true"></i> Borrar datos</a>
                         </div>
                         <div class="col-xs-6 text-right">
                             <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
@@ -110,6 +110,7 @@
                                 cssClass: 'btn-primary btn-lg',
                                 action: function(dialog) {
                                     dialog.close();
+                                    location.reload(true);
                                 }
                             }],
                             type: BootstrapDialog.TYPE_SUCCESS
@@ -120,6 +121,9 @@
                     console.log(a);
                 }
             });
+        });
+        $(window).load(function() {
+         console.log('hola');
         });
     </script>
 {% endblock %}
