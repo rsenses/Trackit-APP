@@ -149,7 +149,6 @@
                 dataType: "json",
                 context: this,
                 success: function(a) {
-                    console.log(a);
                     $('#product-name').text(a.name);
                     $('#img').attr('alt', a.name);
                     $('#img').attr('src', a.img);
@@ -164,6 +163,7 @@
                     $('#date-start').text(dateStart.getDate()+'-'+(dateStart.getMonth() + 1)+'-'+dateStart.getFullYear()+' '+dateStart.getHours() + ":" + (dateStart.getMinutes() < 10 ? '0' : '') + dateStart.getMinutes());
                     $('#date-end').text(dateEnd.getDate()+'-'+(dateEnd.getMonth() + 1)+'-'+dateEnd.getFullYear()+' '+dateEnd.getHours() + ":" + (dateEnd.getMinutes() < 10 ? '0' : '') + dateEnd.getMinutes());
                     loadChart(a);
+                    console.log(a);
                 },
                 error: function(a) {
                     console.log(a);
