@@ -166,6 +166,7 @@
                 dataType: "json",
                 context: this,
                 success: function(a) {
+                    console.log(a);
                     $('#product-name').text(a.name);
                     $('#img').attr('alt', a.name);
                     $('#img').attr('src', a.img);
