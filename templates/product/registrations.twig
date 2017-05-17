@@ -147,6 +147,7 @@
                 type: "GET",
                 url: "/product/info/{{ product_id }}",
                 dataType: "json",
+                cache: false,
                 context: this,
                 success: function(a) {
                     $('#product-name').text(a.name);
@@ -170,7 +171,7 @@
                 },
                 complete: function() {
                     // Previous run complete, schedule the next run
-                    setTimeout(info, 10000);
+                    setTimeout(info, 20000);
                 }
             });
         };
