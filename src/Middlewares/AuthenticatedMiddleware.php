@@ -35,8 +35,9 @@ class AuthenticatedMiddleware
                     'refresh_token' => $existingAccessToken->getRefreshToken()
                 ]);
 
-                $_SESSION['accessToken'] = $newAccessToken;
-                $existingAccessToken = $newAccessToken;
+                $existingAccessToken = $_SESSION['accessToken'] = $newAccessToken;
+
+                session_regenerate_id();
             }
         }
 

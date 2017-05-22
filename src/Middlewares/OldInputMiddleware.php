@@ -18,11 +18,12 @@ class OldInputMiddleware
     public function __invoke(Request $request, Response $response, $next)
     {
         if (isset($_SESSION['oldInput']) && !empty($_SESSION['oldInput'])) {
-            // dd($_SESSION['oldInput']);
             $this->view->getEnvironment()->addGlobal('old_input', $_SESSION['oldInput']);
         }
 
         $_SESSION['oldInput'] = $request->getParams();
+
+        session_regenerate_id();
 
         return $next($request, $response);
     }
