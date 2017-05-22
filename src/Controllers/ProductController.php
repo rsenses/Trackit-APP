@@ -85,10 +85,11 @@ class ProductController
     private function returnError(Response $response, RequestException $e)
     {
         if ($e->getResponse()->getStatusCode() === 400) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+            $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody())->message);
         } else {
             $this->flash->addMessage('danger', $e->getMessage());
         }
+
         return $response->withRedirect($this->router->pathFor('auth.signin'));
     }
 }
