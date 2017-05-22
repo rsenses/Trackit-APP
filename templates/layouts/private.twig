@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="{{ base_url() }}/css/simple-line-icons.css">
 
         <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-        
+
 
         {% block styles %}{% endblock %}
     </head>
@@ -78,7 +78,7 @@
                     </button>
                     {% block menu %}{% endblock %}
                 </div>
-            </header>                    
+            </header>
             <main id="page-content-wrapper">
 
                 {% include 'partials/flash.twig' %}
@@ -95,6 +95,9 @@
 
         <script src="{{ base_url() }}/js/menu.js"></script>
 
+        <script>
+            document.documentElement.requestFullscreen();
+        </script>
         {# {% include 'partials/analytics.twig' %} #}
 
         {% block scripts %}{% endblock %}
