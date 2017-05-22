@@ -13,7 +13,7 @@ body {
     height: 100vh;
     position: relative;
     font-size: 16px;
-} 
+}
 button {
     background-color: transparent;
     border: 0 none;
@@ -32,19 +32,22 @@ button {
 .img-block {
     margin: 0 auto;
 }
+.logo img {
+    width: 60%;
+    margin-top: 15px;
+}
 
 input.form-control,
 select,
 input {
     border-radius: 0;
     border: 0 none;
-    height: 50px;
+    height: auto;
     padding-left: 15px;
     box-shadow: none;
     background-color: #eaeaea;
 }
 input.search {
-    height: 90px;
     border-radius: 6px;
 }
 input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -139,13 +142,13 @@ body {
 }
 .sidebar-nav li:nth-child(2) {
     padding-top: 15px;
-} 
+}
 .sidebar-nav li:last-child {
     position: absolute;
     bottom: 0;
     left: 0;
     padding-bottom: 30px;
-} 
+}
 .sidebar-nav li a {
     font-size: 1.6em;
     display: block;
@@ -181,7 +184,7 @@ body {
 }
 .sidebar-nav .dropdown-menu p {
     margin-bottom: 15px;
-    font-size: 16px;   
+    font-size: 16px;
     line-height: 22px;
     letter-spacing: .5px;
     color: #FFF;
@@ -415,7 +418,7 @@ canvas {
     color: #FFF;
 }
 #registrations .search {
-    padding: 30px;
+    padding: 5px 10px;
     margin: 15px auto;
 }
 
@@ -455,6 +458,7 @@ footer {
     background-color: #0051b2;
 }
 footer .chart-box {
+    display: none;
     max-width: 100px;
 }
 footer .chart {
@@ -490,11 +494,23 @@ footer .well ul {
     margin: 0;
     width: 100%;
 }
-@media(max-width:767px){}
-@media(min-width:768px){}
-@media(min-width:992px){
-    input.search {
-        font-size: 1.5em;
+@media(max-width: 767px) {}
+@media(min-width: 768px) {
+    #registrations .search {
+        padding: 20px;
+        margin: 15px auto;
+    }
+    footer .chart-box {
+        display:  block;
+    }
+    .logo img {
+        width: 100%;
+        margin-top: 0;
     }
 }
-@media(min-width:1200px){}
+@media(min-width: 992px) {
+    input.search {
+        font-size: 1.2em;
+    }
+}
+@media(min-width: 1200px) {}
