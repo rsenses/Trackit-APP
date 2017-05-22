@@ -30,13 +30,10 @@ if ($settings['settings']['displayErrorDetails']) {
     ini_set('display_startup_errors', 0);
 }
 
-ini_set('session.use_strict_mode', true);
-ini_set('session.cache_limiter', 'private');
-ini_set('session.gc_maxlifetime', 14400);
-session_set_cookie_params(14400);
-session_name($settings['settings']['session_name']);
-session_start();
+// Set up session
+require __DIR__ . '/../src/session.php';
 
+// START SLIM 3
 $container = new \Slim\Container($settings);
 $app = new \Slim\App($container);
 
