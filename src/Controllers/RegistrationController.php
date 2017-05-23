@@ -85,7 +85,8 @@ class RegistrationController
         }
 
         return $this->view->render($response, 'registration/scan.twig', [
-            'product' => json_decode($apiRequest->getBody())
+            'product' => json_decode($apiRequest->getBody()),
+            'product_id' => $args['id']
         ]);
     }
 
@@ -177,7 +178,7 @@ class RegistrationController
 
     private function returnError(Response $response, RequestException $e)
     {
-        if ($e->getResponse()->getStatusCode() === 400) {
+        if ($e->getResponse()->getStatusCode() === 400 || $e->getResponse()->getStatusCode() === 401) {
             $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody())->message);
         } else {
             $this->flash->addMessage('danger', $e->getMessage());

@@ -1,5 +1,6 @@
-/vendor/
-/storage/
+vendor/
+storage/
 .htaccess
 .DS_Store
 composer.phar
+src/settings.php

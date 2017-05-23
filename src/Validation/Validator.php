@@ -26,8 +26,6 @@ class Validator implements ValidatorInterface
 
         $_SESSION['validationErrors'] = $this->errors;
 
-        session_regenerate_id();
-
         return $this;
     }
 

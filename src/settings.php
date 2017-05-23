@@ -68,7 +68,7 @@ return [
                 'Ponente',
                 'Prensa',
                 'Staff',
-                'Acompañante VIP'
+                'Profesional'
             ]
         ]
     ],

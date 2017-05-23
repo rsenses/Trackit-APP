@@ -23,8 +23,6 @@ class OldInputMiddleware
 
         $_SESSION['oldInput'] = $request->getParams();
 
-        session_regenerate_id();
-
         return $next($request, $response);
     }
 }
