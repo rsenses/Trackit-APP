@@ -495,7 +495,7 @@ footer .well ul {
     width: 100%;
 }
 @media(max-width: 767px) {}
-@media(min-width: 768px) {
+@media(min-width: 360px) {
     #registrations .search {
         padding: 20px;
         margin: 15px auto;
