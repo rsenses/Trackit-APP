@@ -56,8 +56,12 @@ class ProductController
             ]);
 
             return $response->withJson(json_decode($apiRequest->getBody(), true));
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
 
@@ -77,19 +81,12 @@ class ProductController
                 'registrations' => $registrations,
                 'product_id' => $args['id'],
             ]);
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
-        }
-    }
-
-    private function returnError(Response $response, RequestException $e)
-    {
-        if ($e->getResponse()->getStatusCode() === 400 || $e->getResponse()->getStatusCode() === 401) {
-            $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody())->message);
-        } else {
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
             $this->flash->addMessage('danger', $e->getMessage());
-        }
 
-        return $response->withRedirect($this->router->pathFor('auth.signin'));
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
     }
 }

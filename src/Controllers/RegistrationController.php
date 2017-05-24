@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use Slim\Collection;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerErrorResponseException;
 use Exception;
 use Slim\Interfaces\RouterInterface;
 use Slim\Csrf\Guard;
@@ -62,13 +63,17 @@ class RegistrationController
                     'Content-Language' => 'es'
                 ]
             ]);
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
-        }
 
-        return $this->view->render($response, 'registration/scan.twig', [
-            'product' => json_decode($apiRequest->getBody())
-        ]);
+            return $this->view->render($response, 'registration/scan.twig', [
+                'product' => json_decode($apiRequest->getBody())
+            ]);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
     }
 
     public function productAction(Request $request, Response $response, array $args)
@@ -80,14 +85,18 @@ class RegistrationController
                     'Content-Language' => 'es'
                 ]
             ]);
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
-        }
 
-        return $this->view->render($response, 'registration/scan.twig', [
-            'product' => json_decode($apiRequest->getBody()),
-            'product_id' => $args['id']
-        ]);
+            return $this->view->render($response, 'registration/scan.twig', [
+                'product' => json_decode($apiRequest->getBody()),
+                'product_id' => $args['id']
+            ]);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
     }
 
     public function createAction(Request $request, Response $response, array $args)
@@ -139,8 +148,12 @@ class RegistrationController
             ]);
 
             return $response->withJson(json_decode($apiRequest->getBody(), true));
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
 
@@ -155,8 +168,12 @@ class RegistrationController
             ]);
 
             return $response->withJson(json_decode($apiRequest->getBody(), true));
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
 
@@ -171,19 +188,12 @@ class RegistrationController
             ]);
 
             return (string) $apiRequest->getBody();
-        } catch (RequestException $e) {
-            return $this->returnError($response, $e);
-        }
-    }
-
-    private function returnError(Response $response, RequestException $e)
-    {
-        if ($e->getResponse()->getStatusCode() === 400 || $e->getResponse()->getStatusCode() === 401) {
-            $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody())->message);
-        } else {
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
             $this->flash->addMessage('danger', $e->getMessage());
-        }
 
-        return $response->withRedirect($this->router->pathFor('auth.signin'));
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
     }
 }
