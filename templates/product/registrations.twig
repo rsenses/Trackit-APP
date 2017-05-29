@@ -231,6 +231,7 @@
                     url: "/registration/verify/"+unique_id,
                     dataType: "json",
                     context: this,
+                    cache: false,
                     success: function(a) {
                         if (a.status == 'error') {
                             type = BootstrapDialog.TYPE_DANGER;

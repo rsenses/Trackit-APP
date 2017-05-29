@@ -91,6 +91,12 @@ class RegistrationController
                 'product_id' => $args['id']
             ]);
         } catch (ClientException $e) {
+            // if ($e->getResponse()->getBody() === 401) {
+            //     $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody(), true)->message);
+
+            //     return $response->withRedirect($this->router->pathFor('auth.signin'));
+            // }
+
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
         } catch (BadResponseException $e) {
             $this->flash->addMessage('danger', $e->getMessage());

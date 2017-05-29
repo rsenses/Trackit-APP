@@ -77,6 +77,7 @@
                 url: "/product/info/{{ product.product_id }}",
                 dataType: "json",
                 context: this,
+                cache: false,
                 success: function(a) {
                     $('#product-name').text(a.name);
                     $('#count-registrations').text(a.registrations.all);
@@ -117,6 +118,7 @@
                         type: "GET",
                         url: "/registration/verify/"+ result.code,
                         dataType: "json",
+                        cache: false,
                         success: function(a) {
                             if (a.status == 'error') {
                                 type = BootstrapDialog.TYPE_DANGER;

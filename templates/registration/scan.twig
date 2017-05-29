@@ -237,6 +237,7 @@
                             type: "GET",
                             url: "/registration/verify/"+ decoded,
                             dataType: "json",
+                            cache: false,
                             success: function(a) {
                                 if (a.status == 'error') {
                                     type = BootstrapDialog.TYPE_DANGER;
