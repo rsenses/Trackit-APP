@@ -34,7 +34,7 @@ server('local', '192.168.1.57', 22)
     ->user('root')
     ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
     ->stage('local')
-    ->set('branch', 'local')
+    // ->set('branch', 'local')
     ->set('deploy_path', '/var/www/app.trackitsuite.com'); // Define the base path to deploy your project to.
 
 // Specify the repository from which to download your project's code.
