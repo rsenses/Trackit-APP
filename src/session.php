@@ -3,7 +3,7 @@
 $sessionName = $settings['settings']['session_name'];
 
 ini_set('session.use_strict_mode', true);
-ini_set('session.gc_probability', 1);
+// ini_set('session.gc_probability', 1);
 ini_set('session.gc_divisor', 1);
 ini_set('session.gc_maxlifetime', 30 * 24 * 60 * 60);
 
