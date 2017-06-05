@@ -1,7 +1,7 @@
 {% extends 'layouts/private.twig' %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/css/bootstrap-dialog.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
 {% endblock %}
 
 {% block menu %}
@@ -76,8 +76,8 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.35.4/js/bootstrap-dialog.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/adapter.min.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/jsQR.js"></script>
     <script>

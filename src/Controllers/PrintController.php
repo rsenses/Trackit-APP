@@ -64,6 +64,8 @@ class PrintController
 
         $this->printer->initialize();
 
+        $this->printer->vertical();
+
         $this->printer->setJustification(Printer::JUSTIFY_CENTER);
         $this->printer->text("Telva Novias\n");
         $this->printer->setEmphasis(true);
