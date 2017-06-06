@@ -42,7 +42,7 @@ $app->group('', function () {
         $this->get('/old/verification/product/{id:[0-9]+}', 'RegistrationController:productOldAction')->setName('registration.verification.old');
         $this->get('/verification/product/{id:[0-9]+}', 'RegistrationController:productAction')->setName('registration.verification');
         // Verify
-        $this->get('/verify/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:verifyAction')->setName('registration.verify');
+        $this->get('/verify/{qr}', 'RegistrationController:verifyAction')->setName('registration.verify');
         // Toggle Verification
         $this->get('/toggle/verification/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:toggleVerificationAction')->setName('registration.toggle.verification');
         // Create Registration
