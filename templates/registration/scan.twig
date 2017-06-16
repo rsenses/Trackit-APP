@@ -232,6 +232,7 @@
                 if (decoded) {
                     var type, buttons, message, title;
                     if (decode === true) {
+                        console.log(decoded);
                         decode = false;
                         $.ajax({
                             type: "GET",
@@ -297,6 +298,7 @@
                             },
                             error: function(a) {
                                 console.log(a);
+                                location.reload();
                             }
                         });
                     }
