@@ -100,17 +100,17 @@ body {
     transition: all .5s ease;
 }
 #wrapper.toggled {
-    padding-left: 280px;
+    padding-left: 260px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
-    left: 280px;
+    left: 260px;
     overflow-x: hidden;
     overflow-y: auto;
     width: 0;
     height: 100%;
-    margin-left: -280px;
+    margin-left: -260px;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
@@ -121,7 +121,8 @@ body {
     display: none;
 }
 #wrapper.toggled #sidebar-wrapper {
-    width: 280px;
+    width: 100%;
+    max-width: 260px;
     box-shadow: 4px 0px 30px rgba(0, 0, 0, 0.35);
 }
 #page-content-wrapper {

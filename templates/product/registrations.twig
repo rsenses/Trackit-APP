@@ -43,8 +43,8 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>DNI</th>
-                                <th>Empresa</th>
+                                <th class="hidden-xs">DNI</th>
+                                <th class="hidden-xs">Empresa</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -64,10 +64,10 @@
                                              | No Asiste
                                         {% endif %}</small>
                                     </td>
-                                    <td class="nif">
+                                    <td class="nif hidden-xs">
                                         {{ customer.nif }}
                                     </td>
-                                    <td class="company">
+                                    <td class="company hidden-xs">
                                         {{ customer.company }}
                                     </td>
                                     <td class="verification">
