@@ -36,20 +36,24 @@ button {
     width: 60%;
     margin-top: 15px;
 }
+.logo-mobile img {
+    max-width: 65px;
+    margin: 0 0 0 60px;
+}
 
 input.form-control,
 select.form-control,
 input.form-control {
     border-radius: 0;
     border: 0 none;
-    height: 60px;
+    height: 40px;
     padding-left: 15px;
     box-shadow: none;
     background-color: #eaeaea;
 }
 .btn {
-    min-height: 60px;
-    line-height: 40px;
+    min-height: 30px;
+    line-height: 20px;
 }
 
 input.search {
@@ -351,6 +355,7 @@ main.is-closed {
 .logo-initial {
     position: relative;
     z-index: 4;
+    max-height: 105px;
 }
 .login {
     height: 100%;
@@ -367,7 +372,7 @@ label,
     color: #FFFFFF;
 }
 form {
-    padding-top: 40px;
+    padding-top: 0px;
 }
 .login input {
     margin: 15px 0;
@@ -460,6 +465,7 @@ canvas {
 }
 footer {
     position: fixed;
+    display: none;
     bottom: 0;
     width: 100%;
     padding: 15px;
@@ -503,7 +509,30 @@ footer .well ul {
     margin: 0;
     width: 100%;
 }
-@media(max-width: 767px) {}
+@media(max-width: 767px) {
+
+}
+@media(min-width: 768px) {
+    footer {
+        display: block;
+    }
+    input.form-control,
+    select.form-control,
+    input.form-control {
+        height: 60px;
+    }
+    .btn {
+        min-height: 60px;
+        line-height: 40px;
+    }
+
+    form {
+        padding-top: 40px;
+    }
+    .logo-initial {
+        max-height: 135px;
+    }
+}
 @media(min-width: 360px) {
     #registrations .search {
         padding: 20px;
@@ -520,6 +549,9 @@ footer .well ul {
 @media(min-width: 992px) {
     input.search {
         font-size: 1.2em;
+    }
+    .logo-initial {
+        max-height: 175px;
     }
 }
 @media(min-width: 1200px) {}
