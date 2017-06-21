@@ -530,7 +530,7 @@ footer .well ul {
         padding-top: 40px;
     }
     .logo-initial {
-        max-height: 135px;
+        max-height: 250px;
     }
 }
 @media(min-width: 360px) {
