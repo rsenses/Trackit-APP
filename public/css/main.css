@@ -137,6 +137,9 @@ body {
 .play a {
     color: #FFFFFF;
 }
+.play .btn-success {
+    background-color: #000;
+}
 /*-------------------------------*/
 /*     Sidebar nav styles        */
 /*-------------------------------*/
@@ -463,6 +466,9 @@ canvas {
     background-color: #efd759;
     border: 0 none;
     color: #333;
+}
+.hidden {
+    display: none;
 }
 footer {
     position: fixed;

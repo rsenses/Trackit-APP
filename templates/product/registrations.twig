@@ -43,8 +43,8 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th class="hidden-xs">DNI</th>
-                                <th class="hidden-xs">Empresa</th>
+                                <th>DNI</th>
+                                <th>Empresa</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -64,10 +64,10 @@
                                              | No Asiste
                                         {% endif %}</small>
                                     </td>
-                                    <td class="nif hidden-xs">
+                                    <td class="nif">
                                         {{ customer.nif }}
                                     </td>
-                                    <td class="company hidden-xs">
+                                    <td class="company">
                                         {{ customer.company }}
                                     </td>
                                     <td class="verification">
@@ -104,26 +104,26 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 col-sm-4">
-                 <div class="chart-box">
+                 <div class="chart-box asistentes hidden">
                     <div class="chart chart-1" data-percent=""><i class="icon-people" aria-hidden="true"></i></div>
                  </div>
-                <div class="chart-title">
+                <div class="chart-title asistentes hidden">
                     <span class="text-lg" id="count-verifications"></span>/<span id="count-registrations"></span> <br>Asistentes
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4">
-                 <div class="chart-box">
+                 <div class="chart-box ponentes hidden">
                     <div class="chart chart-2" data-percent=""><i class="icon-bubbles" aria-hidden="true"></i></div>
                  </div>
-                <div class="chart-title">
+                <div class="chart-title  ponentes hidden">
                     <span id="count-verified-speakers"></span>/<span id="count-speakers"></span> <br>Ponentes
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4">
-                 <div class="chart-box">
+                 <div class="chart-box vips hidden">
                     <div class="chart chart-3" data-percent=""><i class="icon-diamond" aria-hidden="true"></i></div>
                  </div>
-                <div class="chart-title">
+                <div class="chart-title vips hidden">
                     <span id="count-verified-vips"></span>/<span id="count-vips"></span> <br>Vips
                 </div>
             </div>
@@ -194,6 +194,7 @@
                 size: 100
             });
             var registrationsSpeakers = $('#count-speakers').text();
+
             var verificationsSpeakers = $('#count-verified-speakers').text();
             var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
             $('.chart-2').attr('data-percent', percentSpeakers);
@@ -221,7 +222,16 @@
             });
 
             $('.chart-1').data('easyPieChart').update(percentAssistants);
-            // $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            if (percentAssistants >= 0 || percentAssistants) {
+                $('.asistentes').removeClass('hidden');
+            }
+            if (percentSpeakers >= 0 || percentVips) {
+                $('.ponentes').removeClass('hidden');
+            }
+            if (percentVips >= 0 || percentVips) {
+                $('.vips').removeClass('hidden');
+            }
+            $('.chart-2').data('easyPieChart').update(percentSpeakers);
             $('.chart-3').data('easyPieChart').update(percentVips);
         };
 
