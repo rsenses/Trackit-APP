@@ -145,9 +145,9 @@ class RegistrationController
                     'first_name' => $_POST['first_name'],
                     'last_name' => $_POST['last_name'],
                     'email' => $_POST['email'],
-                    'nif' => $_POST['nif'],
-                    'company' => $_POST['company'],
-                    'position' => $_POST['position'],
+                    'nif' => $_POST['nif'] ?? null,
+                    'company' => $_POST['company'] ?? null,
+                    'position' => $_POST['position'] ?? null,
                     'product_id' => $args['id'],
                     'registration_type_id' => $_POST['registration_type_id']
                 ]
