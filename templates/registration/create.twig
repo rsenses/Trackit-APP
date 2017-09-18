@@ -44,10 +44,10 @@
                             <p style="color:#FFFFFF; font-weight: 700; margin-bottom: 5px;">Rellenar aleatorio</p>
                             <a href="#0" class="btn btn-default btn-block btn-lg generate"><i class="fa fa-envelope" aria-hidden="true"></i> Aleatorio</a>
                         </div>
-{#                         <div class="form-group col-xs-12 col-sm-4">
+                        <div class="form-group col-xs-12 col-sm-4">
                             <label for="nifInput">DNI, pasaporte, etc</label>
                             <input type="text" class="form-control" id="nifInput" placeholder="Nº de indentificación" name="nif">
-                        </div> #}
+                        </div>
                         <div class="form-group col-xs-12 col-sm-4">
                             <label for="companyInput">Empresa</label>
                             <input type="text" class="form-control" id="companyInput" placeholder="Nombre de la Empresa S.A." name="company">
@@ -65,8 +65,9 @@
                             </select>
                         </div>
                         {{ csrf.field | raw }}
+                        <div class="clearfix"></div>
                         <div class="col-xs-4 col-sm-6 text-left">
-                            <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-default btn-lg"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Borrar datos</span></a>
+                            <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-danger btn-lg"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Borrar datos</span></a>
                         </div>
                         <div class="col-xs-8 col-sm-6 text-right">
                             <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
