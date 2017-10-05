@@ -40,12 +40,8 @@
                             <label for="emailInput">Email <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="emailInput" placeholder="ejemplo@gmail.com" name="email" required>
                         </div>
-                        <div class="form-group col-xs-12 col-sm-3">
-                            <p style="color:#FFFFFF; font-weight: 700; margin-bottom: 5px;">Rellenar aleatorio</p>
-                            <a href="#0" class="btn btn-default btn-block btn-lg generate"><i class="fa fa-envelope" aria-hidden="true"></i> Aleatorio</a>
-                        </div>
                         <div class="form-group col-xs-12 col-sm-4">
-                            <label for="nifInput">DNI, pasaporte, etc</label>
+                            <label for="nifInput">DNI, pasaporte, etc <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="nifInput" placeholder="Nº de indentificación" name="nif">
                         </div>
                         <div class="form-group col-xs-12 col-sm-4">
@@ -130,14 +126,6 @@
                     console.log(a);
                 }
             });
-        });
-        $('.generate').click(function() {
-            var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
-            var string = '';
-            for(var ii=0; ii<15; ii++){
-                string += chars[Math.floor(Math.random() * chars.length)];
-            }
-           $('#emailInput').val(string + '@ue.es');
         });
     </script>
 {% endblock %}
