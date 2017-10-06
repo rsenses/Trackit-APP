@@ -68,31 +68,40 @@
             var ua = navigator.userAgent;
 
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
-                navigator.mediaDevices.enumerateDevices().then(devices => {
-                    let sourceId = null;
+                if (/Chrome/i.test(ua)) {
+                    navigator.mediaDevices.enumerateDevices().then(devices => {
+                        let sourceId = null;
 
-                    // enumerate all devices
-                    for (var device of devices) {
-                        // if there is still no video input, or if this is the rear camera
-                        if (device.kind == 'videoinput' &&
-                        (!sourceId || device.label.indexOf('back') !== -1)) {
-                            sourceId = device.deviceId;
+                        // enumerate all devices
+                        for (var device of devices) {
+                            console.log(device);
+                            // if there is still no video input, or if this is the rear camera
+                            if (device.kind == 'videoinput' &&
+                            (!sourceId || device.label.indexOf('back') !== -1)) {
+                                sourceId = device.deviceId;
+                            }
                         }
-                    }
 
-                    // we didn't find any video input
-                    if (!sourceId) {
-                        throw 'no video input';
-                    }
+                        // we didn't find any video input
+                        if (!sourceId) {
+                            throw 'no video input';
+                        }
 
+                        constraints = {
+                            video: {
+                                sourceId: sourceId
+                            }
+                        };
+
+                        startCamera(constraints);
+                    });
+                } else {
                     constraints = {
                         video: {
-                            sourceId: sourceId
+                            facingMode: {exact: 'environment'}
                         }
-                    };
-
-                    startCamera(constraints);
-                });
+                    }
+                }
             } else {
                 constraints = {
                     video: true
