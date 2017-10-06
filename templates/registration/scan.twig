@@ -78,19 +78,21 @@
             var constraints;
             var ua = navigator.userAgent;
 
-            // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
-            //     constraints = {
-            //         video: {
-            //             facingMode: {
-            //                 exact: 'environment'
-            //             }
-            //         }
-            //     };
-            // } else {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+                constraints = {
+                    video: {
+                        facingMode: {
+                            exact: 'environment'
+                        }
+                    }
+                };
+            } else {
                 constraints = {
                     video: true
                 };
-            // }
+            }
+
+            console.log(constraints);
 
             navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => successCallback(stream))
