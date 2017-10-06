@@ -54,7 +54,7 @@
         var video = document.getElementById("video");
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");
-        var width, height;
+        let width, height;
 
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -109,10 +109,10 @@
         }
 
         function successCallback(stream) {
-            if (window.URL) {
-                video.src = window.URL.createObjectURL(stream);
-            } else if (video.srcObject !== undefined) {
+            if (video.srcObject !== undefined) {
                 video.srcObject = stream;
+            } else if (window.URL) {
+                video.src = window.URL.createObjectURL(stream);
             } else {
                 video.src = stream;
             }
@@ -206,7 +206,6 @@
                                 });
                             },
                             error: function(a) {
-                                console.log(a);
                                 location.reload();
                             }
                         });
