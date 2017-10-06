@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="play">
+    <div class="play" style"display: none">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -49,17 +49,6 @@
     <!-- <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script> -->
     <script src="{{ base_url() }}/js/jsQR.js"></script>
     <script>
-        // $(document).ready(function() {
-        //     navigator.getUserMedia({video: true}, function (stream) {
-        //         if (stream.getVideoTracks().length > 0) {
-        //             $('.play').hide();
-        //             decoderPlay();
-        //         }
-        //     }, function(err) {
-        //         $('.play').show();
-        //     });
-        // });
-
         var decode = true;
 
         var video = document.getElementById("video");
@@ -114,6 +103,15 @@
         }
 
         function startCamera(constraints) {
+            navigator.getUserMedia({video: true}, function (stream) {
+                if (stream.getVideoTracks().length > 0) {
+                    // $('.play').hide();
+                    decoderPlay();
+                }
+            }, function(err) {
+                $('.play').show();
+            });
+
             navigator.mediaDevices.getUserMedia(constraints)
                 .then(stream => successCallback(stream))
                 .catch(e => console.log(e.name + ": "+ e.message));
