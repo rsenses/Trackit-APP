@@ -48,15 +48,15 @@ return [
         ],
         'api' => [
             'guzzle' => [
-                'base_uri' => 'https://api.trackitsuite.com/',
+                'base_uri' => 'https://api.trackitsuite.com.dev/',
             ],
             'oauth' => [
                 'clientId' => 'app',    // The client ID assigned to you by the provider
                 'clientSecret' => 'e37e672b-61fb-441c-a308-a451553d0718',   // The client password assigned to you by the provider
                 'redirectUri' => 'http://example.com/your-redirect-url/',
-                'urlAuthorize' => 'https://api.trackitsuite.com/oauth/token',
-                'urlAccessToken' => 'https://api.trackitsuite.com/oauth/token',
-                'urlResourceOwnerDetails' => 'https://api.trackitsuite.com/oauth/lockdin/resource'
+                'urlAuthorize' => 'https://api.trackitsuite.com.dev/oauth/token',
+                'urlAccessToken' => 'https://api.trackitsuite.com.dev/oauth/token',
+                'urlResourceOwnerDetails' => 'https://api.trackitsuite.com.dev/oauth/lockdin/resource'
             ]
         ],
         'enum' => [
