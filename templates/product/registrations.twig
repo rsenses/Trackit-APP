@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('registration.verification', {'id': product_id}) }}">
+    <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
     </a>
-{#     <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}">
+    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="search-menu hidden">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
-    </a> #}
+    </a>
     <a href="#" class="logo hidden-xs">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
@@ -98,6 +98,10 @@
             </div>
         </div>
     </div>
+    <div id="scan" class="hidden">
+        <video id="video" autoplay="true" style="display:none;"></video>
+        <canvas id="canvas"></canvas>
+    </div>
 {% endblock %}
 
 {% block footer %}
@@ -135,6 +139,9 @@
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
+    <script src="{{ base_url() }}/js/adapter.js"></script>
+    <script src="{{ base_url() }}/js/jsQR.js"></script>
+    <script src="{{ base_url() }}/js/scan.js"></script>
     <script>
         var customerList = new List('registrations', {
             valueNames: [
