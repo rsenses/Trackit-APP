@@ -75,7 +75,7 @@
         height = parseInt(canvas.style.height);
 
         function decoderPlay() {
-            let constraints;
+            var constraints;
             var ua = navigator.userAgent;
 
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
@@ -84,12 +84,15 @@
 
                     // enumerate all devices
                     for (var device of devices) {
+                        console.log(device);
                         // if there is still no video input, or if this is the rear camera
                         if (device.kind == 'videoinput' &&
                         (!sourceId || device.label.indexOf('back') !== -1)) {
                             sourceId = device.deviceId;
                         }
                     }
+
+                    console.log(sourceId);
 
                     // we didn't find any video input
                     if (!sourceId) {
