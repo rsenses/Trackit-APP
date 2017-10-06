@@ -49,6 +49,17 @@
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/jsQR.js"></script>
     <script>
+        // $(document).ready(function() {
+        //     navigator.getUserMedia({video: true}, function (stream) {
+        //         if (stream.getVideoTracks().length > 0) {
+        //             $('.play').hide();
+        //             decoderPlay();
+        //         }
+        //     }, function(err) {
+        //         $('.play').show();
+        //     });
+        // });
+
         var decode = true;
 
         var video = document.getElementById("video");
@@ -57,7 +68,7 @@
         var width, height;
 
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
         width = parseInt(canvas.style.width);
@@ -65,24 +76,25 @@
 
         function decoderPlay() {
             var constraints;
-            if (navigator.mozGetUserMedia) {
+            var ua = navigator.userAgent;
+
+            // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+            //     constraints = {
+            //         video: {
+            //             facingMode: {
+            //                 exact: 'environment'
+            //             }
+            //         }
+            //     };
+            // } else {
                 constraints = {
                     video: true
                 };
-            } else {
-                constraints = {
-                    video: {
-                        facingMode: {
-                            exact: 'environment'
-                        }
-                    }
-                };
-            }
+            // }
+
             navigator.mediaDevices.getUserMedia(constraints)
             .then(stream => successCallback(stream))
             .catch(e => console.log(e.name + ": "+ e.message));
-
-            requestAnimationFrame(tick);
         }
 
         function successCallback(stream) {
@@ -103,6 +115,8 @@
                 canvas.width = width;
                 canvas.height = height;
             };
+
+            requestAnimationFrame(tick);
         }
 
         function errorCallback() {}
@@ -114,13 +128,12 @@
                 context.drawImage(video, 0, 0, width, height);
                 // Load the image data from the canvas
 
-                var imageData = context.getImageData(0, 0, width, height);
+                var imageData = context.getImageData(0, 0, width.toFixed(2), height.toFixed(2));
                 var decoded = jsQR.decodeQRFromImage(imageData.data, imageData.width, imageData.height);
 
                 if (decoded) {
                     var type, buttons, message, title;
                     if (decode === true) {
-                        console.log(decoded);
                         decode = false;
                         $.ajax({
                             type: "GET",
@@ -199,10 +212,5 @@
             $('.play').hide();
             decoderPlay();
         });
-
-        // $(document).ready(function() {
-        //     $('.play').hide();
-        //     decoderPlay();
-        // });
     </script>
 {% endblock %}
