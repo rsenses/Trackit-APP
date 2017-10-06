@@ -74,7 +74,6 @@
 
                         // enumerate all devices
                         for (var device of devices) {
-                            console.log(device);
                             // if there is still no video input, or if this is the rear camera
                             if (device.kind == 'videoinput' &&
                             (!sourceId || device.label.indexOf('back') !== -1)) {
