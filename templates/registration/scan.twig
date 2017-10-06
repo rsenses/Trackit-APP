@@ -49,16 +49,16 @@
     <!-- <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script> -->
     <script src="{{ base_url() }}/js/jsQR.js"></script>
     <script>
-        $(document).ready(function() {
-            navigator.getUserMedia({video: true}, function (stream) {
-                if (stream.getVideoTracks().length > 0) {
-                    $('.play').hide();
-                    decoderPlay();
-                }
-            }, function(err) {
-                $('.play').show();
-            });
-        });
+        // $(document).ready(function() {
+        //     navigator.getUserMedia({video: true}, function (stream) {
+        //         if (stream.getVideoTracks().length > 0) {
+        //             $('.play').hide();
+        //             decoderPlay();
+        //         }
+        //     }, function(err) {
+        //         $('.play').show();
+        //     });
+        // });
 
         var decode = true;
 
@@ -226,10 +226,10 @@
             }
         }
 
-        // $('.play a').click(function(event) {
-        //     event.preventDefault();
-        //     $('.play').hide();
-        //     decoderPlay();
-        // });
+        $('.play a').click(function(event) {
+            event.preventDefault();
+            $('.play').hide();
+            decoderPlay();
+        });
     </script>
 {% endblock %}
