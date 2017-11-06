@@ -578,7 +578,6 @@ footer .well ul {
         min-height: 60px;
         line-height: 40px;
     }
-
     form {
         padding-top: 40px;
     }
@@ -590,6 +589,7 @@ footer .well ul {
     #registrations .search {
         padding: 20px 10px;
         margin: 15px auto;
+        min-height: 75px;
     }
     .logo img {
         width: 100%;
