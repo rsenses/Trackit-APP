@@ -511,9 +511,13 @@ footer {
 footer .charts-container {
     display: block;
     list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 footer .charts-container li {
     display: inline-block;
+    margin: 0;
+    padding: 0;
     min-width: 33%;
 }
 footer .charts-container li .chart-box {
