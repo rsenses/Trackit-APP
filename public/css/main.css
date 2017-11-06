@@ -18,6 +18,7 @@ button {
     background-color: transparent;
     border: 0 none;
 }
+
 .overlay {
     content: '';
     height: 100vh;
@@ -88,6 +89,12 @@ body {
 .nav .open > a:hover,
 .nav .open > a:focus {
     background-color: transparent;
+}
+.navbar a {
+    display: block;
+}
+.navbar a:hover {
+    opacity: .6;
 }
 /*-------------------------------*/
 /*           Wrappers            */
@@ -411,6 +418,10 @@ canvas {
     background-color: #eaeaea;
     -webkit-transition: all .35s ease-in-out;
 }
+.table>thead>tr>th {
+    font-size: 14px;
+    font-weight: 200;
+}
 .table > tbody > tr > td {
     vertical-align: middle;
     font-size: 14px;
@@ -443,9 +454,11 @@ canvas {
 }
 #product-name {
     color: #FFF;
+    padding: 0;
+    margin: 0;
 }
 #registrations .search {
-    padding: 5px 10px;
+    padding: 20px 10px;
     margin: 15px auto;
 }
 
@@ -481,32 +494,52 @@ canvas {
 }
 footer {
     position: fixed;
-    display: none;
     bottom: 0;
     width: 100%;
     padding: 15px;
     color: #fff;
     background-color: #0051b2;
 }
-footer .chart-box {
-    display: none;
-    max-width: 100px;
+
+footer .charts-container {
+    display: table;
+    list-style-type: none;
+}
+footer .charts-container li {
+    display: table-cell;
+    min-width: 125px;
+}
+footer .charts-container li .chart-box {
+    margin-right: 15px;
+}
+footer .charts-container li:last-child .chart-box {
+    margin-right: 0;
 }
 footer .chart {
     position: relative;
 }
-footer .chart i {
-    font-size: 24px;
+
+footer .chart .inside-values {
+    font-size: 12px;
     position: absolute;
-    left: calc(50% - 50px);
-    right: calc(50% - 50px);
-    top: calc(50% - 14px);
-    bottom: calc(50% - 10px);
+    text-align: center;
+    left: calc(50% - 62.5px);
+    right: calc(50% - 62.5px);
+    top: calc(50% - 18px);
+    bottom: calc(50% - 20px);
 }
-footer .chart-box,
+footer .chart .inside-values span:first-child {
+    font-size: 21px;
+}
 footer .chart-title {
     margin: 0 auto;
     text-align: center;
+    font-size: 16px;
+
+}
+footer .chart-title i {
+    display: inline-block;
+    margin-top: 2px;
 }
 footer .well {
     border-radius: 0px;
@@ -529,9 +562,6 @@ footer .well ul {
 
 }
 @media(min-width: 768px) {
-    footer {
-        display: block;
-    }
     input.form-control,
     select.form-control,
     input.form-control {
@@ -551,11 +581,8 @@ footer .well ul {
 }
 @media(min-width: 360px) {
     #registrations .search {
-        padding: 20px;
+        padding: 20px 10px;
         margin: 15px auto;
-    }
-    footer .chart-box {
-        display:  block;
     }
     .logo img {
         width: 100%;
