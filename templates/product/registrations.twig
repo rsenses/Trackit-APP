@@ -321,7 +321,9 @@
                 if (key.length >= 3) {
                     $('.list').removeClass('hide');
                     $('.nolist').addClass('hide');
+                    $('.charts-container').addClass('hide');
                 } else {
+                    $('.charts-container').delay(1000).removeClass('hide');
                     $('.nolist').delay(1000).removeClass('hide');
                     $('.list').delay(1000).addClass('hide');
                 }

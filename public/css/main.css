@@ -163,8 +163,6 @@ body {
     position: relative;
     display: inline-block;
     width: 100%;
-}
-.sidebar-nav li {
     font-size: 1.6em;
     text-decoration: none;
     padding: 10px 15px 10px 30px;
@@ -518,13 +516,9 @@ footer .charts-container li {
     display: inline-block;
     margin: 0;
     padding: 0;
-    min-width: 33%;
-}
-footer .charts-container li .chart-box {
-    margin-right: 15px;
-}
-footer .charts-container li:last-child .chart-box {
-    margin-right: 0;
+    overflow: hidden;
+    min-width: 30%;
+    max-width: 33%;
 }
 footer .chart {
     position: relative;
