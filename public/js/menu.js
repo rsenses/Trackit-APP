@@ -37,4 +37,7 @@ $(document).ready(function() {
     $('[data-toggle="offcanvas"]').click(function() {
         $('#wrapper').toggleClass('toggled');
     });
+    var ww = $(window).width();
+    var hw = $(window).height();
+    alert(hw+'x'+ww);
 });
