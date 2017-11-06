@@ -164,6 +164,12 @@ body {
     display: inline-block;
     width: 100%;
 }
+.sidebar-nav li {
+    font-size: 1.6em;
+    text-decoration: none;
+    padding: 10px 15px 10px 30px;
+    color: #ddd;
+}
 .sidebar-nav li:nth-child(2) {
     padding-top: 15px;
 }
@@ -174,9 +180,7 @@ body {
     padding-bottom: 30px;
 }
 .sidebar-nav li a {
-    font-size: 1.6em;
     display: block;
-    padding: 10px 15px 10px 30px;
     text-decoration: none;
     color: #ddd;
 }
@@ -492,6 +496,9 @@ canvas {
 .hidden {
     display: none;
 }
+
+
+
 footer {
     position: fixed;
     bottom: 0;
@@ -502,12 +509,12 @@ footer {
 }
 
 footer .charts-container {
-    display: table;
+    display: block;
     list-style-type: none;
 }
 footer .charts-container li {
-    display: table-cell;
-    min-width: 125px;
+    display: inline-block;
+    min-width: 33%;
 }
 footer .charts-container li .chart-box {
     margin-right: 15px;
@@ -517,6 +524,8 @@ footer .charts-container li:last-child .chart-box {
 }
 footer .chart {
     position: relative;
+    max-width: 125px;
+    margin: 0 auto;
 }
 
 footer .chart .inside-values {

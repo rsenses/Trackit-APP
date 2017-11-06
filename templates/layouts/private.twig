@@ -59,7 +59,7 @@
                                 </p> #}
                                 <p>En la pantalla aparecerán distintos mensajes de incidencia identificados por un color: Color verde, Usuario validado correctamente y Color rojo: Muestra un código de error</p>
 {#                                 <p>Si no lee el código QR, se puede realizar una inserción manual del código alfanumérico que aparece junto a él. Es posible crear nuevos registros para el evento.</p>
- #}                                <p>En el formulario de registro hay tres campos que deben ser rellenados obligatoriamente: Nombre,Apellidos,Correo Electrónico</p>
+ #}                             <p>En el formulario de registro hay tres campos que deben ser rellenados obligatoriamente: Nombre,Apellidos,Correo Electrónico</p>
                                 <p>El usuario recibirá un correo de validación</p>
                             </div>
                         </li>
@@ -78,9 +78,6 @@
 {#                         <li>
                             <a href="https://szimek.github.io/signature_pad/">Firma</a>
                         </li>  #}
-                        <li>
-                            Nombre: {{ auth.user.fullName() }}
-                        </li>
                         <li>
                             <a href="{{ path_for('auth.signout') }}"><i class="icon-user-unfollow fa-2x"></i></a>
                         </li>

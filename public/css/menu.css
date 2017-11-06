@@ -141,6 +141,11 @@ body {
     text-decoration: none;
     color: #ddd;
 }
+.sidebar-nav li {
+    font-size: 1.6em;
+    text-decoration: none;
+    color: #ddd;
+}
 .sidebar-nav li.sidebar-brand a {
     padding: 25px 0 0 20px;
 }
