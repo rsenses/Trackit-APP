@@ -50,10 +50,11 @@ $container['view'] = function ($container) {
     ));
     $view->addExtension(new Twig_Extension_Debug());
 
-    // $view->getEnvironment()->addGlobal('auth', [
-    //     'status' => $container->auth->getStatus(),
-    //     'user' => $container->auth->getUserData()
-    // ]);
+    $view->getEnvironment()->addGlobal('auth', [
+        'status' => $container->auth->getStatus(),
+        'user' => $container->auth->getUserData()
+    ]);
+
     $view->getEnvironment()->addGlobal('flash', $container->flash);
 
     return $view;
