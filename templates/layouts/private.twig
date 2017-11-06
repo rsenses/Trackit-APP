@@ -79,6 +79,9 @@
                             <a href="https://szimek.github.io/signature_pad/">Firma</a>
                         </li>  #}
                         <li>
+                            Nombre: {{ auth.user.fullName() }}
+                        </li>
+                        <li>
                             <a href="{{ path_for('auth.signout') }}"><i class="icon-user-unfollow fa-2x"></i></a>
                         </li>
                     </ul>
