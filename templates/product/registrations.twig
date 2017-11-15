@@ -34,7 +34,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva por Nombre o DNI - Introduce tres caracteres mínimo" />
+                    <div class="input-group">
+                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger btn-clear hide" type="button">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <button class="btn btn-default btn-search" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -42,7 +52,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th></th>
@@ -53,16 +63,22 @@
                                 <tr>
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
-                                        <small>{{ customer.type.name }}
-                                        {% if customer.is_authorized == 0 %}
-                                             | Denegado
+                                        {% if customer.type.name ==  'Ponente'%}
+                                            <h5 class="text-danger">{{ customer.type.name }}</h5>
+                                        {% else %}
+                                            <small>
+                                            {{ customer.type.name }}
+                                            {% if customer.is_authorized == 0 %}
+                                                 | Denegado
+                                            {% endif %}
+                                            {% if customer.is_confirmed == 0 %}
+                                                 | No Confirmado
+                                            {% endif %}
+                                            {% if customer.is_cancelled == 1 %}
+                                                 | No Asiste
+                                            {% endif %}
+                                            </small>
                                         {% endif %}
-                                        {% if customer.is_confirmed == 0 %}
-                                             | No Confirmado
-                                        {% endif %}
-                                        {% if customer.is_cancelled == 1 %}
-                                             | No Asiste
-                                        {% endif %}</small>
                                     </td>
                                     <td class="nif">
                                         {{ customer.nif }}
@@ -283,7 +299,7 @@
                             // }];
                             type = BootstrapDialog.TYPE_SUCCESS;
                             title = a.message;
-                            message = '<h4>'+a.user+'<br /><small>'+a.type+'</small></h4>';
+                            message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
                             buttons = [{
                                 label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',
@@ -320,13 +336,25 @@
                 var key = $('input.search').val();
                 if (key.length >= 3) {
                     $('.list').removeClass('hide');
+                    $('.btn-clear').removeClass('hide');
                     $('.nolist').addClass('hide');
                     $('.charts-container').addClass('hide');
+                    $('.btn-search').addClass('hide');
                 } else {
-                    $('.charts-container').delay(1000).removeClass('hide');
-                    $('.nolist').delay(1000).removeClass('hide');
-                    $('.list').delay(1000).addClass('hide');
+                    $('.charts-container').removeClass('hide');
+                    $('.nolist').removeClass('hide');
+                    $('.list').addClass('hide');
+                    $('.btn-clear').addClass('hide');
+                    $('.btn-search').removeClass('hide');
                 }
+            });
+            $('.btn-clear').on('click', function () {
+                $('input.search').val('');
+                $('.charts-container').removeClass('hide');
+                $('.nolist').removeClass('hide');
+                $('.list').addClass('hide');
+                $('.btn-clear').addClass('hide');
+                $('.btn-search').removeClass('hide');
             });
         });
     </script>

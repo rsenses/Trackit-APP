@@ -586,10 +586,16 @@ footer .well ul {
     }
 }
 @media(min-width: 360px) {
-    #registrations .search {
-        padding: 20px 10px;
+    #registrations .search,
+    #registrations .input-group-btn button {
+        padding: 20px 20px;
         margin: 15px auto;
-        min-height: 75px;
+        min-height: 80px;
+        font-size: 22px;
+    }
+    #registrations .input-group-btn button {
+        border-radius: 0 10px 10px 0;
+        font-size: 24px;
     }
     .logo img {
         width: 100%;
