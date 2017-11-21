@@ -114,9 +114,10 @@
             </div>
         </div>
     </div>     
-<div id="scan">
-    <video id="preview"></video>
-</div>
+    <div id="scan" class="hidden">
+        <video id="video" autoplay="true" style="display:none;"></video>
+        <canvas id="canvas"></canvas>
+    </div>
 {% endblock %}
 
 {% block footer %}

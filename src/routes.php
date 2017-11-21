@@ -33,7 +33,7 @@ $app->group('', function () {
         // All Products
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
         $this->get('/{id:[0-9]+}/registrations/all', 'ProductController:allRegistrationsAction')->setName('product.registrations.all');
-        $this->get('/{id:[0-9]+}/registrations-insta/all', 'ProductController:allRegistrationsActionInsta')->setName('product.registrations.all');
+        $this->get('/{id:[0-9]+}/registrations-insta/all', 'ProductController:allRegistrationsActionInsta')->setName('product.registrations-isnta.all');
         $this->get('/{id:[0-9]+}/registrations/{type:[a-z0-9-]+}', 'ProductController:registrationsAction')->setName('product.registrations');
     });
 
