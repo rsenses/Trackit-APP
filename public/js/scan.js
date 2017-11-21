@@ -4,6 +4,7 @@ var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var width, height, localStream;
+var start = null;
 
 var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -73,6 +74,7 @@ function successCallback(stream) {
     } else {
         video.src = stream;
     }
+
     video.onloadedmetadata = function(e) {
         width = parseInt(this.videoWidth);
         height = parseInt(this.videoHeight);
@@ -88,8 +90,9 @@ function successCallback(stream) {
 
 function errorCallback() {}
 
-function tick() {
+function tick(timestamp) {
     requestAnimationFrame(tick);
+
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         // Load the video onto the canvas
         context.drawImage(video, 0, 0, width, height);
@@ -186,11 +189,22 @@ $('.scan-menu').click(function(event) {
 
 $('.search-menu').click(function(event) {
     event.preventDefault();
+
+    decode = false;
+
+    let tracks = localStream.getTracks();
+
+    tracks.forEach(function(track) {
+        track.stop();
+    });
+
+    video.srcObject = null;
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     $('#registrations').removeClass('hidden');
     $('.scan-menu').removeClass('hidden');
     $('.search-menu').addClass('hidden');
     $('footer').removeClass('hidden');
     $('#scan').addClass('hidden');
-    localStream.getTracks()[0].stop();
-    decode = false;
 });
