@@ -1,0 +1,231 @@
+{% extends 'layouts/private.twig' %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
+{% endblock %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
+        <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
+    </a>
+    <a href="{{ path_for('product.registrations.all', {'id': product.product_id}) }}">
+        <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
+    </a>
+    {# <a href="{{ path_for('registration.verification', {'id': product.product_id}) }}">
+        <i class="icon-camera fa-2x" aria-hidden="true"></i>
+    </a> #}
+    <a href="#" class="logo hidden-xs">
+        <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
+    </a>
+    <a href="#" class="logo-mobile visible-xs">
+        <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
+    </a>
+{% endblock %}
+
+{% block content %}
+    <div class="play">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-center">
+                        <a href="#0" class="btn-lg btn btn-success"><i class="icon-camera fa-5x" aria-hidden="true"></i><br>Pulsa para comenzar el escaneo</a><br>
+                        {# <select class="form-control"></select> #}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <video id="video" autoplay="true" style="display:none;"></video>
+    <canvas id="canvas"></canvas>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/adapter.js"></script>
+    <!-- <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script> -->
+    <script src="{{ base_url() }}/js/jsQR.js"></script>
+    <script>
+        var decode = true;
+
+        var video = document.getElementById("video");
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        let width, height;
+
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.requestAnimationFrame = requestAnimationFrame;
+
+        width = parseInt(canvas.style.width);
+        height = parseInt(canvas.style.height);
+
+        function decoderPlay() {
+            let constraints;
+            var ua = navigator.userAgent;
+
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
+                if (/Chrome/i.test(ua)) {
+                    navigator.mediaDevices.enumerateDevices().then(devices => {
+                        let sourceId = null;
+
+                        // enumerate all devices
+                        for (var device of devices) {
+                            // if there is still no video input, or if this is the rear camera
+                            if (device.kind == 'videoinput' &&
+                            (!sourceId || device.label.indexOf('back') !== -1)) {
+                                sourceId = device.deviceId;
+                            }
+                        }
+
+                        // we didn't find any video input
+                        if (!sourceId) {
+                            throw 'no video input';
+                        }
+
+                        constraints = {
+                            video: {
+                                sourceId: sourceId
+                            }
+                        };
+
+                        startCamera(constraints);
+                    });
+                } else {
+                    constraints = {
+                        video: {
+                            facingMode: {exact: 'environment'}
+                        }
+                    }
+                }
+            } else {
+                constraints = {
+                    video: true
+                };
+
+                startCamera(constraints);
+            }
+        }
+
+        function startCamera(constraints) {
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(stream => successCallback(stream))
+                .catch(e => console.log(e.name + ": "+ e.message));
+        }
+
+        function successCallback(stream) {
+            if (video.srcObject !== undefined) {
+                video.srcObject = stream;
+            } else if (window.URL) {
+                video.src = window.URL.createObjectURL(stream);
+            } else {
+                video.src = stream;
+            }
+            video.onloadedmetadata = function(e) {
+                width = parseInt(this.videoWidth),
+                height = parseInt(this.videoHeight);
+
+                canvas.width = width;
+                canvas.height = height;
+            };
+
+            requestAnimationFrame(tick);
+        }
+
+        function errorCallback() {}
+
+        function tick() {
+            requestAnimationFrame(tick);
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                // Load the video onto the canvas
+                context.drawImage(video, 0, 0, width, height);
+                // Load the image data from the canvas
+
+                var imageData = context.getImageData(0, 0, width, height);
+                var decoded = jsQR.decodeQRFromImage(imageData.data, imageData.width, imageData.height);
+
+                if (decoded) {
+                    var type, buttons, message, title;
+                    if (decode === true) {
+                        decode = false;
+                        $.ajax({
+                            type: "GET",
+                            url: "/registration/verify/"+ decoded,
+                            dataType: "json",
+                            cache: false,
+                            success: function(a) {
+                                if (a.status == 'error') {
+                                    type = BootstrapDialog.TYPE_DANGER;
+                                    title = 'Error';
+                                    message = '<h4>'+a.message+'</h4>';
+                                    buttons = [{
+                                        label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                        cssClass: 'btn-primary btn-lg',
+                                        action: function(dialog) {
+                                            dialog.close();
+                                        }
+                                    }];
+                                } else if (a.status == 'success') {
+                                    // type = BootstrapDialog.TYPE_SUCCESS;
+                                    // title = a.message;
+                                    // message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                                    // buttons = [{
+                                    //     label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                                    //     cssClass: 'btn-success btn-lg',
+                                    //     action: function(dialog) {
+                                    //         dialog.close();
+                                    //     }
+                                    // }, {
+                                    //     label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                                    //     cssClass: 'btn-danger btn-lg',
+                                    //     action: function(dialog) {
+                                    //         dialog.close();
+                                    //     }
+                                    // }];
+                                    type = BootstrapDialog.TYPE_SUCCESS;
+                                    title = a.message;
+                                    message = '<h4>'+a.user+'</h4>';
+                                    buttons = [{
+                                        label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                        cssClass: 'btn-primary btn-lg',
+                                        action: function(dialog) {
+                                            dialog.close();
+                                        }
+                                    }];
+                                    $(this).data('uniqueid', null)
+                                        .removeClass('text-danger')
+                                        .addClass('text-success')
+                                        .children('i')
+                                        .removeClass('fa-times-circle')
+                                        .addClass('fa-check-circle');
+                                }
+                                BootstrapDialog.show({
+                                    size: BootstrapDialog.SIZE_LARGE,
+                                    title: title,
+                                    message: message,
+                                    buttons: buttons,
+                                    type: type,
+                                    onhide: function(dialogRef) {
+                                        decode = true;
+                                    }
+                                });
+                            },
+                            error: function(a) {
+                                location.reload();
+                            }
+                        });
+                    }
+                }
+            }
+        }
+
+        $('.play a').click(function(event) {
+            event.preventDefault();
+            $('.play').hide();
+            decoderPlay();
+        });
+    </script>
+{% endblock %}

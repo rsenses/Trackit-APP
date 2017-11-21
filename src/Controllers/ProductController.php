@@ -89,4 +89,28 @@ class ProductController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
+    public function allRegistrationsActionInsta(Request $request, Response $response, array $args)
+    {
+        try {
+            $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations-insta/all', [
+                'headers' => [
+                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Content-Language' => 'es'
+                ]
+            ]);
+
+            $registrations = json_decode($apiRequest->getBody());
+
+            return $this->view->render($response, 'product/registrations-insta.twig', [
+                'registrations' => $registrations,
+                'product_id' => $args['id'],
+            ]);
+        } catch (ClientException $e) {
+            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+        } catch (BadResponseException $e) {
+            $this->flash->addMessage('danger', $e->getMessage());
+
+            return $response->withRedirect($this->router->pathFor('auth.signin'));
+        }
+    }
 }
