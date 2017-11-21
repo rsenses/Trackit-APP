@@ -89,10 +89,10 @@ class ProductController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
-    public function allRegistrationsActionInsta(Request $request, Response $response, array $args)
+    public function InstaRegistrationsAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations-insta/all', [
+            $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations/all', [
                 'headers' => [
                     'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
