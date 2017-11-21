@@ -18,11 +18,12 @@ button {
     background-color: transparent;
     border: 0 none;
 }
-#preview {
+video {
     width: 100%;
     height: auto;
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+    transform: rotateY(0deg) !important;
+    -webkit-transform:rotateY(0deg) !important; /* Safari and Chrome */
+    -moz-transform:rotateY(0deg) !important; /* Firefox */
 }
 .overlay {
     content: '';
