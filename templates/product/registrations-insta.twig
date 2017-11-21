@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block menu %}
+
     <a href="{{ path_for('registration.create', {'id': product_id}) }}">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
@@ -34,6 +35,8 @@
         <div id="scan" class="hidden">
             <video id="preview"></video>
         </div>
+                <div id="ids"></div>
+        
     </div>
 {% endblock %}
 
