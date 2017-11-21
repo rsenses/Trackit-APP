@@ -47,6 +47,11 @@ class Product extends \Illuminate\Database\Eloquent\Model
         return $this->hasMany('App\Entities\Registration', 'product_id');
     }
 
+    public function registrationsInsta()
+    {
+        return $this->hasMany('App\Entities\Registration', 'product_id');
+    }
+
     public function customers()
     {
         return $this->belongsToMany('App\Entities\Customer', 'registration', 'product_id', 'customer_id')
