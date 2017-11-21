@@ -86,14 +86,18 @@ function successCallback(stream) {
 
     localStream = stream;
 
-    window.requestAnimationFrame(tick);
+    window.requestAnimationFrame(frame);
 }
 
 function errorCallback() {}
 
-function tick(timestamp) {
-    window.requestAnimationFrame(tick);
+function frame() {
+    window.requestAnimationFrame(frame);
 
+    scan();
+}
+
+function scan() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         // Load the video onto the canvas
         context.drawImage(video, 0, 0, width, height);
@@ -104,6 +108,7 @@ function tick(timestamp) {
 
         if (decoded) {
             var type, buttons, message, title;
+
             if (decode === true) {
                 decode = false;
                 $.ajax({
