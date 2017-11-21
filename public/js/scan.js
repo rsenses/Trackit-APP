@@ -6,9 +6,10 @@ var context = canvas.getContext("2d");
 var width, height, localStream;
 var start = null;
 
-var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-window.requestAnimationFrame = requestAnimationFrame;
+// var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+// window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+//
+// window.requestAnimationFrame = requestAnimationFrame;
 
 width = parseInt(canvas.style.width);
 height = parseInt(canvas.style.height);
@@ -85,13 +86,13 @@ function successCallback(stream) {
 
     localStream = stream;
 
-    requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
 }
 
 function errorCallback() {}
 
 function tick(timestamp) {
-    requestAnimationFrame(tick);
+    window.requestAnimationFrame(tick);
 
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
         // Load the video onto the canvas
@@ -178,11 +179,13 @@ function tick(timestamp) {
 
 $('.scan-menu').click(function(event) {
     event.preventDefault();
+
     $('#registrations').addClass('hidden');
     $('.scan-menu').addClass('hidden');
     $('.search-menu').removeClass('hidden');
     $('footer').addClass('hidden');
     $('#scan').removeClass('hidden');
+
     decode = true;
     decoderPlay();
 });
