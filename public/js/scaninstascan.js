@@ -1,6 +1,6 @@
 $('.scan-menu').click(function(event) {
     event.preventDefault();
-    console.log('click');
+    // scanner = null;
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
         console.log(content);
@@ -67,10 +67,10 @@ $('.scan-menu').click(function(event) {
         console.error(e);
     });
     $('#scan').removeClass('hidden');
-
 });
 
 $('.search-menu').click(function(event) {
+    // scanner.stop()
     event.preventDefault();
     $('#registrations').removeClass('hidden');
     $('.scan-menu').removeClass('hidden');

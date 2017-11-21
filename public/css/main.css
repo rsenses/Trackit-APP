@@ -18,7 +18,12 @@ button {
     background-color: transparent;
     border: 0 none;
 }
-
+#preview {
+    width: 100%;
+    height: auto;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
 .overlay {
     content: '';
     height: 100vh;
