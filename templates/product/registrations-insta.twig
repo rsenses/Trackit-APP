@@ -12,7 +12,7 @@
     <a href="" class="scan-menu">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="" class="search-menu">
+    <a href="" class="search-menu hidden">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
     <a href="#" class="logo hidden-xs">
@@ -32,16 +32,328 @@
                 </div>
             </div>
         </div>
-        <div id="scan" class="hidden">
-            <video id="preview"></video>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger btn-clear hide" type="button">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <button class="btn btn-default btn-search" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre Apellidos</th>
+                                <th>DNI</th>
+                                <th>Empresa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list hide">
+                            {% for customer in registrations %}
+                                <tr>
+                                    <td class="name">
+                                        {{ customer.first_name }} {{ customer.last_name }} <br>
+                                        {% if customer.type.name ==  'Ponente'%}
+                                            <h5 class="text-danger">{{ customer.type.name }}</h5>
+                                        {% else %}
+                                            <small>
+                                            {{ customer.type.name }}
+                                            {% if customer.is_authorized == 0 %}
+                                                 | Denegado
+                                            {% endif %}
+                                            {% if customer.is_confirmed == 0 %}
+                                                 | No Confirmado
+                                            {% endif %}
+                                            {% if customer.is_cancelled == 1 %}
+                                                 | No Asiste
+                                            {% endif %}
+                                            </small>
+                                        {% endif %}
+                                    </td>
+                                    <td class="nif">
+                                        {{ customer.nif }}
+                                    </td>
+                                    <td class="company">
+                                        {{ customer.company }}
+                                    </td>
+                                    <td class="verification">
+                                        {% if customer.verification > 0 %}
+                                            <span class="text-success">
+                                                <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+                                            </span>
+                                        {% else %}
+                                            {% if customer.is_authorized == 1 %}
+                                                <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tbody class="nolist">
+                            <tr>
+                                <td class="name" colspan="4">
+                                    Actualmente no se muestran resultados
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-                <div id="ids"></div>
-        
+    </div>
+    <div id="scan" class="hidden">
+        <video id="preview"></video>
+    </div>        
+{% endblock %}
+{% block footer %}
+    <div class="container-fluid">
+        <ul class="charts-container">
+            <li>
+                 <div class="chart-box asistentes hidden">
+                    <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span>/<span id="count-registrations"></span></span></div>
+                    <div class="chart-title asistentes hidden">
+                        <i class="icon-people" aria-hidden="true"></i> Asistentes
+                    </div>
+                 </div>
+            </li>
+            <li>
+                 <div class="chart-box ponentes hidden">
+                    <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span>/<span id="count-speakers"></span></span></div>
+                    <div class="chart-title  ponentes hidden">
+                         <i class="icon-speech" aria-hidden="true"></i> Ponentes
+                    </div>
+                 </div>
+            </li>
+            <li>
+                 <div class="chart-box vips hidden">
+                    <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span>/<span id="count-vips"></span></div>
+                    <div class="chart-title vips hidden">
+                        <i class="icon-diamond" aria-hidden="true"></i> Vips
+                    </div>
+                 </div>
+            </li>
+        </ul>
     </div>
 {% endblock %}
-
 {% block scripts %}
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
+    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
+    <script src="{{ base_url() }}/js/list.js"></script>
+    <script src="{{ base_url() }}/js/adapter.js"></script>    
     <script src="{{ base_url() }}/js/instascan.js"></script>
     <script src="{{ base_url() }}/js/scaninstascan.js"></script>
+<script>
+        var customerList = new List('registrations', {
+            valueNames: [
+                'name',
+                'nif',
+                'company'
+            ],
+            shouldAccentFold: true
+        });
+
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product_id }}",
+                dataType: "json",
+                cache: false,
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                    $('#img').attr('alt', a.name);
+                    $('#img').attr('src', a.img);
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+                    var dateStart = new Date(a.date_start);
+                    var dateEnd = new Date(a.date_end);
+                    $('#date-start').text(dateStart.getDate()+'-'+(dateStart.getMonth() + 1)+'-'+dateStart.getFullYear()+' '+dateStart.getHours() + ":" + (dateStart.getMinutes() < 10 ? '0' : '') + dateStart.getMinutes());
+                    $('#date-end').text(dateEnd.getDate()+'-'+(dateEnd.getMonth() + 1)+'-'+dateEnd.getFullYear()+' '+dateEnd.getHours() + ":" + (dateEnd.getMinutes() < 10 ? '0' : '') + dateEnd.getMinutes());
+                    loadChart(a);
+                },
+                error: function(a) {
+                    console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 20000);
+                }
+            });
+        };
+
+        var loadChart = function (a) {
+            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
+            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
+            $('.chart').animate({opacity: 1}, 3000);
+            $('.chart-1').attr('data-percent', percentAssistants);
+            $('.chart-1').easyPieChart({
+                animate: 3000,
+                barColor: '#FFF',
+                trackColor: '#666',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                size: 125
+            });
+            var registrationsSpeakers = $('#count-speakers').text();
+
+            var verificationsSpeakers = $('#count-verified-speakers').text();
+            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            $('.chart-2').attr('data-percent', percentSpeakers);
+            $('.chart-2').easyPieChart({
+                animate: 1000,
+                barColor: '#FFF',
+                trackColor: '#666',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                size: 125
+            });
+            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
+            $('.chart-3').attr('data-percent', percentVips);
+            $('.chart-3').easyPieChart({
+                animate: 2000,
+                barColor: '#FFF',
+                trackColor: '#666',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'butt',
+                size: 125
+            });
+
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
+            if (percentAssistants >= 0 || percentAssistants) {
+                $('.asistentes').removeClass('hidden');
+            }
+            if (percentSpeakers >= 0 || percentVips) {
+                $('.ponentes').removeClass('hidden');
+            }
+            if (percentVips >= 0 || percentVips) {
+                $('.vips').removeClass('hidden');
+            }
+            $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            $('.chart-3').data('easyPieChart').update(percentVips);
+        };
+
+        $('.verification a').click(function(event) {
+            event.preventDefault();
+            var unique_id = $(this).data('uniqueid');
+            if (unique_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "/registration/verify/"+unique_id,
+                    dataType: "json",
+                    context: this,
+                    cache: false,
+                    success: function(a) {
+                        if (a.status == 'error') {
+                            type = BootstrapDialog.TYPE_DANGER;
+                            title = 'Error';
+                            message = '<h4>'+a.message+'</h4>';
+                            buttons = [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }];
+                        } else if (a.status == 'success') {
+                            // type = BootstrapDialog.TYPE_SUCCESS;
+                            // title = a.message;
+                            // message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                            // buttons = [{
+                            //     label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                            //     cssClass: 'btn-success btn-lg',
+                            //     action: function(dialog) {
+                            //         dialog.close();
+                            //     }
+                            // }, {
+                            //     label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                            //     cssClass: 'btn-danger btn-lg',
+                            //     action: function(dialog) {
+                            //         dialog.close();
+                            //     }
+                            // }];
+                            type = BootstrapDialog.TYPE_SUCCESS;
+                            title = a.message;
+                            message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
+                            buttons = [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }];
+                            $(this).data('uniqueid', null)
+                                .removeClass('text-danger')
+                                .addClass('text-success')
+                                .children('i')
+                                .removeClass('fa-times-circle')
+                                .addClass('fa-check-circle');
+                        }
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: title,
+                            message: message,
+                            buttons: buttons,
+                            type: type
+                        });
+                        $('input.search').val('');
+                    },
+                    error: function(a) {
+                        console.log(a);
+                    }
+                });
+            }
+        });
+        $(document).ready(function() {
+            info();
+
+            $('input.search').on('keyup', function () {
+                var key = $('input.search').val();
+                if (key.length >= 3) {
+                    $('.list').removeClass('hide');
+                    $('.btn-clear').removeClass('hide');
+                    $('.nolist').addClass('hide');
+                    $('.charts-container').addClass('hide');
+                    $('.btn-search').addClass('hide');
+                } else {
+                    $('.charts-container').removeClass('hide');
+                    $('.nolist').removeClass('hide');
+                    $('.list').addClass('hide');
+                    $('.btn-clear').addClass('hide');
+                    $('.btn-search').removeClass('hide');
+                }
+            });
+            $('.btn-clear').on('click', function () {
+                $('input.search').val('');
+                $('.charts-container').removeClass('hide');
+                $('.nolist').removeClass('hide');
+                $('.list').addClass('hide');
+                $('.btn-clear').addClass('hide');
+                $('.btn-search').removeClass('hide');
+            });
+        });
+    </script>
 {% endblock %}

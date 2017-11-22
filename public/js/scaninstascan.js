@@ -58,8 +58,12 @@ $('.scan-menu').click(function(event) {
         }
     });
     Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-          if(cameras[1]){ scanner.start(cameras[1]); } else { scanner.start(cameras[0]); } 
+        if (cameras.length != 0) {
+          if(cameras[1]){ 
+            scanner.start(cameras[1]); 
+            } else { 
+                scanner.start(cameras[0]); 
+            } 
         } else {
           console.error('No cameras found.');
         }
@@ -67,6 +71,10 @@ $('.scan-menu').click(function(event) {
         console.error(e);
     });
     $('#scan').removeClass('hidden');
+    $('.search-menu').removeClass('hidden');
+    $('#registrations').addClass('hidden');
+    $('.scan-menu').addClass('hidden');
+    $('footer').addClass('hidden');
 });
 
 $('.search-menu').click(function(event) {

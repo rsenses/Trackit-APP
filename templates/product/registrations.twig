@@ -37,7 +37,7 @@
                     <div class="input-group">
                         <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
                         <span class="input-group-btn">
-                            <button class="btn btn-danger btn-clear hide" type="button">
+                            <button class="btn btn-danger btn-clear hidden" type="button">
                                 <i class="fa fa-times"></i>
                             </button>
                             <button class="btn btn-default btn-search" type="button">
@@ -58,7 +58,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody class="list hide">
+                        <tbody class="list hidden">
                             {% for customer in registrations %}
                                 <tr>
                                     <td class="name">
@@ -335,26 +335,26 @@
             $('input.search').on('keyup', function () {
                 var key = $('input.search').val();
                 if (key.length >= 3) {
-                    $('.list').removeClass('hide');
-                    $('.btn-clear').removeClass('hide');
-                    $('.nolist').addClass('hide');
-                    $('.charts-container').addClass('hide');
-                    $('.btn-search').addClass('hide');
+                    $('.list').removeClass('hidden');
+                    $('.btn-clear').removeClass('hidden');
+                    $('.nolist').addClass('hidden');
+                    $('.charts-container').addClass('hidden');
+                    $('.btn-search').addClass('hidden');
                 } else {
-                    $('.charts-container').removeClass('hide');
-                    $('.nolist').removeClass('hide');
-                    $('.list').addClass('hide');
-                    $('.btn-clear').addClass('hide');
-                    $('.btn-search').removeClass('hide');
+                    $('.charts-container').removeClass('hidden');
+                    $('.nolist').removeClass('hidden');
+                    $('.list').addClass('hidden');
+                    $('.btn-clear').addClass('hidden');
+                    $('.btn-search').removeClass('hidden');
                 }
             });
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
-                $('.charts-container').removeClass('hide');
-                $('.nolist').removeClass('hide');
-                $('.list').addClass('hide');
-                $('.btn-clear').addClass('hide');
-                $('.btn-search').removeClass('hide');
+                $('.charts-container').removeClass('hidden');
+                $('.nolist').removeClass('hidden');
+                $('.list').addClass('hidden');
+                $('.btn-clear').addClass('hidden');
+                $('.btn-search').removeClass('hidden');
             });
         });
     </script>
