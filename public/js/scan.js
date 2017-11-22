@@ -82,20 +82,12 @@ function successCallback(stream) {
 
         canvas.width = width;
         canvas.height = height;
-
-        css(width, height);
     };
 
     localStream = stream;
 
     window.requestAnimationFrame(frame);
 
-}
-
-function css(width, height) {
-    $('#scan i.icon-frame').css({
-        fontSize: width+'px'
-    });
 }
 
 function errorCallback() {}

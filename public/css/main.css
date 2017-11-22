@@ -18,19 +18,6 @@ button {
     background-color: transparent;
     border: 0 none;
 }
-#scan i.icon-frame {
-    font-family: 'simple-line-icons';
-    color: #FF0000;
-    text-align: center;
-    margin: 0 auto;
-    position: absolute;
-    font-size: 90%;
-    top: 50%;
-    left: 0;
-    right: 0;
-    bottom: 50%;
-
-}
 .overlay {
     content: '';
     height: 100vh;
