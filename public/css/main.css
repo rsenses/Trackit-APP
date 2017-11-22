@@ -18,12 +18,18 @@ button {
     background-color: transparent;
     border: 0 none;
 }
-video {
-    width: 100%;
-    height: auto;
-    transform: rotateY(0deg) !important;
-    -webkit-transform:rotateY(0deg) !important; /* Safari and Chrome */
-    -moz-transform:rotateY(0deg) !important; /* Firefox */
+#scan i.icon-frame {
+    font-family: 'simple-line-icons';
+    color: #FF0000;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+    font-size: 90%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+
 }
 .overlay {
     content: '';
