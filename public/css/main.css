@@ -20,7 +20,7 @@ button {
 }
 
 
-/* #instascan {
+#instascan {
   position: absolute;
   top: 0;
   left: 0;
@@ -30,21 +30,19 @@ button {
   background: #000;
 }
 #preview {
-    min-width: 100%; 
-    min-height: 100%; 
+    min-width: 100vw; 
+    min-height: 100vh; 
     
-    /* Setting width & height to auto prevents the browser from stretching or squishing the video */
     width: auto;
     height: auto;
     
-    /* Center the video */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%) rotateY(0deg) !important;
-    -webkit-transform:translateX(-50%) translateY(-50%) rotateY(0deg) !important;
-    -moz-transform:translateX(-50%) translateY(-50%) rotateY(0deg) !important;
-} */
+    transform:rotateY(0deg) !important;
+    -webkit-transform:rotateY(0deg) !important;
+    -moz-transform:rotateY(0deg) !important;
+} 
 .overlay {
     content: '';
     height: 100vh;
