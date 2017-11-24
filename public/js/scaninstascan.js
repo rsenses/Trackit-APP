@@ -1,37 +1,5 @@
 let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-function startCameras(){
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length != 0) {
-          if(cameras[1]){ 
-            scanner.start(cameras[1]); 
-            } else { 
-                scanner.start(cameras[0]); 
-            } 
-        } else {
-          console.error('No cameras found.');
-        }
-    }).catch(function (e) {
-        console.error(e);
-    }); 
-}; 
-function stopCameras(){
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length != 0) {
-            if(cameras[1]){ 
-                scanner.stop(cameras[1]); 
-            } else { 
-                scanner.stop(cameras[0]); 
-            }
-            scanner.stop();
-        } else {
-          console.error('No cameras found.');
-        }
-    }).catch(function (e) {
-        console.error(e);
-    });
-};
-$('.scan-menu').click(function(event) {
-    event.preventDefault();
+function startScan(){
     scanner.addListener('scan', function (content) {
         if (content.length !== 0) {
             $.ajax({
@@ -87,6 +55,45 @@ $('.scan-menu').click(function(event) {
             });
         }
     });
+};
+function stopScan(){
+    scanner.removeListener('scan', function (content){});
+};
+function startCameras(){
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length != 0) {
+          if(cameras[1]){ 
+            scanner.start(cameras[1]); 
+            } else { 
+                scanner.start(cameras[0]); 
+            } 
+        } else {
+          console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    }); 
+}; 
+function stopCameras(){
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length != 0) {
+            if(cameras[1]){ 
+                scanner.stop(cameras[1]); 
+            } else { 
+                scanner.stop(cameras[0]); 
+            }
+            scanner.stop();
+        } else {
+          console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+};
+
+$('.scan-menu').click(function(event) {
+    event.preventDefault();
+    startScan();
     startCameras();
     $('#scan').removeClass('hidden');
     $('.search-menu').removeClass('hidden');
@@ -98,6 +105,7 @@ $('.scan-menu').click(function(event) {
 $('.search-menu').click(function(event) {
     event.preventDefault();
     stopCameras();
+    stopScan();
     $('#registrations').removeClass('hidden');
     $('.scan-menu').removeClass('hidden');
     $('.search-menu').addClass('hidden');
