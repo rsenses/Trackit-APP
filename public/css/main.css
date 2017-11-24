@@ -20,7 +20,7 @@ button {
 }
 
 
-#instascan {
+/* #instascan {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +44,7 @@ button {
     transform: translateX(-50%) translateY(-50%) rotateY(0deg) !important;
     -webkit-transform:translateX(-50%) translateY(-50%) rotateY(0deg) !important;
     -moz-transform:translateX(-50%) translateY(-50%) rotateY(0deg) !important;
-}
+} */
 .overlay {
     content: '';
     height: 100vh;
