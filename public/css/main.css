@@ -20,25 +20,8 @@ button {
 }
 
 
-#instascan {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  background: #000;
-}
 #preview {
-    min-width: 100vw; 
-    min-height: 100vh; 
-    
-    width: auto;
-    height: auto;
-    
-    position: absolute;
-    top: 0%;
-    left: 0%;
+    width: 100%;
     transform:rotateY(0deg) !important;
     -webkit-transform:rotateY(0deg) !important;
     -moz-transform:rotateY(0deg) !important;
