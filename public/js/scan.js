@@ -148,7 +148,7 @@ function scan() {
                             // }];
                             type = BootstrapDialog.TYPE_SUCCESS;
                             title = a.message;
-                            message = '<h4>'+a.user+'</h4>';
+                            message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
                             buttons = [{
                                 label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',
