@@ -613,6 +613,10 @@ footer .well ul {
     width: 100%;
 }
 @media(min-width:501px) and (max-width: 767px) {
+    footer .charts-container {
+        max-width: 90%;
+        margin: 0 auto;
+    }
     #registrations .search,
     #registrations .input-group-btn button {
         padding: 15px 20px;
