@@ -506,6 +506,7 @@ form {
     border-radius: 0px;
     border: 0 none;
 }
+
 .alert-warning {
     background-color: #efd759;
     border: 0 none;
@@ -516,14 +517,13 @@ form {
 }
 
 
-
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     padding: 15px 10px 0;
-    color: #444;
-    background-color: #d9d9d9;
+    color: #222;
+    background-color: #f5f5f5;
 }
 
 footer .charts-container {
