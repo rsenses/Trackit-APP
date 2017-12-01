@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="input-group">
-                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva" />
+                        <input type="text" class="search form-control" placeholder="Búsqueda predictiva" />
                         <span class="input-group-btn">
                             <button class="btn btn-danger btn-clear hidden" type="button">
                                 <i class="fa fa-times"></i>
@@ -206,8 +206,8 @@
             $('.chart-1').attr('data-percent', percentAssistants);
             $('.chart-1').easyPieChart({
                 animate: 3000,
-                barColor: '#E7E9EF',
-                trackColor: '#999',
+                barColor: '#2BAAB1',
+                trackColor: '#eaeaea',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
@@ -221,8 +221,8 @@
             $('.chart-2').attr('data-percent', percentSpeakers);
             $('.chart-2').easyPieChart({
                 animate: 1000,
-                barColor: '#B9C9DB',
-                trackColor: '#999',
+                barColor: '#007bff',
+                trackColor: '#eaeaea',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
@@ -233,8 +233,8 @@
             $('.chart-3').attr('data-percent', percentVips);
             $('.chart-3').easyPieChart({
                 animate: 2000,
-                barColor: '#dadada',
-                trackColor: '#999',
+                barColor: '#6f42c1',
+                trackColor: '#eaeaea',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
@@ -328,23 +328,27 @@
         });
         $(document).ready(function() {
             info();
-
+            
             $('input.search').on('keyup', function () {
+                $('.charts-container').addClass('hidden');
+
                 var key = $('input.search').val();
+
                 if (key.length >= 3) {
                     $('.list').removeClass('hidden');
-                    $('.btn-clear').removeClass('hidden');
+                    $('.btn-clear').removeClass('hidden');                   
                     $('.nolist').addClass('hidden');
-                    $('.charts-container').addClass('hidden');
                     $('.btn-search').addClass('hidden');
-                } else {
+                } else if (key.length === 0) {
                     $('.charts-container').removeClass('hidden');
+                } else {
                     $('.nolist').removeClass('hidden');
                     $('.list').addClass('hidden');
                     $('.btn-clear').addClass('hidden');
                     $('.btn-search').removeClass('hidden');
                 }
             });
+
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
                 $('.charts-container').removeClass('hidden');

@@ -521,9 +521,9 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 15px 10px;
-    color: #eaeaea;
-    background-color: #0051b2;
+    padding: 15px 10px 0;
+    color: #444;
+    background-color: #d9d9d9;
 }
 
 footer .charts-container {
@@ -536,6 +536,7 @@ footer .charts-container li {
     display: inline-block;
     margin: 0;
     padding: 0;
+    line-height: 18px;
     overflow: hidden;
     min-width: 32%;
     max-width: 32%;
@@ -552,6 +553,7 @@ footer .chart canvas {
 
 footer .chart .inside-values {
     font-size: 12px;
+    line-height: 25px;
     text-align: center;
     display: block;
     position: absolute;
@@ -574,20 +576,24 @@ footer .chart-title i {
     display: inline-block;
     margin-top: 2px;
 }
-#count-registrations {
-    color: #E7E9EF;
+#count-registrations,
+#count-verifications {
+    color: #2BAAB1;
 }
-#count-speakers {
-    color: #B9C9DB;
+#count-speakers,
+#count-verified-speakers {
+    color: #007bff;
 }
-#count-vips {
-    color: #dadada;
+#count-vips,
+#count-verified-vips {
+    color: #6f42c1;
+    font-weight: 400;
 }
 #count-registrations,
 #count-speakers,
 #count-vips {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
 }
 footer .well {
     border-radius: 0px;
