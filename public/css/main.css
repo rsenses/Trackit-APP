@@ -521,8 +521,8 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 15px;
-    color: #fff;
+    padding: 15px 10px;
+    color: #eaeaea;
     background-color: #0051b2;
 }
 
@@ -565,12 +565,29 @@ footer .chart .inside-values span:first-child {
 footer .chart-title {
     margin: 0 auto;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: .5px;
 
 }
 footer .chart-title i {
     display: inline-block;
     margin-top: 2px;
+}
+#count-registrations {
+    color: #E7E9EF;
+}
+#count-speakers {
+    color: #B9C9DB;
+}
+#count-vips {
+    color: #dadada;
+}
+#count-registrations,
+#count-speakers,
+#count-vips {
+    font-size: 18px;
+    font-weight: 600;
 }
 footer .well {
     border-radius: 0px;
