@@ -671,7 +671,7 @@ footer .well ul {
         height: 125px !important;​
     }
 }
-@media(min-width: 992px) {
+@media(min-width: 768px) {
     footer {
         padding-bottom: 70px;
     }
