@@ -525,11 +525,11 @@ footer .charts-container li {
     padding: 0;
     overflow: hidden;
     min-width: 30%;
-    max-width: 33%;
+    max-width: 32.5%;
 }
 footer .chart {
     position: relative;
-    max-width: 125px;
+    max-width: 60px;
     margin: 0 auto;
 }
 
@@ -590,6 +590,9 @@ footer .well ul {
     }
     .logo-initial {
         max-height: 250px;
+    }
+    footer .chart {
+        max-width: 160px;
     }
 }
 @media(min-width: 360px) {
