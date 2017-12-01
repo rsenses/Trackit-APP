@@ -547,8 +547,8 @@ footer .chart {
     display: block;
 }
 footer .chart canvas {
-    width: 98% !important;
-    height: 98% !important;​
+    width: 97% !important;
+    height: 97% !important;​
 }
 
 footer .chart .inside-values {
