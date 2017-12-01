@@ -612,8 +612,17 @@ footer .well ul {
     margin: 0;
     width: 100%;
 }
-@media(max-width: 767px) {
-
+@media(min-width:501px) and (max-width: 767px) {
+    #registrations .search,
+    #registrations .input-group-btn button {
+        padding: 15px 20px;
+        min-height: 80px;
+        font-size: 18px;
+    }
+    #registrations .input-group-btn button {
+        border-radius: 0 10px 10px 0;
+        font-size: 20px;
+    }   
 }
 @media(min-width: 768px) {
     .table > thead > tr > th,

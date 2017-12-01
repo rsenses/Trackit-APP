@@ -328,7 +328,9 @@
         });
         $(document).ready(function() {
             info();
-            
+            $('input.search').on('click', function () {
+                $('.charts-container').addClass('hidden');
+            });
             $('input.search').on('keyup', function () {
                 $('.charts-container').addClass('hidden');
 
