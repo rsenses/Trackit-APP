@@ -546,7 +546,7 @@ footer .chart {
     display: block;
 }
 .chart canvas {
-    margin-left: 6px;
+    margin-left: 12px;
     width: 70px !important;
     height: 70px !important;​
 }
