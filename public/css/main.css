@@ -672,6 +672,9 @@ footer .well ul {
     }
 }
 @media(min-width: 992px) {
+    footer {
+        padding-bottom: 30px;
+    }
     input.search {
         font-size: 1.2em;
     }
