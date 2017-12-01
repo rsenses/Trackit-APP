@@ -548,7 +548,7 @@ footer .chart {
 footer .chart canvas {
     width: 70px !important;
     height: 70px !important;​
-    margin-left: 7px !important;
+        background-color: red;
 }
 
 footer .chart .inside-values {
