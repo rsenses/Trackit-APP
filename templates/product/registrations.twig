@@ -214,7 +214,7 @@
                 lineWidth: 20,
                 trackWidth: 16,
                 lineCap: 'butt',
-                size: 60
+                size: 150
             });
             var registrationsSpeakers = $('#count-speakers').text();
 
@@ -229,7 +229,7 @@
                 lineWidth: 20,
                 trackWidth: 16,
                 lineCap: 'butt',
-                size: 60
+                size: 150
             });
             var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
             $('.chart-3').attr('data-percent', percentVips);
@@ -241,9 +241,8 @@
                 lineWidth: 20,
                 trackWidth: 16,
                 lineCap: 'butt',
-                siz60
+                size: 150
             });
-            $('.chart-1').data('easyPieChart').update(percentAssistants);
             if (percentAssistants >= 0 || percentAssistants) {
                 $('.asistentes').removeClass('hidden');
             }
@@ -253,6 +252,7 @@
             if (percentVips >= 0 || percentVips) {
                 $('.vips').removeClass('hidden');
             }
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
             $('.chart-2').data('easyPieChart').update(percentSpeakers);
             $('.chart-3').data('easyPieChart').update(percentVips);
         };

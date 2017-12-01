@@ -529,6 +529,7 @@ footer .charts-container li {
 }
 footer .chart {
     position: relative;
+    width: 100%;
     max-width: 60px;
     margin: 0 auto;
 }
@@ -592,7 +593,7 @@ footer .well ul {
         max-height: 250px;
     }
     footer .chart {
-        max-width: 160px;
+        max-width: 125px;
     }
 }
 @media(min-width: 360px) {
