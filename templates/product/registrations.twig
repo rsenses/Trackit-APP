@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="input-group">
-                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
+                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva" />
                         <span class="input-group-btn">
                             <button class="btn btn-danger btn-clear hidden" type="button">
                                 <i class="fa fa-times"></i>
@@ -125,25 +125,25 @@
         <ul class="charts-container">
             <li>
                  <div class="chart-box asistentes hidden">
-                    <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span>/<span id="count-registrations"></span></span></div>
+                    <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
                     <div class="chart-title asistentes hidden">
-                        <i class="icon-people" aria-hidden="true"></i> Asistentes
+                        <span id="count-registrations"></span> <br class="visible-xs">Asistentes
                     </div>
                  </div>
             </li>
             <li>
                  <div class="chart-box ponentes hidden">
-                    <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span>/<span id="count-speakers"></span></span></div>
+                    <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
                     <div class="chart-title  ponentes hidden">
-                         <i class="icon-speech" aria-hidden="true"></i> Ponentes
+                         <span id="count-speakers"></span> <br class="visible-xs">Ponentes
                     </div>
                  </div>
             </li>
             <li>
                  <div class="chart-box vips hidden">
-                    <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span>/<span id="count-vips"></span></div>
+                    <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></div>
                     <div class="chart-title vips hidden">
-                        <i class="icon-diamond" aria-hidden="true"></i> Vips
+                        <span id="count-vips"></span><br class="visible-xs"> Vips
                     </div>
                  </div>
             </li>
@@ -213,7 +213,7 @@
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
+                lineCap: 'round',
                 size: 150
             });
             var registrationsSpeakers = $('#count-speakers').text();
@@ -228,7 +228,7 @@
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
+                lineCap: 'round',
                 size: 150
             });
             var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
@@ -240,7 +240,7 @@
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
+                lineCap: 'round',
                 size: 150
             });
             if (percentAssistants >= 0 || percentAssistants) {

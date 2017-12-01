@@ -103,6 +103,21 @@ body {
 .navbar a:hover {
     opacity: .6;
 }
+#registrations .search,
+#registrations .input-group-btn button {
+    padding: 10px 10px;
+    margin: 15px auto;
+    min-height: 40px;
+    font-size: 14px;
+}
+#registrations .input-group-btn button {
+    border-radius: 0 10px 10px 0;
+    font-size: 20px;
+}
+.logo img {
+    width: 100%;
+    margin-top: 0;
+}
 /*-------------------------------*/
 /*           Wrappers            */
 /*-------------------------------*/
@@ -419,25 +434,27 @@ form {
 .btn-link:hover {
     opacity: .8;
 }
-canvas {
-    width: 100%;
-}
 
 #registrations table {
     background-color: #eaeaea;
     -webkit-transition: all .35s ease-in-out;
 }
 .table>thead>tr>th {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 200;
 }
 .table > tbody > tr > td {
     vertical-align: middle;
-    font-size: 14px;
+    font-size: 12px;
+}
+.table > thead > tr > th:nth-child(3),
+.table > tbody > tr > td:nth-child(3) {
+    display: none;
 }
 .table > tbody > tr > td:first-child {
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
+    text-transform: capitalize;
 }
 .table > tbody > tr > td.verification i,
 .table > tbody > tr > td.verification a {
@@ -465,10 +482,6 @@ canvas {
     color: #FFF;
     padding: 0;
     margin: 0;
-}
-#registrations .search {
-    padding: 20px 10px;
-    margin: 15px auto;
 }
 
 .btn-circle {
@@ -524,22 +537,27 @@ footer .charts-container li {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    min-width: 30%;
-    max-width: 32.5%;
+    min-width: 32%;
+    max-width: 32%;
 }
 footer .chart {
     position: relative;
-    width: 100%;
-    max-width: 60px;
     margin: 0 auto;
+    display: block;
+}
+.chart canvas {
+    margin-left: 6px;
+    width: 70px !important;
+    height: 70px !important;​
 }
 
 footer .chart .inside-values {
     font-size: 12px;
-    position: absolute;
     text-align: center;
-    left: calc(50% - 62.5px);
-    right: calc(50% - 62.5px);
+    display: block;
+    position: absolute;
+    left: calc(50% - 60px);
+    right: calc(50% - 60px);
     top: calc(50% - 18px);
     bottom: calc(50% - 20px);
 }
@@ -577,6 +595,14 @@ footer .well ul {
 
 }
 @media(min-width: 768px) {
+    .table > thead > tr > th,
+    .table > tbody > tr > td {
+         font-size: 16px;
+    }
+    .table > thead > tr > th:nth-child(3),
+    .table > tbody > tr > td:nth-child(3) {
+        display: table-cell;
+    }
     input.form-control,
     select.form-control,
     input.form-control {
@@ -595,22 +621,20 @@ footer .well ul {
     footer .chart {
         max-width: 125px;
     }
-}
-@media(min-width: 360px) {
     #registrations .search,
     #registrations .input-group-btn button {
-        padding: 20px 20px;
-        margin: 15px auto;
+        padding: 15px 20px;
         min-height: 80px;
-        font-size: 22px;
+        font-size: 18px;
     }
     #registrations .input-group-btn button {
         border-radius: 0 10px 10px 0;
-        font-size: 24px;
-    }
-    .logo img {
-        width: 100%;
-        margin-top: 0;
+        font-size: 20px;
+    }   
+    .chart canvas {
+        margin-left: 0px;
+        width: 125px !important;
+        height: 125px !important;​
     }
 }
 @media(min-width: 992px) {
