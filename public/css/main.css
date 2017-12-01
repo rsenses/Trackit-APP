@@ -542,11 +542,11 @@ footer .charts-container li {
 }
 footer .chart {
     position: relative;
+    left: 12px;
     margin: 0 auto;
     display: block;
 }
 .chart canvas {
-    margin-left: 12px;
     width: 70px !important;
     height: 70px !important;​
 }
