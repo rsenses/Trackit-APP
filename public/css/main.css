@@ -457,12 +457,26 @@ form {
     text-transform: capitalize;
 }
 .table > tbody > tr > td.verification i,
+.table > tbody > tr > td.verification span,
 .table > tbody > tr > td.verification a {
     display: block;
     text-align: center;
+    text-decoration: none;
 }
-.table > tbody > tr > td.verification a.text-primary i{
-    color: #666;
+.table > tbody > tr > td.verification a:visited,
+.table > tbody > tr > td.verification a:focus,
+.table > tbody > tr > td.verification a:hover {
+    text-decoration: none;
+}
+.table > tbody > tr > td.verification a:visited i.fa-rotate-180,
+.table > tbody > tr > td.verification a:focus i.fa-rotate-180,
+.table > tbody > tr > td.verification a:hover i.fa-rotate-180{
+    color: #93ce94;
+}
+.table > tbody > tr > td.verification a:visited i,
+.table > tbody > tr > td.verification a:focus i,
+.table > tbody > tr > td.verification a:hover i{
+    color: #3c763d;
 }
 .table > tbody > tr.bg-danger {
     background-color: #fdb3ad;

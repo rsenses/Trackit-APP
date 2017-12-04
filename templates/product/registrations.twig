@@ -55,7 +55,7 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th></th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="list hidden">
@@ -93,17 +93,17 @@
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
                                             <span class="text-success">
-                                                <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
                                             {% if customer.is_authorized == 1 %}
-                                                <a href="#0" class="text-primary" data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+                                                <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
                                                 </a>
                                             {% else %}
-                                            <span class="text-secondary">
-                                                <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
-                                            </span> 
+                                                <span class="text-secondary">
+                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -313,11 +313,10 @@
                                 }
                             }];
                             $(this).data('uniqueid', null)
-                                .removeClass('text-danger')
+                                .removeClass('text-muted')
                                 .addClass('text-success')
                                 .children('i')
-                                .removeClass('fa-times-circle')
-                                .addClass('fa-check-circle');
+                                .removeClass('fa-rotate-180');
                         }
                         BootstrapDialog.show({
                             size: BootstrapDialog.SIZE_LARGE,
