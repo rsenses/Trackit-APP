@@ -461,6 +461,12 @@ form {
     display: block;
     text-align: center;
 }
+.table > tbody > tr > td.verification a.text-primary i{
+    color: #666;
+}
+.table > tbody > tr.bg-danger {
+    background-color: #fdb3ad;
+}
 #registrations .list {
     display: table-row-group;
 }
@@ -552,7 +558,7 @@ footer .chart {
 }
 footer .chart canvas {
     width: 97% !important;
-    height: 97% !important;​
+    height: 97% !important;
 }
 
 footer .chart .inside-values {
@@ -599,7 +605,14 @@ footer .chart-title i {
     font-size: 18px;
     font-weight: 400;
 }
-
+canvas, video {
+    width: 100%;
+}
+#instascan video {
+     -webkit-transform: rotate(0deg); 
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
 @media(min-width:501px) and (max-width: 767px) {
     footer .charts-container {
         max-width: 90%;
@@ -656,7 +669,7 @@ footer .chart-title i {
     .chart canvas {
         margin-left: 0px;
         width: 125px !important;
-        height: 125px !important;​
+        height: 125px !important;â€‹
     }
 }
 @media(min-width: 768px) {

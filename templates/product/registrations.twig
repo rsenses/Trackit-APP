@@ -60,7 +60,11 @@
                         </thead>
                         <tbody class="list hidden">
                             {% for customer in registrations %}
+                                {% if customer.is_authorized == 1 %}
                                 <tr>
+                                {% else %}
+                                <tr class="bg-danger">
+                                {% endif %}
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
                                         {% if customer.type.name ==  'Ponente'%}
@@ -93,9 +97,13 @@
                                             </span>
                                         {% else %}
                                             {% if customer.is_authorized == 1 %}
-                                                <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
+                                                <a href="#0" class="text-primary" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
                                                 </a>
+                                            {% else %}
+                                            <span class="text-secondary">
+                                                <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                            </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>

@@ -120,34 +120,32 @@
     </div>
 {% endblock %}
 {% block footer %}
-    <div class="container-fluid">
-        <ul class="charts-container">
-            <li>
-                 <div class="chart-box asistentes hidden">
-                    <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span>/<span id="count-registrations"></span></span></div>
-                    <div class="chart-title asistentes hidden">
-                        <i class="icon-people" aria-hidden="true"></i> Asistentes
-                    </div>
-                 </div>
-            </li>
-            <li>
-                 <div class="chart-box ponentes hidden">
-                    <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span>/<span id="count-speakers"></span></span></div>
-                    <div class="chart-title  ponentes hidden">
-                         <i class="icon-speech" aria-hidden="true"></i> Ponentes
-                    </div>
-                 </div>
-            </li>
-            <li>
-                 <div class="chart-box vips hidden">
-                    <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span>/<span id="count-vips"></span></div>
-                    <div class="chart-title vips hidden">
-                        <i class="icon-diamond" aria-hidden="true"></i> Vips
-                    </div>
-                 </div>
-            </li>
-        </ul>
-    </div>
+    <ul class="charts-container">
+        <li>
+             <div class="chart-box asistentes hidden">
+                <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
+                <div class="chart-title asistentes hidden">
+                    <span id="count-registrations"></span> <br class="visible-xs">Asistentes
+                </div>
+             </div>
+        </li>
+        <li>
+             <div class="chart-box ponentes hidden">
+                <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
+                <div class="chart-title  ponentes hidden">
+                     <span id="count-speakers"></span> <br class="visible-xs">Ponentes
+                </div>
+             </div>
+        </li>
+        <li>
+             <div class="chart-box vips hidden">
+                <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></div>
+                <div class="chart-title vips hidden">
+                    <span id="count-vips"></span><br class="visible-xs"> Vips
+                </div>
+             </div>
+        </li>
+    </ul>
 {% endblock %}
 {% block scripts %}
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
@@ -206,13 +204,13 @@
             $('.chart-1').attr('data-percent', percentAssistants);
             $('.chart-1').easyPieChart({
                 animate: 3000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#2BAAB1',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
             var registrationsSpeakers = $('#count-speakers').text();
 
@@ -221,28 +219,26 @@
             $('.chart-2').attr('data-percent', percentSpeakers);
             $('.chart-2').easyPieChart({
                 animate: 1000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#007bff',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
             var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
             $('.chart-3').attr('data-percent', percentVips);
             $('.chart-3').easyPieChart({
                 animate: 2000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#6f42c1',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
-
-            $('.chart-1').data('easyPieChart').update(percentAssistants);
             if (percentAssistants >= 0 || percentAssistants) {
                 $('.asistentes').removeClass('hidden');
             }
@@ -252,6 +248,7 @@
             if (percentVips >= 0 || percentVips) {
                 $('.vips').removeClass('hidden');
             }
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
             $('.chart-2').data('easyPieChart').update(percentSpeakers);
             $('.chart-3').data('easyPieChart').update(percentVips);
         };
