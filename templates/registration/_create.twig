@@ -78,50 +78,53 @@
 {% block scripts %}
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
     <script>
-        function createAction(verification) {
-            var action = $('form').attr('action');
-            var method = $('form').attr('method');
-            var serializedData = $('form').serialize();
+        $('form').submit(function(event) {
+            event.preventDefault();
+            var action = $(this).attr('action');
+            var method = $(this).attr('method');
+            var serializedData = $(this).serialize();
             $.ajax({
                 type: method,
                 url: action,
-                data: serializedData+'&verification='+verification,
+                data: serializedData,
                 context: this,
                 cache: false,
                 success: function(a) {
-                    console.log('Success', a);
+                    console.log(a);
+                    if (a.status == 'error') {
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: 'Error',
+                            message: '<h4>'+a.message+'</h4>',
+                            buttons: [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                }
+                            }],
+                            type: BootstrapDialog.TYPE_DANGER
+                        });
+                    } else if (a.status == 'success') {
+                        BootstrapDialog.show({
+                            size: BootstrapDialog.SIZE_LARGE,
+                            title: a.message,
+                            message: '<h4>'+a.user+'</h4>',
+                            buttons: [{
+                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                cssClass: 'btn-primary btn-lg',
+                                action: function(dialog) {
+                                    dialog.close();
+                                    location.reload(true);
+                                }
+                            }],
+                            type: BootstrapDialog.TYPE_SUCCESS
+                        });
+                    }
                 },
                 error: function(a) {
-                    console.log('Error', a);
+                    console.log(a);
                 }
-            });
-        }
-
-        $('form').submit(function() {
-            event.preventDefault();
-            var name = $('#firstNameInput').val();
-            var lastname = $('#lastNameInput').val();
-            var typeId = $('#typeId option:selected').text();
-             BootstrapDialog.show({
-                size: BootstrapDialog.SIZE_LARGE,
-                title: 'Ha asistido',
-                message: '<h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4>',
-                buttons: [{
-                    label: '<i class="fa fa-check" aria-hidden="true"></i> Si',
-                    cssClass: 'btn-success btn-lg',
-                    action: function() {
-                        createAction(1);
-                        location.reload(true);
-                    }
-                    }, {
-                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> No',
-                    cssClass: 'btn-danger',
-                    action: function() {
-                        createAction(0);
-                        location.reload(true);
-                    }
-                }],
-                type: BootstrapDialog.TYPE_SUCCESS
             });
         });
     </script>

@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
 {% endblock %}
 
+
 {% block menu %}
 
     <a href="{{ path_for('registration.create', {'id': product_id}) }}">
@@ -36,9 +37,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="input-group">
-                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
+                        <input type="text" class="search form-control" placeholder="Búsqueda predictiva" />
                         <span class="input-group-btn">
-                            <button class="btn btn-danger btn-clear hide" type="button">
+                            <button class="btn btn-danger btn-clear hidden" type="button">
                                 <i class="fa fa-times"></i>
                             </button>
                             <button class="btn btn-default btn-search" type="button">
@@ -56,12 +57,16 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th></th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="list hide">
+                        <tbody class="list hidden">
                             {% for customer in registrations %}
+                                {% if customer.is_authorized == 1 %}
                                 <tr>
+                                {% else %}
+                                <tr class="bg-danger">
+                                {% endif %}
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
                                         {% if customer.type.name ==  'Ponente'%}
@@ -90,13 +95,17 @@
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
                                             <span class="text-success">
-                                                <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
                                             {% if customer.is_authorized == 1 %}
-                                                <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
+                                                <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
                                                 </a>
+                                            {% else %}
+                                                <span class="text-secondary">
+                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -119,6 +128,7 @@
         <video id="preview"></video>
     </div>
 {% endblock %}
+
 {% block footer %}
     <ul class="charts-container">
         <li>
@@ -147,14 +157,15 @@
         </li>
     </ul>
 {% endblock %}
+
 {% block scripts %}
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
-    <script src="{{ base_url() }}/js/adapter.js"></script>    
-    <script src="{{ base_url() }}/js/instascan.js"></script>
-    <script src="{{ base_url() }}/js/scaninstascan.js"></script>
-<script>
+    <script src="{{ base_url() }}/js/adapter.js"></script>
+    <script src="{{ base_url() }}/js/instascan.js?v=1"></script>
+    <script src="{{ base_url() }}/js/scaninstascan.js?v=2"></script>
+    <script>
         var customerList = new List('registrations', {
             valueNames: [
                 'name',
@@ -303,11 +314,10 @@
                                 }
                             }];
                             $(this).data('uniqueid', null)
-                                .removeClass('text-danger')
+                                .removeClass('text-muted')
                                 .addClass('text-success')
                                 .children('i')
-                                .removeClass('fa-times-circle')
-                                .addClass('fa-check-circle');
+                                .removeClass('fa-rotate-180');
                         }
                         BootstrapDialog.show({
                             size: BootstrapDialog.SIZE_LARGE,
@@ -326,30 +336,36 @@
         });
         $(document).ready(function() {
             info();
-
+            $('input.search').on('click', function () {
+                $('.charts-container').addClass('hidden');
+            });
             $('input.search').on('keyup', function () {
+                $('.charts-container').addClass('hidden');
+
                 var key = $('input.search').val();
+
                 if (key.length >= 3) {
-                    $('.list').removeClass('hide');
-                    $('.btn-clear').removeClass('hide');
-                    $('.nolist').addClass('hide');
-                    $('.charts-container').addClass('hide');
-                    $('.btn-search').addClass('hide');
+                    $('.list').removeClass('hidden');
+                    $('.btn-clear').removeClass('hidden');                   
+                    $('.nolist').addClass('hidden');
+                    $('.btn-search').addClass('hidden');
+                } else if (key.length === 0) {
+                    $('.charts-container').removeClass('hidden');
                 } else {
-                    $('.charts-container').removeClass('hide');
-                    $('.nolist').removeClass('hide');
-                    $('.list').addClass('hide');
-                    $('.btn-clear').addClass('hide');
-                    $('.btn-search').removeClass('hide');
+                    $('.nolist').removeClass('hidden');
+                    $('.list').addClass('hidden');
+                    $('.btn-clear').addClass('hidden');
+                    $('.btn-search').removeClass('hidden');
                 }
             });
+
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
-                $('.charts-container').removeClass('hide');
-                $('.nolist').removeClass('hide');
-                $('.list').addClass('hide');
-                $('.btn-clear').addClass('hide');
-                $('.btn-search').removeClass('hide');
+                $('.charts-container').removeClass('hidden');
+                $('.nolist').removeClass('hidden');
+                $('.list').addClass('hidden');
+                $('.btn-clear').addClass('hidden');
+                $('.btn-search').removeClass('hidden');
             });
         });
     </script>

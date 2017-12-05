@@ -149,7 +149,8 @@ class RegistrationController
                     'company' => $_POST['company'] ?? null,
                     'position' => $_POST['position'] ?? null,
                     'product_id' => $args['id'],
-                    'registration_type_id' => $_POST['registration_type_id']
+                    'registration_type_id' => $_POST['registration_type_id'],
+                    'verification' => $_POST['verification']
                 ]
             ]);
 
