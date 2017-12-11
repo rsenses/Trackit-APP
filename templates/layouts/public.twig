@@ -34,11 +34,11 @@
         <main>
             {% block content %}{% endblock %}
         </main>
-        <footer>
+        <footer class="public">
             {% block footer %}{% endblock %}
         </footer>
         <!-- All Javascript plugins goes here -->
-        <script src="{{ base_url() }}/js/jquery321.min.js"></script>
+        <script src="{{ base_url() }}/js/jquery.min.js"></script>
         <script src="{{ base_url() }}/js/bootstrap.min.js"></script>
 
         {# {% include 'partials/analytics.twig' %} #}

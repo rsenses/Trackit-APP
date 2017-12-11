@@ -35,9 +35,9 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="input-group">
-                        <input type="text" class="search form-control" autofocus placeholder="Búsqueda predictiva - Nombre Apellidos/DNI/Empresa" />
+                        <input type="text" class="search form-control" placeholder="Búsqueda predictiva" />
                         <span class="input-group-btn">
-                            <button class="btn btn-danger btn-clear hide" type="button">
+                            <button class="btn btn-danger btn-clear hidden" type="button">
                                 <i class="fa fa-times"></i>
                             </button>
                             <button class="btn btn-default btn-search" type="button">
@@ -55,12 +55,16 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th></th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="list hide">
+                        <tbody class="list hidden">
                             {% for customer in registrations %}
+                                {% if customer.is_authorized == 1 %}
                                 <tr>
+                                {% else %}
+                                <tr class="bg-danger">
+                                {% endif %}
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
                                         {% if customer.type.name ==  'Ponente'%}
@@ -89,13 +93,17 @@
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
                                             <span class="text-success">
-                                                <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
                                             {% if customer.is_authorized == 1 %}
-                                                <a href="#0" class="text-danger" data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="fa fa-times-circle fa-3x" aria-hidden="true"></i>
+                                                <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
+                                                    <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
                                                 </a>
+                                            {% else %}
+                                                <span class="text-secondary">
+                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -121,34 +129,35 @@
 {% endblock %}
 
 {% block footer %}
-    <div class="container-fluid">
-        <ul class="charts-container">
-            <li>
-                 <div class="chart-box asistentes hidden">
-                    <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span>/<span id="count-registrations"></span></span></div>
-                    <div class="chart-title asistentes hidden">
-                        <i class="icon-people" aria-hidden="true"></i> Asistentes
-                    </div>
-                 </div>
-            </li>
-            <li>
-                 <div class="chart-box ponentes hidden">
-                    <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span>/<span id="count-speakers"></span></span></div>
-                    <div class="chart-title  ponentes hidden">
-                         <i class="icon-speech" aria-hidden="true"></i> Ponentes
-                    </div>
-                 </div>
-            </li>
-            <li>
-                 <div class="chart-box vips hidden">
-                    <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span>/<span id="count-vips"></span></div>
-                    <div class="chart-title vips hidden">
-                        <i class="icon-diamond" aria-hidden="true"></i> Vips
-                    </div>
-                 </div>
-            </li>
-        </ul>
-    </div>
+    <a href="#0" class="toggler">
+        <i class="icon-arrow-up" aria-hidden="true"></i>
+    </a>
+    <ul class="charts-container invisible">
+        <li>
+             <div class="chart-box asistentes">
+                <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
+                <div class="chart-title asistentes">
+                    <span id="count-registrations"></span> <br class="visible-xs">Asistentes
+                </div>
+             </div>
+        </li>
+        <li>
+             <div class="chart-box ponentes">
+                <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
+                <div class="chart-title  ponentes">
+                     <span id="count-speakers"></span> <br class="visible-xs">Ponentes
+                </div>
+             </div>
+        </li>
+        <li>
+             <div class="chart-box vips">
+                <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></div>
+                <div class="chart-title vips">
+                    <span id="count-vips"></span><br class="visible-xs"> Vips
+                </div>
+             </div>
+        </li>
+    </ul>
 {% endblock %}
 
 {% block scripts %}
@@ -208,13 +217,13 @@
             $('.chart-1').attr('data-percent', percentAssistants);
             $('.chart-1').easyPieChart({
                 animate: 3000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#2BAAB1',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
             var registrationsSpeakers = $('#count-speakers').text();
 
@@ -223,28 +232,26 @@
             $('.chart-2').attr('data-percent', percentSpeakers);
             $('.chart-2').easyPieChart({
                 animate: 1000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#007bff',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
             var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
             $('.chart-3').attr('data-percent', percentVips);
             $('.chart-3').easyPieChart({
                 animate: 2000,
-                barColor: '#FFF',
-                trackColor: '#666',
+                barColor: '#6f42c1',
+                trackColor: '#d6d6d6',
                 scaleColor: false,
                 lineWidth: 20,
                 trackWidth: 16,
-                lineCap: 'butt',
-                size: 125
+                lineCap: 'round',
+                size: 150
             });
-
-            $('.chart-1').data('easyPieChart').update(percentAssistants);
             if (percentAssistants >= 0 || percentAssistants) {
                 $('.asistentes').removeClass('hidden');
             }
@@ -254,6 +261,7 @@
             if (percentVips >= 0 || percentVips) {
                 $('.vips').removeClass('hidden');
             }
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
             $('.chart-2').data('easyPieChart').update(percentSpeakers);
             $('.chart-3').data('easyPieChart').update(percentVips);
         };
@@ -308,11 +316,10 @@
                                 }
                             }];
                             $(this).data('uniqueid', null)
-                                .removeClass('text-danger')
+                                .removeClass('text-muted')
                                 .addClass('text-success')
                                 .children('i')
-                                .removeClass('fa-times-circle')
-                                .addClass('fa-check-circle');
+                                .removeClass('fa-rotate-180');
                         }
                         BootstrapDialog.show({
                             size: BootstrapDialog.SIZE_LARGE,
@@ -331,31 +338,36 @@
         });
         $(document).ready(function() {
             info();
-
+            $('input.search').on('click', function () {
+                $('.charts-container').addClass('hidden');
+            });
             $('input.search').on('keyup', function () {
+                $('.charts-container').addClass('hidden');
+
                 var key = $('input.search').val();
 
                 if (key.length >= 3) {
-                    $('.list').removeClass('hide');
-                    $('.btn-clear').removeClass('hide');
-                    $('.nolist').addClass('hide');
-                    $('.charts-container').addClass('hide');
-                    $('.btn-search').addClass('hide');
+                    $('.list').removeClass('hidden');
+                    $('.btn-clear').removeClass('hidden');                   
+                    $('.nolist').addClass('hidden');
+                    $('.btn-search').addClass('hidden');
+                } else if (key.length === 0) {
+                    $('.charts-container').removeClass('hidden');
                 } else {
-                    $('.charts-container').removeClass('hide');
-                    $('.nolist').removeClass('hide');
-                    $('.list').addClass('hide');
-                    $('.btn-clear').addClass('hide');
-                    $('.btn-search').removeClass('hide');
+                    $('.nolist').removeClass('hidden');
+                    $('.list').addClass('hidden');
+                    $('.btn-clear').addClass('hidden');
+                    $('.btn-search').removeClass('hidden');
                 }
             });
+
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
-                $('.charts-container').removeClass('hide');
-                $('.nolist').removeClass('hide');
-                $('.list').addClass('hide');
-                $('.btn-clear').addClass('hide');
-                $('.btn-search').removeClass('hide');
+                $('.charts-container').removeClass('hidden');
+                $('.nolist').removeClass('hidden');
+                $('.list').addClass('hidden');
+                $('.btn-clear').addClass('hidden');
+                $('.btn-search').removeClass('hidden');
             });
         });
     </script>
