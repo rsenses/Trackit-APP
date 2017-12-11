@@ -563,7 +563,7 @@ footer {
 
 .toggler.active {
     box-shadow:  2px 6px 5px rgba(0,0,0,.2);
-    color: #f5f5f5;
+    color: #444;
 }
 .toggler i {
     font-size: 28px;
