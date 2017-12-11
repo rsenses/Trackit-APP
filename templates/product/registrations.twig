@@ -14,10 +14,10 @@
     <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="search-menu hidden">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="#" class="logo hidden-xs">
+    <a href="#" class="logo hidden-xs lenovo">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
-    <a href="#" class="logo-mobile visible-xs">
+    <a href="#" class="logo-mobile visible-xs lenovo">
         <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}
@@ -336,13 +336,19 @@
                 });
             }
         });
+        $(document).on('click', '.toggler', function(event) {
+            event.preventDefault();
+            $(this).toggleClass('active');
+            $('.charts-container').toggleClass('invisible');
+            /* Act on the event */
+        });
         $(document).ready(function() {
             info();
             $('input.search').on('click', function () {
-                $('.charts-container').addClass('hidden');
+                $('.charts-container').addClass('invisible');
+                $('.toggler').removeClass('active');
             });
             $('input.search').on('keyup', function () {
-                $('.charts-container').addClass('hidden');
 
                 var key = $('input.search').val();
 
@@ -351,8 +357,6 @@
                     $('.btn-clear').removeClass('hidden');                   
                     $('.nolist').addClass('hidden');
                     $('.btn-search').addClass('hidden');
-                } else if (key.length === 0) {
-                    $('.charts-container').removeClass('hidden');
                 } else {
                     $('.nolist').removeClass('hidden');
                     $('.list').addClass('hidden');
@@ -363,7 +367,6 @@
 
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
-                $('.charts-container').removeClass('hidden');
                 $('.nolist').removeClass('hidden');
                 $('.list').addClass('hidden');
                 $('.btn-clear').addClass('hidden');
