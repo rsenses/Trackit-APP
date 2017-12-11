@@ -122,7 +122,6 @@
             </div>
         </div>
     </div>
-    <div class="size"></div>
     <div id="scan" class="hidden">
         <video id="video" autoplay="true" style="display:none;"></video>
         <canvas id="canvas"></canvas>
@@ -130,27 +129,30 @@
 {% endblock %}
 
 {% block footer %}
-    <ul class="charts-container">
+    <a href="#0" class="toggler">
+        <i class="icon-arrow-up" aria-hidden="true"></i>
+    </a>
+    <ul class="charts-container invisible">
         <li>
-             <div class="chart-box asistentes hidden">
+             <div class="chart-box asistentes">
                 <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
-                <div class="chart-title asistentes hidden">
+                <div class="chart-title asistentes">
                     <span id="count-registrations"></span> <br class="visible-xs">Asistentes
                 </div>
              </div>
         </li>
         <li>
-             <div class="chart-box ponentes hidden">
+             <div class="chart-box ponentes">
                 <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
-                <div class="chart-title  ponentes hidden">
+                <div class="chart-title  ponentes">
                      <span id="count-speakers"></span> <br class="visible-xs">Ponentes
                 </div>
              </div>
         </li>
         <li>
-             <div class="chart-box vips hidden">
+             <div class="chart-box vips">
                 <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></div>
-                <div class="chart-title vips hidden">
+                <div class="chart-title vips">
                     <span id="count-vips"></span><br class="visible-xs"> Vips
                 </div>
              </div>
@@ -174,11 +176,6 @@
             ],
             shouldAccentFold: true
         });
-$(document).ready(function() {
-var viewportHeight = $(window).height();
-var viewportWidth = $(window).width();
-$('.size').html('<h1>'+viewportWidth+'x'+viewportHeight+'<h1>');
-});
 
         var info = function () {
             $.ajax({
