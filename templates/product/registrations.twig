@@ -60,10 +60,10 @@
                         </thead>
                         <tbody class="list hidden">
                             {% for customer in registrations %}
-                                {% if customer.is_authorized == 1 %}
-                                <tr>
-                                {% else %}
+                                {% if customer.is_authorized == 0 %}
                                 <tr class="bg-danger">
+                                {% else %}
+                                <tr>
                                 {% endif %}
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
@@ -96,14 +96,14 @@
                                                 <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
-                                            {% if customer.is_authorized == 1 %}
+                                            {% if customer.is_authorized == 0 %}
+                                                <span class="text-secondary">
+                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                </span>
+                                            {% else %}
                                                 <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
                                                     <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
                                                 </a>
-                                            {% else %}
-                                                <span class="text-secondary">
-                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
-                                                </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -348,7 +348,7 @@
 
                 if (key.length >= 3) {
                     $('.list').removeClass('hidden');
-                    $('.btn-clear').removeClass('hidden');                   
+                    $('.btn-clear').removeClass('hidden');
                     $('.nolist').addClass('hidden');
                     $('.btn-search').addClass('hidden');
                 } else if (key.length === 0) {
