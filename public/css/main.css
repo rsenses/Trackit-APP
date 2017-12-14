@@ -20,12 +20,12 @@ button {
 }
 
 
-#instascan video {
+/*#instascan video {
     width: 100%;
     transform:rotateY(0deg) !important;
     -webkit-transform:rotateY(0deg) !important;
     -moz-transform:rotateY(0deg) !important;
-} 
+} */
 .overlay {
     content: '';
     height: 100vh;
@@ -558,7 +558,7 @@ footer {
     border-radius: 90px;
     padding: 20px;
     color: #f5f5f5;
-    background-color: #eaeaea;   
+    background-color: #eaeaea;
 }
 
 .toggler.active {
@@ -708,7 +708,7 @@ canvas, video {
     #registrations .input-group-btn button {
         border-radius: 0 10px 10px 0;
         font-size: 20px;
-    }   
+    }
 }
 @media(min-width: 768px) {
     .table > thead > tr > th,
@@ -746,7 +746,7 @@ canvas, video {
     #registrations .input-group-btn button {
         border-radius: 0 10px 10px 0;
         font-size: 20px;
-    }   
+    }
     .chart canvas {
         margin-left: 0px;
         width: 125px !important;

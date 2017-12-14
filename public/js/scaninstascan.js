@@ -1,8 +1,12 @@
-var scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+var scanner = new Instascan.Scanner({
+    mirror: false,
+    video: document.getElementById('preview'),
+    refractoryPeriod: 7500,
+    scanPeriod: 16
+});
 
-function startScan() {
+function startScan(camera) {
     scanner.addListener('scan', function (code) {
-        console.log(code);
         if (code.length !== 0) {
             $.ajax({
                 type: "GET",
@@ -44,10 +48,7 @@ function startScan() {
                         title: title,
                         message: message,
                         buttons: buttons,
-                        type: type,
-                        onhide: function(dialogRef) {
-                            decode = true;
-                        }
+                        type: type
                     });
                 },
                 error: function(a) {
@@ -62,12 +63,16 @@ function startCamera() {
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length != 0) {
             if (cameras.length > 1) {
-                scanner.start(cameras[1]);
+                camera = cameras[1];
+
+                scanner.start(camera);
             } else {
-                scanner.start(cameras[0]);
+                camera = cameras[0];
+
+                scanner.start(camera);
             }
 
-            startScan();
+            startScan(camera);
         } else {
             BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
