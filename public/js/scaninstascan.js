@@ -1,7 +1,7 @@
 var scanner = new Instascan.Scanner({
     mirror: false,
     video: document.getElementById('preview'),
-    refractoryPeriod: 7500,
+    refractoryPeriod: 1000,
     scanPeriod: 16
 });
 

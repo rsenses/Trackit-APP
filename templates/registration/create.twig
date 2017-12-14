@@ -82,27 +82,24 @@
             var action = $('form').attr('action');
             var method = $('form').attr('method');
             var serializedData = $('form').serialize();
+
             $.ajax({
                 type: method,
                 url: action,
                 data: serializedData+'&verification='+verification,
                 context: this,
-                cache: false,
-                success: function(a) {
-                    console.log('Success', a);
-                },
-                error: function(a) {
-                    console.log('Error', a);
-                }
+                cache: false
             });
         }
 
         $('form').submit(function() {
             event.preventDefault();
+            
             var name = $('#firstNameInput').val();
             var lastname = $('#lastNameInput').val();
             var typeId = $('#typeId option:selected').text();
-             BootstrapDialog.show({
+
+            BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
                 title: 'Confirmar el acceso',
                 message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4></div><p>Por favor, confirme si ha accedido</p>',
@@ -111,13 +108,15 @@
                     cssClass: 'btn-success pull-rigth',
                     action: function() {
                         createAction(1);
+
                         location.reload(true);
                     }
-                    }, {
+                }, {
                     label: '<i class="fa fa-times-circle" aria-hidden="true"></i> No',
                     cssClass: 'btn-danger pull-left',
                     action: function() {
                         createAction(0);
+
                         location.reload(true);
                     }
                 }],

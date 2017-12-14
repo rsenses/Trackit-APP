@@ -164,7 +164,7 @@
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
     <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script>
-    <script src="{{ base_url() }}/js/scaninstascan.js?v=4"></script>
+    <script src="{{ base_url() }}/js/scaninstascan.js?v=5"></script>
     <script>
         var customerList = new List('registrations', {
             valueNames: [
@@ -287,22 +287,6 @@
                                 }
                             }];
                         } else if (a.status == 'success') {
-                            // type = BootstrapDialog.TYPE_SUCCESS;
-                            // title = a.message;
-                            // message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
-                            // buttons = [{
-                            //     label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
-                            //     cssClass: 'btn-success btn-lg',
-                            //     action: function(dialog) {
-                            //         dialog.close();
-                            //     }
-                            // }, {
-                            //     label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
-                            //     cssClass: 'btn-danger btn-lg',
-                            //     action: function(dialog) {
-                            //         dialog.close();
-                            //     }
-                            // }];
                             type = BootstrapDialog.TYPE_SUCCESS;
                             title = a.message;
                             message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
