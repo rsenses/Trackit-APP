@@ -4,22 +4,20 @@
     <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
 {% endblock %}
 
-
 {% block menu %}
-
     <a href="{{ path_for('registration.create', {'id': product_id}) }}">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="" class="scan-menu">
+    <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="" class="search-menu hidden">
+    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="search-menu hidden">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="#" class="logo hidden-xs">
+    <a href="#" class="logo hidden-xs lenovo">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
-    <a href="#" class="logo-mobile visible-xs">
+    <a href="#" class="logo-mobile visible-xs lenovo">
         <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}
@@ -62,10 +60,10 @@
                         </thead>
                         <tbody class="list hidden">
                             {% for customer in registrations %}
-                                {% if customer.is_authorized == 1 %}
-                                <tr>
-                                {% else %}
+                                {% if customer.is_authorized == 0 %}
                                 <tr class="bg-danger">
+                                {% else %}
+                                <tr>
                                 {% endif %}
                                     <td class="name">
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
@@ -98,14 +96,14 @@
                                                 <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
                                             </span>
                                         {% else %}
-                                            {% if customer.is_authorized == 1 %}
+                                            {% if customer.is_authorized == 0 %}
+                                                <span class="text-secondary">
+                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                </span>
+                                            {% else %}
                                                 <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
                                                     <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
                                                 </a>
-                                            {% else %}
-                                                <span class="text-secondary">
-                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
-                                                </span> 
                                             {% endif %}
                                         {% endif %}
                                     </td>
@@ -130,27 +128,30 @@
 {% endblock %}
 
 {% block footer %}
-    <ul class="charts-container">
+    <a href="#0" class="toggler">
+        <i class="icon-arrow-up" aria-hidden="true"></i>
+    </a>
+    <ul class="charts-container invisible">
         <li>
-             <div class="chart-box asistentes hidden">
+             <div class="chart-box asistentes">
                 <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
-                <div class="chart-title asistentes hidden">
+                <div class="chart-title asistentes">
                     <span id="count-registrations"></span> <br class="visible-xs">Asistentes
                 </div>
              </div>
         </li>
         <li>
-             <div class="chart-box ponentes hidden">
+             <div class="chart-box ponentes">
                 <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
-                <div class="chart-title  ponentes hidden">
+                <div class="chart-title  ponentes">
                      <span id="count-speakers"></span> <br class="visible-xs">Ponentes
                 </div>
              </div>
         </li>
         <li>
-             <div class="chart-box vips hidden">
+             <div class="chart-box vips">
                 <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></div>
-                <div class="chart-title vips hidden">
+                <div class="chart-title vips">
                     <span id="count-vips"></span><br class="visible-xs"> Vips
                 </div>
              </div>
@@ -162,9 +163,8 @@
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
-    <script src="{{ base_url() }}/js/adapter.js"></script>
-    <script src="{{ base_url() }}/js/instascan.js?v=1"></script>
-    <script src="{{ base_url() }}/js/scaninstascan.js?v=2"></script>
+    <script src="{{ base_url() }}/js/instascan.js?v=2"></script>
+    <script src="{{ base_url() }}/js/scaninstascan.js?v=3"></script>
     <script>
         var customerList = new List('registrations', {
             valueNames: [
@@ -334,23 +334,27 @@
                 });
             }
         });
+        $(document).on('click', '.toggler', function(event) {
+            event.preventDefault();
+            $(this).toggleClass('active');
+            $('.charts-container').toggleClass('invisible');
+            /* Act on the event */
+        });
         $(document).ready(function() {
             info();
             $('input.search').on('click', function () {
-                $('.charts-container').addClass('hidden');
+                $('.charts-container').addClass('invisible');
+                $('.toggler').removeClass('active');
             });
             $('input.search').on('keyup', function () {
-                $('.charts-container').addClass('hidden');
 
                 var key = $('input.search').val();
 
                 if (key.length >= 3) {
                     $('.list').removeClass('hidden');
-                    $('.btn-clear').removeClass('hidden');                   
+                    $('.btn-clear').removeClass('hidden');
                     $('.nolist').addClass('hidden');
                     $('.btn-search').addClass('hidden');
-                } else if (key.length === 0) {
-                    $('.charts-container').removeClass('hidden');
                 } else {
                     $('.nolist').removeClass('hidden');
                     $('.list').addClass('hidden');
@@ -361,7 +365,6 @@
 
             $('.btn-clear').on('click', function () {
                 $('input.search').val('');
-                $('.charts-container').removeClass('hidden');
                 $('.nolist').removeClass('hidden');
                 $('.list').addClass('hidden');
                 $('.btn-clear').addClass('hidden');
