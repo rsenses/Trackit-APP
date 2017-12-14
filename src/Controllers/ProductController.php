@@ -89,7 +89,8 @@ class ProductController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
-    public function InstaRegistrationsAction(Request $request, Response $response, array $args)
+    
+    public function instaRegistrationsAction(Request $request, Response $response, array $args)
     {
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations/all', [

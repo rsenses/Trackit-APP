@@ -15,10 +15,6 @@ $app->group('/auth', function () {
     $this->get('/signin', 'AuthController:getSignInAction')->setName('auth.signin');
     $this->post('/signin', 'AuthController:postSignInAction');
 });
-// ->add(new App\Middlewares\GuestMiddleware(
-//     $container->auth,
-//     $container->router
-// ));
 
 // Authenticated users routes
 $app->group('', function () {
@@ -32,9 +28,9 @@ $app->group('', function () {
     $this->group('/product', function () {
         // All Products
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
-        $this->get('/{id:[0-9]+}/registrations/all', 'ProductController:InstaRegistrationsAction')->setName('product.registrations.all');
+        $this->get('/{id:[0-9]+}/registrations/all', 'ProductController:instaRegistrationsAction')->setName('product.registrations.all');
         $this->get('/{id:[0-9]+}/registrations/insta', 'ProductController:allRegistrationsAction')->setName('product.registrations.insta');
-        $this->get('/{id:[0-9]+}/registrations/{type:[a-z0-9-]+}', 'ProductController:registrationsAction')->setName('product.registrations');
+        // $this->get('/{id:[0-9]+}/registrations/{type:[a-z0-9-]+}', 'ProductController:registrationsAction')->setName('product.registrations');
     });
 
     // Registration Group
