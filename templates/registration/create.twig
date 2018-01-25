@@ -126,11 +126,17 @@
                 url: action,
                 data: serializedData+'&verification='+verification,
                 context: this,
-                cache: false
+                cache: false,
+                success: function() {
+                    location.reload(true);
+                },
+                error: function() {
+                    console.log(data);
+                }
             });
         }
 
-        $('form').submit(function() {
+        $('form').submit(function(event) {
             event.preventDefault();
 
             var name = $('#firstNameInput').val();
@@ -146,16 +152,12 @@
                     cssClass: 'btn-success pull-rigth',
                     action: function() {
                         createAction(1);
-
-                        location.reload(true);
                     }
                 }, {
                     label: '<i class="fa fa-times-circle" aria-hidden="true"></i> No',
                     cssClass: 'btn-danger pull-left',
                     action: function() {
                         createAction(0);
-
-                        location.reload(true);
                     }
                 }],
                 type: BootstrapDialog.TYPE_SUCCESS
