@@ -52,7 +52,7 @@
                             <label for="positionInput">Cargo</label>
                             <input type="text" class="form-control" id="positionInput" placeholder="Puesto de trabajo" name="position">
                         </div>
-                        <div class="form-group col-xs-12 col-sm-4">
+                        <div class="form-group col-xs-12 col-sm-4 {{ type ? 'invisible' }}">
                             <label for="typeId">Tipo de registro <span class="text-danger">*</span></label>
                             <select class="form-control" id="typeId" name="registration_type_id" required>
                                 {% for type in registration_type %}
@@ -61,6 +61,44 @@
                             </select>
                         </div>
                         {{ csrf.field | raw }}
+                        {% if type %}
+                            <div class="col-xs-12">
+                                <div id="text-legal" class="collapse in" aria-expanded="true" style="">
+                                    <p>Los datos de carácter personal suministrados a través de este formulario van a ser incorporados a un fichero de datos, del que es responsable y destinatario Unidad Editorial Formación, S.L., con domicilio en la avenida de San Luis 25, de Madrid (28033), y serán utilizados para gestionar su alta como usuario de este sitio web: <a href="http://www.escuelaunidadeditorial.es">www.escuelaunidadeditorial.es</a>, así como para remitirle información sobre productos, eventos y servicios propios de Unidad Editorial Formación, S.L y Unidad Editorial, S.A., de empresas de su grupo o de terceros, en los sectores de medios de comunicación, deportes, viajes, automóviles, música, audiovisual, servicios financieros, formación, conferencias, periodismo, comunicación, hostelería, productos tecnológicos, servicios de telecomunicaciones y cosmética., incluyendo el envío de comunicaciones comerciales por correo electrónico o cualquier otro medio de comunicación electrónico equivalente (como SMS). En caso de que no desee recibir información publicitaria marque las siguientes casillas:</p>
+                                    <ul style="list-style:none">
+                                        <li>
+                                            <div class="checkbox checkbox-warning">
+                                                <input name="infothird" id="infothird" type="checkbox" value="1">
+                                                <label for="infothird">No deseo recibir información de terceros.</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="checkbox checkbox-warning">
+                                                <input name="infomail" id="infomail" type="checkbox" value="1">
+                                                <label for="infomail">No deseo recibir información publicitaria de Unidad Editorial por e-mail o cualquier otro medio de comunicación electrónica equivalente.</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <p>Estos datos se tratarán confidencialmente y de acuerdo con lo establecido en la Ley Orgánica 15/1999, de 13 de diciembre, de modo que los usuarios podrán acceder, rectificar, cancelar y oponerse al tratamiento de sus datos dirigiéndose a la dirección anteriormente indicada, o bien a la dirección de correo electrónico <a href="mailto:lopd@unidadeditorial.es">lopd@unidadeditorial.es</a>.
+                                        <br>
+                                        <br>Ayúdenos a mantener dichos datos actualizados comunicándonos cualquier modificación que se produzca en los mismos.</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-7">
+                                <div class="checkbox checkbox-primary col-xs-12">
+                                    <input id="age" name="age" type="checkbox" value="1">
+                                    <label for="age">
+                                        Confirmo que soy mayor de 18 años
+                                    </label>
+                                </div>
+                                <div class="checkbox checkbox-primary col-xs-12">
+                                    <input id="phone-legal-check" name="legal" type="checkbox" value="1">
+                                    <label for="phone-legal-check">
+                                        He leído y acepto las <a role="button" data-toggle="collapse" href="#text-legal">Condiciones Legales</a>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
                         <div class="clearfix"></div>
                         <div class="col-xs-4 col-sm-6 text-left">
                             <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-danger btn-lg"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Borrar datos</span></a>
@@ -94,7 +132,7 @@
 
         $('form').submit(function() {
             event.preventDefault();
-            
+
             var name = $('#firstNameInput').val();
             var lastname = $('#lastNameInput').val();
             var typeId = $('#typeId option:selected').text();

@@ -109,6 +109,7 @@ class RegistrationController
     {
         return $this->view->render($response, 'registration/create.twig', [
             'product_id' => $args['id'],
+            'type' => $request->getQueryParam('type'),
             'registration_type' => $this->settings['enum']['registration_type']
         ]);
     }
@@ -142,15 +143,19 @@ class RegistrationController
                     'Content-Language' => 'es'
                 ],
                 'form_params' => [
-                    'first_name' => $_POST['first_name'],
-                    'last_name' => $_POST['last_name'],
-                    'email' => $_POST['email'],
-                    'nif' => $_POST['nif'] ?? null,
-                    'company' => $_POST['company'] ?? null,
-                    'position' => $_POST['position'] ?? null,
+                    'first_name' => $request->getParam('first_name'),
+                    'last_name' => $request->getParam('last_name'),
+                    'email' => $request->getParam('email'),
+                    'nif' => $request->getParam('nif'),
+                    'company' => $request->getParam('company'),
+                    'position' => $request->getParam('position'),
                     'product_id' => $args['id'],
-                    'registration_type_id' => $_POST['registration_type_id'],
-                    'verification' => $_POST['verification']
+                    'registration_type_id' => $request->getParam('registration_type_id'),
+                    'verification' => $request->getParam('verification'),
+                    'infothird' => $request->getParam('infothird'),
+                    'infomail' => $request->getParam('infomail'),
+                    'legal' => $request->getParam('legal'),
+                    'age' => $request->getParam('age'),
                 ]
             ]);
 
