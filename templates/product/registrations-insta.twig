@@ -6,7 +6,7 @@
 
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}">
-        <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
+        <i class="icon-user-following fa-2x" aria-hidden="true"></i>
     </a>
     <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
@@ -126,7 +126,6 @@
         <video id="preview"></video>
     </div>
 {% endblock %}
-
 {% block footer %}
     <a href="#0" class="toggler">
         <i class="icon-arrow-up" aria-hidden="true"></i>
