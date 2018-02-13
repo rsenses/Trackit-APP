@@ -12,7 +12,7 @@
     {% else %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}?type=asistente" class="scan-menu">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
-    </a> 
+    </a>
     <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
@@ -177,7 +177,7 @@
             if (ageInput.is(':checked') && legalInput.is(':checked')) {
                 $('button[type="submit"]').prop('disabled',false).css('background-color', 'green');;
             } else {
-                $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');;     
+                $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');;
             }
         };
         $(document).on("click", 'input[name="age"], input[name="legal"]', function(){
