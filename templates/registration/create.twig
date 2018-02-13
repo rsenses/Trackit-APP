@@ -169,15 +169,15 @@
             });
 
         $(window).load(function() {
-            $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');;
+            $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');
         });
         var ageInput = $('input[name="age"]');
         var legalInput = $('input[name="legal"]');
         function chekerLegalAge(){
             if (ageInput.is(':checked') && legalInput.is(':checked')) {
-                $('button[type="submit"]').prop('disabled',false).css('background-color', 'green');;
+                $('button[type="submit"]').prop('disabled',false).css('background-color', 'green');
             } else {
-                $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');;
+                $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');
             }
         };
         $(document).on("click", 'input[name="age"], input[name="legal"]', function(){
