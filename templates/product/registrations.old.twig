@@ -11,13 +11,13 @@
     <a href="{{ path_for('registration.verification', {'id': product_id}) }}" class="scan-menu">
         <i class="icon-camera fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="search-menu hidden">
+    <a href="{{ path_for('product.registrations', {'id': product_id}) }}" class="search-menu hidden">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="#" class="logo hidden-xs lenovo">
+    <a href="{{ path_for('product.registrations', {'id': product.product_id}) }}" class="logo hidden-xs lenovo">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
-    <a href="#" class="logo-mobile visible-xs lenovo">
+    <a href="{{ path_for('product.registrations', {'id': product.product_id}) }}" class="logo-mobile visible-xs lenovo">
         <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}
@@ -122,10 +122,12 @@
             </div>
         </div>
     </div>
-    <div id="instascan" class="hidden">
-        <video id="preview"></video>
+    <div id="scan" class="hidden">
+        <video id="video" autoplay="true" style="display:none;"></video>
+        <canvas id="canvas"></canvas>
     </div>
 {% endblock %}
+<div class="scan">
 {% block footer %}
     <a href="#0" class="toggler">
         <i class="icon-arrow-up" aria-hidden="true"></i>
@@ -157,13 +159,14 @@
         </li>
     </ul>
 {% endblock %}
-
+</div>
 {% block scripts %}
     <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
-    <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script>
-    <script src="{{ base_url() }}/js/scaninstascan.js?v=5"></script>
+    <script src="{{ base_url() }}/js/adapter.js"></script>
+    <script src="{{ base_url() }}/js/jsQR-new.js?v=1"></script>
+    <script src="{{ base_url() }}/js/scan.js?v=2"></script>
     <script>
         var customerList = new List('registrations', {
             valueNames: [
@@ -286,6 +289,22 @@
                                 }
                             }];
                         } else if (a.status == 'success') {
+                            // type = BootstrapDialog.TYPE_SUCCESS;
+                            // title = a.message;
+                            // message = '<h4>'+a.user+'</h4><p>¿Va a <strong>asistir</strong> al almuerzo?</p>';
+                            // buttons = [{
+                            //     label: '<i class="fa fa-check-circle" aria-hidden="true"></i> Si',
+                            //     cssClass: 'btn-success btn-lg',
+                            //     action: function(dialog) {
+                            //         dialog.close();
+                            //     }
+                            // }, {
+                            //     label: '<i class="fa fa-ban" aria-hidden="true"></i> No',
+                            //     cssClass: 'btn-danger btn-lg',
+                            //     action: function(dialog) {
+                            //         dialog.close();
+                            //     }
+                            // }];
                             type = BootstrapDialog.TYPE_SUCCESS;
                             title = a.message;
                             message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';

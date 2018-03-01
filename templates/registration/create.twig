@@ -13,14 +13,14 @@
     <a href="{{ path_for('registration.create', {'id': product_id}) }}?type=asistente" class="scan-menu">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}">
+    <a href="{{ path_for('product.registrations', {'id': product_id}) }}">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
     {% endif %}
-    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="logo hidden-xs">
+    <a href="{{ path_for('product.registrations', {'id': product_id}) }}" class="logo hidden-xs">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product_id}) }}" class="logo-mobile visible-xs">
+    <a href="{{ path_for('product.registrations', {'id': product_id}) }}" class="logo-mobile visible-xs">
         <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
     </a>
 {% endblock %}

@@ -8,7 +8,7 @@
     <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="scan-menu">
         <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
     </a>
-    <a href="{{ path_for('product.registrations.all', {'id': product.product_id}) }}">
+    <a href="{{ path_for('product.registrations', {'id': product.product_id}) }}">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
     {# <a href="{{ path_for('registration.verification', {'id': product.product_id}) }}">

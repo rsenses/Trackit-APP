@@ -89,7 +89,7 @@ class ProductController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
     }
-    
+
     public function instaRegistrationsAction(Request $request, Response $response, array $args)
     {
         try {
@@ -102,7 +102,7 @@ class ProductController
 
             $registrations = json_decode($apiRequest->getBody());
 
-            return $this->view->render($response, 'product/registrations-insta.twig', [
+            return $this->view->render($response, 'product/registrations.twig', [
                 'registrations' => $registrations,
                 'product_id' => $args['id'],
             ]);
