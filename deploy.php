@@ -55,7 +55,7 @@ set('keep_releases', 2);
 
 task('reload:server', function () {
     run('/etc/init.d/nginx reload');
-    run('/etc/init.d/php7.0-fpm restart');
+    run('/etc/init.d/php7.1-fpm restart');
 });
 
 after('deploy', 'reload:server');
