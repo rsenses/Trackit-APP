@@ -6,8 +6,12 @@ var scanner = new Instascan.Scanner({
 });
 
 function startScan(camera) {
+    var send = 1;
+    
     scanner.addListener('scan', function (code) {
-        if (code.length !== 0) {
+        if (code.length !== 0 && send) {
+            send = 0;
+
             $.ajax({
                 type: "GET",
                 url: "/registration/verify/"+ code,
@@ -50,6 +54,8 @@ function startScan(camera) {
                         buttons: buttons,
                         type: type
                     });
+
+                    send = 1;
                 },
                 error: function(a) {
                     location.reload();
