@@ -1,13 +1,8 @@
-var scanner = new Instascan.Scanner({
-    mirror: false,
-    video: document.getElementById('preview'),
-    refractoryPeriod: 10000,
-    scanPeriod: 8
-});
+var scanner;
 
-function startScan(camera) {
+function startScan() {
     var send = 1;
-    
+
     scanner.addListener('scan', function (code) {
         if (code.length !== 0 && send) {
             send = 0;
@@ -66,6 +61,13 @@ function startScan(camera) {
 };
 
 function startCamera() {
+    scanner = new Instascan.Scanner({
+        mirror: false,
+        video: document.getElementById('preview'),
+        refractoryPeriod: 10000,
+        scanPeriod: 8
+    });
+
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length != 0) {
             if (cameras.length > 1) {
@@ -78,7 +80,7 @@ function startCamera() {
                 scanner.start(camera);
             }
 
-            startScan(camera);
+            startScan();
         } else {
             BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
@@ -115,11 +117,12 @@ $('.scan-menu').click(function(event) {
 $('.search-menu').click(function(event) {
     event.preventDefault();
 
-    scanner.stop();
-
-    $('#registrations').removeClass('hidden');
-    $('.scan-menu').removeClass('hidden');
-    $('.search-menu').addClass('hidden');
-    $('footer').removeClass('hidden');
-    $('#instascan').addClass('hidden');
+    scanner.stop().then(function () {
+        scanner = null;
+        $('#registrations').removeClass('hidden');
+        $('.scan-menu').removeClass('hidden');
+        $('.search-menu').addClass('hidden');
+        $('footer').removeClass('hidden');
+        $('#instascan').addClass('hidden');
+    });
 });
