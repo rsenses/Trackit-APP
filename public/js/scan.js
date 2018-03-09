@@ -1,61 +1,9 @@
 var scanner;
 
 function startScan() {
-    var send = 1;
-
     scanner.addListener('scan', function (code) {
-        if (code.length !== 0 && send) {
-            send = 0;
-
-            $.ajax({
-                type: "GET",
-                url: "/registration/verify/"+ code,
-                dataType: "json",
-                cache: false,
-                success: function(a) {
-                    if (a.status == 'error') {
-                        type = BootstrapDialog.TYPE_DANGER;
-                        title = 'Error';
-                        message = '<h4>'+a.message+'</h4>';
-                        buttons = [{
-                            label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                            cssClass: 'btn-primary btn-lg',
-                            action: function(dialog) {
-                                dialog.close();
-                            }
-                        }];
-                    } else if (a.status == 'success') {
-                        type = BootstrapDialog.TYPE_SUCCESS;
-                        title = a.message;
-                        message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
-                        buttons = [{
-                            label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                            cssClass: 'btn-primary btn-lg',
-                            action: function(dialog) {
-                                dialog.close();
-                            }
-                        }];
-                        $(this).data('uniqueid', null)
-                            .removeClass('text-danger')
-                            .addClass('text-success')
-                            .children('i')
-                            .removeClass('fa-times-circle')
-                            .addClass('fa-check-circle');
-                    }
-                    BootstrapDialog.show({
-                        size: BootstrapDialog.SIZE_LARGE,
-                        title: title,
-                        message: message,
-                        buttons: buttons,
-                        type: type
-                    });
-
-                    send = 1;
-                },
-                error: function(a) {
-                    location.reload();
-                }
-            });
+        if (code.length !== 0) {
+            verifyCode(code);
         }
     });
 };
@@ -101,6 +49,65 @@ function startCamera() {
         }
     });
 };
+
+function verifyCode(code) {
+    $.ajax({
+        type: "GET",
+        url: "/registration/verify/"+ code,
+        dataType: "json",
+        cache: false,
+        success: function(a) {
+            if (a.status == 'error') {
+                type = BootstrapDialog.TYPE_DANGER;
+                title = 'Error';
+                message = '<h4>'+a.message+'</h4>';
+                buttons = [{
+                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                    cssClass: 'btn-primary btn-lg',
+                    action: function(dialog) {
+                        dialog.close();
+                    }
+                }];
+            } else if (a.status == 'success') {
+                type = BootstrapDialog.TYPE_SUCCESS;
+                title = a.message;
+                message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
+                buttons = [{
+                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                    cssClass: 'btn-primary btn-lg',
+                    action: function(dialog) {
+                        dialog.close();
+                    }
+                }];
+                $(this).data('uniqueid', null)
+                    .removeClass('text-danger')
+                    .addClass('text-success')
+                    .children('i')
+                    .removeClass('fa-times-circle')
+                    .addClass('fa-check-circle');
+            }
+            BootstrapDialog.show({
+                size: BootstrapDialog.SIZE_LARGE,
+                title: title,
+                message: message,
+                buttons: buttons,
+                type: type
+            });
+        },
+        error: function(a) {
+            location.reload();
+        }
+    });
+}
+
+$('html').bind('paste', function(e) {
+    e.preventDefault();
+    if(e.originalEvent.clipboardData){
+       var code = e.originalEvent.clipboardData.getData("text/plain");
+
+       verifyCode(code);
+     }
+});
 
 $('.scan-menu').click(function(event) {
     event.preventDefault();
