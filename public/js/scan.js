@@ -111,11 +111,7 @@ function verifyCode(code) {
 //      }
 // });
 $('#verify').on('input', function(e) {
-    console.log('input');
-
     var code = $(this).val();
-
-    console.log(code);
 
     verifyCode(code);
 });
