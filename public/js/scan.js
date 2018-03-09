@@ -108,7 +108,8 @@ $('html').bind('paste', function(e) {
        verifyCode(code);
      }
 });
-$('#searchbox input').bind('keypress', function(e) {
+$('html').bind('keydown', function(e) {
+    console.log('key down')
     var code = e.keyCode || e.which;
 
     console.log(code);
