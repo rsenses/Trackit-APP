@@ -51,6 +51,8 @@ function startCamera() {
 };
 
 function verifyCode(code) {
+    $('input#verify').val('');
+    
     $.ajax({
         type: "GET",
         url: "/registration/verify/"+ code,
@@ -100,17 +102,26 @@ function verifyCode(code) {
     });
 }
 
-$('html').bind('paste', function(e) {
-    e.preventDefault();
-    if(e.originalEvent.clipboardData){
-       var code = e.originalEvent.clipboardData.getData("text/plain");
+// $('html').bind('paste', function(e) {
+//     e.preventDefault();
+//     if(e.originalEvent.clipboardData){
+//        var code = e.originalEvent.clipboardData.getData("text/plain");
+//
+//        verifyCode(code);
+//      }
+// });
+$('input#verify').on('input', function(e) {
+    console.log('changed');
 
-       verifyCode(code);
-     }
+    var code = $(this).val();
+
+    console.log(code);
+
+    verifyCode(code);
 });
 $('html').bind('keydown', function(e) {
     if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
-        $('input#search').focus();
+        $('input#verify').focus();
     }
 });
 
