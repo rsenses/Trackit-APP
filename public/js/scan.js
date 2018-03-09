@@ -105,8 +105,6 @@ function verifyCode(code) {
 $('#verify').on('input', function(e) {
     var code = $(this).val();
 
-    console.log(code);
-
     e.target.blur();
 
     verifyCode(code);
