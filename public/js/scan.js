@@ -141,7 +141,7 @@ $('#verify').on('change', function(e) {
 $('html').bind('keydown', function(e) {
     if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
         console.log(e.originalEvent.code);
-        $('#search').focus();
+        $('#verify').focus();
     }
 });
 
