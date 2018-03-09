@@ -109,10 +109,8 @@ $('html').bind('paste', function(e) {
      }
 });
 $('html').bind('keydown', function(e) {
-    console.log(e.keyCode);
-    console.log(e.which);
-    console.log(e.code);
-    console.log(e);
+    console.log(e.originalEvent.code);
+    console.log(e.originalEvent);
 });
 
 $('.scan-menu').click(function(event) {
