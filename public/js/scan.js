@@ -109,13 +109,10 @@ $('html').bind('paste', function(e) {
      }
 });
 $('html').bind('keydown', function(e) {
-    var code = e.keyCode || e.which;
-
-    if (code === 0) {
-        var clipboard = e.originalEvent.clipboardData.getData("text/plain");
-
-        console.log(clipboard);
-    }
+    console.log(e.keyCode);
+    console.log(e.which);
+    console.log(e.code);
+    console.log(e);
 });
 
 $('.scan-menu').click(function(event) {
