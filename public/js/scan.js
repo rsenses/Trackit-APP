@@ -51,8 +51,8 @@ function startCamera() {
 };
 
 function verifyCode(code) {
-    $('input#verify').val('');
-    
+    $('#verify').val('');
+
     $.ajax({
         type: "GET",
         url: "/registration/verify/"+ code,
@@ -110,18 +110,38 @@ function verifyCode(code) {
 //        verifyCode(code);
 //      }
 // });
-$('input#verify').on('input', function(e) {
-    console.log('changed');
+$('#verify').on('input', function(e) {
+    console.log('input');
 
     var code = $(this).val();
 
     console.log(code);
 
-    verifyCode(code);
+    // verifyCode(code);
 });
+$('#verify').on('keyDown', function(e) {
+    console.log('keyDown');
+
+    var code = $(this).val();
+
+    console.log(code);
+
+    // verifyCode(code);
+});
+$('#verify').on('change', function(e) {
+    console.log('change');
+
+    var code = $(this).val();
+
+    console.log(code);
+
+    // verifyCode(code);
+});
+
 $('html').bind('keydown', function(e) {
     if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
-        $('input#verify').focus();
+        console.log(e.originalEvent.code);
+        $('#verify').focus();
     }
 });
 
