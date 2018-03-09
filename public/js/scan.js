@@ -111,10 +111,9 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
-    console.log(e.originalEvent.code);
-    console.log(e.keyCode);
-    console.log(e.wich);
-    if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
+    console.log(e);
+    console.log(e.originalEvent);
+    if (e.originalEvent && (e.originalEvent.code == 'AudioVolumeUp' || e.originalEvent.code == 'AudioVolumeDown')) {
         $('#verify').focus();
     }
 });
