@@ -119,24 +119,6 @@ $('#verify').on('input', function(e) {
 
     // verifyCode(code);
 });
-$('#verify').on('keyDown', function(e) {
-    console.log('keyDown');
-
-    var code = $(this).val();
-
-    console.log(code);
-
-    // verifyCode(code);
-});
-$('#verify').on('change', function(e) {
-    console.log('change');
-
-    var code = $(this).val();
-
-    console.log(code);
-
-    // verifyCode(code);
-});
 
 $('html').bind('keydown', function(e) {
     if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
