@@ -102,14 +102,6 @@ function verifyCode(code) {
     });
 }
 
-// $('html').bind('paste', function(e) {
-//     e.preventDefault();
-//     if(e.originalEvent.clipboardData){
-//        var code = e.originalEvent.clipboardData.getData("text/plain");
-//
-//        verifyCode(code);
-//      }
-// });
 $('#verify').on('input', function(e) {
     var code = $(this).val();
 
