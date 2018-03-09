@@ -88,13 +88,17 @@ function verifyCode(code) {
                     .removeClass('fa-times-circle')
                     .addClass('fa-check-circle');
             }
-            BootstrapDialog.show({
+            var dialog = BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
                 title: title,
                 message: message,
                 buttons: buttons,
                 type: type
             });
+
+            setTimeout(function () {
+                dialog.close();
+            }, 3000);
         },
         error: function(a) {
             location.reload();
