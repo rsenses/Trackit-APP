@@ -109,8 +109,9 @@ $('html').bind('paste', function(e) {
      }
 });
 $('html').bind('keydown', function(e) {
-    console.log(e.originalEvent.code);
-    console.log(e.originalEvent);
+    if (e.originalEvent && e.originalEvent.code == 'AudioVolumeUp') {
+        $('input#search').focus();
+    }
 });
 
 $('.scan-menu').click(function(event) {
