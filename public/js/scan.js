@@ -108,6 +108,11 @@ $('html').bind('paste', function(e) {
        verifyCode(code);
      }
 });
+$('#searchbox input').bind('keypress', function(e) {
+    var code = e.keyCode || e.which;
+
+    console.log(code);
+});
 
 $('.scan-menu').click(function(event) {
     event.preventDefault();
