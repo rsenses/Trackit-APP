@@ -113,6 +113,8 @@ function verifyCode(code) {
 $('#verify').on('input', function(e) {
     var code = $(this).val();
 
+    $(this).blur();
+
     verifyCode(code);
 });
 
