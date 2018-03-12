@@ -118,9 +118,13 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
+    e.preventDefault();
+
     if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
         $('#verify').focus();
     }
+
+    return false;
 });
 
 $('.scan-menu').click(function(event) {
