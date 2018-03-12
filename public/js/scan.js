@@ -127,9 +127,9 @@ $('html').bind('keydown', function(e) {
 
         field.focus();
 
-        field.on('input', function(e) {
+        $('#verify').on('input', function(e) {
             var element = e.target;
-            
+
             var code = element.val();
 
             element.setAttribute('style', 'display:none;');
