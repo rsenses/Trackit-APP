@@ -109,9 +109,12 @@ function verifyCode(code) {
 $('#verify').on('input', function(e) {
     var code = $(this).val();
 
-    e.target.blur();
+    $(this).hide();
+    $(this).blur();
 
     verifyCode(code);
+
+    $(this).show();
 });
 
 $('html').bind('keydown', function(e) {
