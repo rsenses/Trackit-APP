@@ -130,15 +130,13 @@ $('html').bind('keydown', function(e) {
             field.focus();
         } else {
             $('#verify').on('input', function(e) {
-                var element = e.target;
+                var code = $(this).val();
 
-                var code = element.val();
+                $(this).css('display', 'none');
 
-                element.setAttribute('style', 'display:none;');
+                $(this).blur();
 
-                element.blur();
-
-                element.parentNode.removeChild(element);
+                $(this).remove();
 
                 console.log(code);
 
