@@ -119,29 +119,32 @@ function verifyCode(code) {
 $('html').bind('keydown', function(e) {
     if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
         // $('#verify').focus();
-        var field = document.createElement('input');
-        field.setAttribute('type', 'text');
-        field.setAttribute('id', 'verify');
+        if ($('#verify').length == 0) {
+            var field = document.createElement('input');
+            field.setAttribute('type', 'text');
+            field.setAttribute('id', 'verify');
+            field.setAttribute('style', 'position:absolute;top:-220px');
 
-        document.body.appendChild(field);
+            document.body.appendChild(field);
 
-        field.focus();
+            field.focus();
+        } else {
+            $('#verify').on('input', function(e) {
+                var element = e.target;
 
-        $('#verify').on('input', function(e) {
-            var element = e.target;
+                var code = element.val();
 
-            var code = element.val();
+                element.setAttribute('style', 'display:none;');
 
-            element.setAttribute('style', 'display:none;');
+                element.blur();
 
-            element.blur();
+                element.parentNode.removeChild(element);
 
-            element.parentNode.removeChild(element);
+                console.log(code);
 
-            console.log(code);
-
-            verifyCode(code);
-        });
+                verifyCode(code);
+            });
+        }
     }
 });
 
