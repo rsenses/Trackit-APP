@@ -115,6 +115,9 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
+    console.log(e.keyCode);
+    console.log(e.originalEvent);
+    console.log(e.originalEvent.key);
     if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
         $('#verify').focus();
     }
