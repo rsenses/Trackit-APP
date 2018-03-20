@@ -109,15 +109,15 @@ function verifyCode(code) {
 $('#verify').on('input', function(e) {
     var code = $(this).val();
 
-    e.target.blur();
+    $(this).hide();
+    $(this).blur();
 
     verifyCode(code);
+
+    $(this).show();
 });
 
 $('html').bind('keydown', function(e) {
-    console.log(e.keyCode);
-    console.log(e.originalEvent);
-    console.log(e.originalEvent.key);
     if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
         $('#verify').focus();
     }
