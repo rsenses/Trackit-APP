@@ -25,16 +25,10 @@ after('deploy', 'success');
 
 // Define a server for deployment.
 host('scl.prs3.expomark.es')
-    ->user('root')
+    ->user('deploy')
+    ->identityFile('~/.ssh/do_rsa')
     // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
     ->stage('production')
-    ->set('deploy_path', '/var/www/app.trackitsuite.com'); // Define the base path to deploy your project to.
-
-host('192.168.1.57')
-    ->user('root')
-    // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
-    ->stage('local')
-    // ->set('branch', 'local')
     ->set('deploy_path', '/var/www/app.trackitsuite.com'); // Define the base path to deploy your project to.
 
 // Specify the repository from which to download your project's code.
@@ -54,8 +48,8 @@ set('http_user', 'www-data');
 set('keep_releases', 2);
 
 task('reload:server', function () {
-    run('/etc/init.d/nginx reload');
-    run('/etc/init.d/php7.1-fpm restart');
+    run('sudo service nginx reload');
+    run('sudo service php7.1-fpm reload');
 });
 
 after('deploy', 'reload:server');
