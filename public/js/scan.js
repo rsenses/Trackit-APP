@@ -118,9 +118,10 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
-    alert(e.originalEvent);
+    alert(e.keyCode);
+    alert(typeof e.originalEvent);
+    alert(e.originalEvent.key);
     if (e.keyCode == 0 && typeof e.originalEvent !== 'undefined' && e.originalEvent.key == 'Unidentified') {
-        alert(e.keyCode+' '+e.originalEvent.key);
         $('#verify').focus();
     }
 });
