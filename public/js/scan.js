@@ -118,7 +118,8 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
-    if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
+    alert(e.originalEvent);
+    if (e.keyCode == 0 && typeof e.originalEvent !== 'undefined' && e.originalEvent.key == 'Unidentified') {
         alert(e.keyCode+' '+e.originalEvent.key);
         $('#verify').focus();
     }
