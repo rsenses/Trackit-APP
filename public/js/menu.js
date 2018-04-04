@@ -38,7 +38,7 @@ $(document).ready(function() {
         $('#wrapper').toggleClass('toggled');
     });
 
-    var ww = $(window).width();
-    var hw = $(window).height();
-    $('body').append('<p style="color:#FFF;position:fixed;bottom:0;right:15px;">H '+hw+'<br />W '+ww+'</p>')
+    // var ww = $(window).width();
+    // var hw = $(window).height();
+    // $('body').append('<p style="color:#FFF;position:fixed;bottom:0;right:15px;">H '+hw+'<br />W '+ww+'</p>')
 });

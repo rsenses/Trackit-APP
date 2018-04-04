@@ -136,17 +136,17 @@ body {
     transition: all .5s ease;
 }
 #wrapper.toggled {
-    padding-left: 260px;
+    padding-left: 250px;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
-    left: 260px;
+    left: 250px;
     overflow-x: hidden;
     overflow-y: auto;
     width: 0;
     height: 100vh;
-    margin-left: -260px;
+    margin-left: -250px;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
@@ -158,7 +158,7 @@ body {
 }
 #wrapper.toggled #sidebar-wrapper {
     width: 100%;
-    max-width: 260px;
+    max-width: 250px;
     box-shadow: 4px 0px 30px rgba(0, 0, 0, 0.35);
 }
 #page-content-wrapper {
@@ -187,6 +187,7 @@ body {
     padding: 0;
     list-style: none;
     height: 100%;
+    max-width: 100%;
 }
 .sidebar-nav li {
     line-height: 34px;
@@ -672,8 +673,27 @@ footer .chart-title i {
 canvas, video {
     width: 100%;
 }
-
+.to-scan {
+    text-align: center;
+    display: none;
+}
+.text-white {
+    color: #FFFFFF;
+}
+@media(max-width: 320px) {
+    .sidebar-nav li {
+        line-height: 26px;
+        font-size: 1.2em;
+    }
+    .to-scan {
+        display: block;
+    }
+    .menu-wrapper a.scan-menu, .toggler, .to-show, .to-search {
+        display: none;
+    }
+}
 @media(min-width:600px) and (max-width: 767px) {
+
     .hidden-xs.lenovo {
         display: block !important;
     }
