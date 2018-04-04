@@ -118,8 +118,8 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
-    alert(e.keyCode+' '+e.originalEvent.key);
     if (e.keyCode === 0 && e.originalEvent && e.originalEvent.key == 'Unidentified') {
+        alert(e.keyCode+' '+e.originalEvent.key);
         $('#verify').focus();
     }
 });
