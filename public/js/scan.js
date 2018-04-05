@@ -55,10 +55,13 @@ function verifyCode(code) {
 
     $.ajax({
         type: "GET",
-        url: "/registration/verify/"+ code,
+        url: "/registration/verify/"+ code+"?method=qr",
         dataType: "json",
         cache: false,
         success: function(a) {
+            var title, message, buttons, type;
+            var metadata = '';
+
             if (a.status == 'error') {
                 type = BootstrapDialog.TYPE_DANGER;
                 title = 'Error';
@@ -71,9 +74,13 @@ function verifyCode(code) {
                     }
                 }];
             } else if (a.status == 'success') {
+                for (var key in a.metadata) {
+                    metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                }
+
                 type = BootstrapDialog.TYPE_SUCCESS;
                 title = a.message;
-                message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
+                message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small><br><small>'+metadata+'</small></h4>';
                 buttons = [{
                     label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                     cssClass: 'btn-primary btn-lg',

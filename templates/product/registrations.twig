@@ -169,7 +169,7 @@
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script src="{{ base_url() }}/js/list.js"></script>
     <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script>
-    <script src="{{ base_url() }}/js/scan.js?v45"></script>
+    <script src="{{ base_url() }}/js/scan.js?v46"></script>
     <script>
         var customerList = new List('registrations', {
             valueNames: [
@@ -274,11 +274,14 @@
             if (unique_id) {
                 $.ajax({
                     type: "GET",
-                    url: "/registration/verify/"+unique_id,
+                    url: "/registration/verify/"+unique_id+"?method=manual",
                     dataType: "json",
                     context: this,
                     cache: false,
                     success: function(a) {
+                        var title, message, buttons, type;
+                        var metadata = '';
+
                         if (a.status == 'error') {
                             type = BootstrapDialog.TYPE_DANGER;
                             title = 'Error';
@@ -291,9 +294,13 @@
                                 }
                             }];
                         } else if (a.status == 'success') {
+                            for (var key in a.metadata) {
+                                metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                            }
+
                             type = BootstrapDialog.TYPE_SUCCESS;
                             title = a.message;
-                            message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small></h4>';
+                            message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small><br><small>'+metadata+'</small></h4>';
                             buttons = [{
                                 label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',

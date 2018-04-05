@@ -171,14 +171,14 @@ class RegistrationController
 
     public function verifyAction(Request $request, Response $response, array $args)
     {
-
         try {
-            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/'.$args['qr'], [
+            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/'.$args['qr'].'?'.$request->getUri()->getQuery(), [
                 'headers' => [
                     'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
+            
             return $response->withJson(json_decode($apiRequest->getBody(), true));
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
