@@ -30,19 +30,19 @@
                     <form action="{{ path_for('registration.save', {'id': product_id}) }}" method="POST" class="row">
                         <div class="form-group col-xs-12 col-sm-6">
                             <label for="firstNameInput">Nombre <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="firstNameInput" value="Cecilia" name="first_name" required autocomplete="off">
+                            <input type="text" class="form-control" id="firstNameInput" placeholder="Cecilia" name="first_name" required autocomplete="off">
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                             <label for="lastNameInput">Apellidos <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="lastNameInput" value="Rodríguez de Diego" name="last_name" required autocomplete="off">
+                            <input type="text" class="form-control" id="lastNameInput" placeholder="Rodríguez de Diego" name="last_name" required autocomplete="off">
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                             <label for="emailInput">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="emailInput" value="ejemplo@gmail.com" name="email" required autocomplete="off">
+                            <input type="email" class="form-control" id="emailInput" placeholder="ejemplo@gmail.com" name="email" required autocomplete="off">
                         </div>
                         <div class="form-group col-xs-12 col-sm-6">
                             <label for="nifInput">DNI, pasaporte, etc <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="nifInput" value="Nº de indentificación" name="nif" required autocomplete="off">
+                            <input type="text" class="form-control" id="nifInput" placeholder="Nº de indentificación" name="nif" required autocomplete="off">
                         </div>
                         {% if type %}
                         <div class="form-group col-xs-12 col-sm-6">
@@ -50,7 +50,7 @@
                         <div class="form-group col-xs-12 col-sm-4">
                         {% endif %}
                             <label for="companyInput">Empresa</label>
-                            <input type="text" class="form-control" id="companyInput" value="Nombre de la Empresa S.A." name="company" autocomplete="off">
+                            <input type="text" class="form-control" id="companyInput" placeholder="Nombre de la Empresa S.A." name="company" autocomplete="off">
                         </div>
                         {% if type %}
                         <div class="form-group col-xs-12 col-sm-6">
@@ -58,7 +58,7 @@
                         <div class="form-group col-xs-12 col-sm-4">
                         {% endif %}
                             <label for="positionInput">Cargo</label>
-                            <input type="text" class="form-control" id="positionInput" value="Puesto de trabajo" name="position" autocomplete="off">
+                            <input type="text" class="form-control" id="positionInput" placeholder="Puesto de trabajo" name="position" autocomplete="off">
                         </div>
                         <div class="form-group col-xs-12 col-sm-4 {{ type ? 'hidden' }}">
                             <label for="typeId">Tipo de registro <span class="text-danger">*</span></label>

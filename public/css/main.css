@@ -367,6 +367,19 @@ main.is-open {
     -webkit-transform: translate3d(-100px, 0, 0);
     opacity: 1;
 }
+.appened {
+    list-style-type: none;
+}
+.appened li {
+    transition: all 10s;
+    opacity: 0;
+    height: 0;
+}
+.appened li.active {
+    transition: all .5s;
+    opacity: 1;
+    height: auto;
+}
 /*-------------------------------*/
 /*            Overlay            */
 /*-------------------------------*/
