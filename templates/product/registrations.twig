@@ -36,6 +36,7 @@
                 <div class="col-xs-12">
                     <div class="to-scan">
                         <h4 class="text-white">Listo para escanear</h4>
+                        <ul class="appened"></ul>
                     </div>
                     <div style="position:fixed;top:-200px">
                         <input type="text" class="form-control" id="verify" />
@@ -124,7 +125,6 @@
                             </tr>
                         </tbody>
                     </table>
-                    <ul class="appened"></ul>
                 </div>
             </div>
         </div>
@@ -323,8 +323,7 @@
                             type: type
                         });
                         $('input.search').val('');
-                        $('.appened li').removeClass('active');
-                        $('.appened').html('<li class="active">nuevo</li>');
+
                     },
                     error: function(a) {
                         console.log(a);

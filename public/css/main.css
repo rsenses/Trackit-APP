@@ -368,17 +368,21 @@ main.is-open {
     opacity: 1;
 }
 .appened {
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
     list-style-type: none;
+    color: #ffffff;
+    padding-left: 0;
 }
 .appened li {
-    transition: all 10s;
-    opacity: 0;
-    height: 0;
-}
-.appened li.active {
-    transition: all .5s;
     opacity: 1;
     height: auto;
+}
+.appened li.hid {
+    transition: all 30s;
+    opacity: 0;
+    height: 0;
 }
 /*-------------------------------*/
 /*            Overlay            */
