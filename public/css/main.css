@@ -368,6 +368,8 @@ main.is-open {
     opacity: 1;
 }
 .appened {
+    position: fixed;
+    bottom: 0;
     z-index: 999;
     list-style-type: none;
     color: #ffffff;
