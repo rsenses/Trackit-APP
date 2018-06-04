@@ -93,7 +93,7 @@ function verifyCode(code) {
                 );
                 if ($('.appened li').length >= 3) {
                     $('.appened')
-                        .find('li:last')
+                        .find('li:first')
                         .remove();
                 }
                 type = BootstrapDialog.TYPE_SUCCESS;
