@@ -374,8 +374,10 @@ main.is-open {
     list-style-type: none;
     color: #ffffff;
     padding-left: 0;
+    text-align: left;
 }
 .appened li {
+    font-size: 12px;
     opacity: 1;
     height: auto;
 }
