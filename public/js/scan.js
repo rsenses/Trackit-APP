@@ -123,7 +123,7 @@ function verifyCode(code) {
                     .children('i')
                     .removeClass('fa-times-circle')
                     .addClass('fa-check-circle');
-            } else if (a.status == 'warning'){
+            } else if (a.status == 'warning') {
                 type = BootstrapDialog.TYPE_WARNING;
                 title = 'Cuidado';
                 message = '<h4>' + a.message + '</h4>';
@@ -132,11 +132,25 @@ function verifyCode(code) {
                         label:
                             '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
                         cssClass: 'btn-primary btn-lg',
-                        action: function (dialog) {
+                        action: function(dialog) {
                             dialog.close();
                         }
                     }
                 ];
+                $('.appened').append(
+                    '<li style="backgroud:#ec971f;">' +
+                        a.user +
+                        ' ' +
+                        a.type +
+                        ' ' +
+                        metadata +
+                        '</li>'
+                );
+                if ($('.appened li').length >= 3) {
+                    $('.appened')
+                        .find('li:first')
+                        .remove();
+                }
             }
             var dialog = BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
