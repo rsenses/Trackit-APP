@@ -123,6 +123,20 @@ function verifyCode(code) {
                     .children('i')
                     .removeClass('fa-times-circle')
                     .addClass('fa-check-circle');
+            } else if (a.status == 'warning'){
+                type = BootstrapDialog.TYPE_WARNING;
+                title = 'Cuidado';
+                message = '<h4>' + a.message + '</h4>';
+                buttons = [
+                    {
+                        label:
+                            '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                        cssClass: 'btn-primary btn-lg',
+                        action: function (dialog) {
+                            dialog.close();
+                        }
+                    }
+                ];
             }
             var dialog = BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
