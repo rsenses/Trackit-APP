@@ -298,6 +298,20 @@
                                     dialog.close();
                                 }
                             }];
+                        } else if (a.status == 'warning') {
+                            type = BootstrapDialog.TYPE_WARNING;
+                            title = 'Cuidado';
+                            message = '<h4>' + a.message + '</h4>';
+                            buttons = [
+                                {
+                                    label:
+                                        '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                    cssClass: 'btn-primary btn-lg',
+                                    action: function(dialog) {
+                                        dialog.close();
+                                    }
+                                }
+                            ];
                         } else if (a.status == 'success') {
                             for (var key in a.metadata) {
                                 metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
