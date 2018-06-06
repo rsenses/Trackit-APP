@@ -65,31 +65,6 @@ class ProductController
         }
     }
 
-    public function allRegistrationsAction(Request $request, Response $response, array $args)
-    {
-        try {
-            $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations/all', [
-                'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
-                    'Content-Language' => 'es'
-                ]
-            ]);
-
-            $registrations = json_decode($apiRequest->getBody());
-
-            return $this->view->render($response, 'product/registrations.twig', [
-                'registrations' => $registrations,
-                'product_id' => $args['id'],
-            ]);
-        } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
-            $this->flash->addMessage('danger', $e->getMessage());
-
-            return $response->withRedirect($this->router->pathFor('auth.signin'));
-        }
-    }
-
     public function instaRegistrationsAction(Request $request, Response $response, array $args)
     {
         try {
@@ -100,7 +75,7 @@ class ProductController
                 ]
             ]);
 
-            $registrations = json_decode($apiRequest->getBody());
+            $registrations = json_decode($apiRequest->getBody(), true);
 
             return $this->view->render($response, 'product/registrations.twig', [
                 'registrations' => $registrations,
