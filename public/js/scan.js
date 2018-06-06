@@ -1,12 +1,12 @@
 var scanner;
 
 function startScan() {
-    scanner.addListener('scan', function (code) {
+    scanner.addListener('scan', function(code) {
         if (code.length !== 0) {
             verifyCode(code);
         }
     });
-};
+}
 
 function startCamera() {
     scanner = new Instascan.Scanner({
@@ -16,7 +16,7 @@ function startCamera() {
         scanPeriod: 8
     });
 
-    Instascan.Camera.getCameras().then(function (cameras) {
+    Instascan.Camera.getCameras().then(function(cameras) {
         if (cameras.length != 0) {
             if (cameras.length > 1) {
                 camera = cameras[1];
@@ -34,13 +34,16 @@ function startCamera() {
                 size: BootstrapDialog.SIZE_LARGE,
                 title: 'Error',
                 message: 'No hemos detectado ninguna cámara en el dispositivo.',
-                buttons: buttons = [{
-                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                    cssClass: 'btn-primary btn-lg',
-                    action: function(dialog) {
-                        dialog.close();
+                buttons: (buttons = [
+                    {
+                        label:
+                            '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                        cssClass: 'btn-primary btn-lg',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
                     }
-                }],
+                ]),
                 type: BootstrapDialog.TYPE_DANGER,
                 onhide: function(dialogRef) {
                     decode = true;
@@ -48,15 +51,15 @@ function startCamera() {
             });
         }
     });
-};
+}
 
 function verifyCode(code) {
     $('#verify').val('');
 
     $.ajax({
-        type: "GET",
-        url: "/registration/verify/"+ code+"?method=qr",
-        dataType: "json",
+        type: 'GET',
+        url: '/registration/verify/' + code + '?method=qr',
+        dataType: 'json',
         cache: false,
         success: function(a) {
             var title, message, buttons, type;
@@ -65,35 +68,75 @@ function verifyCode(code) {
             if (a.status == 'error') {
                 type = BootstrapDialog.TYPE_DANGER;
                 title = 'Error';
-                message = '<h4>'+a.message+'</h4>';
-                buttons = [{
-                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                    cssClass: 'btn-primary btn-lg',
-                    action: function(dialog) {
-                        dialog.close();
+                message = '<h4>' + a.message + '</h4>';
+                buttons = [
+                    {
+                        label:
+                            '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                        cssClass: 'btn-primary btn-lg',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
                     }
-                }];
+                ];
             } else if (a.status == 'success') {
                 for (var key in a.metadata) {
-                    metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                    metadata +=
+                        '<strong>' +
+                        key +
+                        '</strong>: ' +
+                        a.metadata[key] +
+                        '<br>';
                 }
-
+                $('.appened').append(
+                    '<li>' + a.user + ' ' + a.type + ' ' + metadata + '</li>'
+                );
+                if ($('.appened li').length >= 3) {
+                    $('.appened')
+                        .find('li:first')
+                        .remove();
+                }
                 type = BootstrapDialog.TYPE_SUCCESS;
                 title = a.message;
-                message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small><br><small>'+metadata+'</small></h4>';
-                buttons = [{
-                    label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
-                    cssClass: 'btn-primary btn-lg',
-                    action: function(dialog) {
-                        dialog.close();
+                message =
+                    '<h4>' +
+                    a.user +
+                    '<br /><small class="text-danger">' +
+                    a.type +
+                    '</small><br><span>' +
+                    metadata +
+                    '</span></h4>';
+                buttons = [
+                    {
+                        label:
+                            '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                        cssClass: 'btn-primary btn-lg',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
                     }
-                }];
-                $(this).data('uniqueid', null)
+                ];
+                $(this)
+                    .data('uniqueid', null)
                     .removeClass('text-danger')
                     .addClass('text-success')
                     .children('i')
                     .removeClass('fa-times-circle')
                     .addClass('fa-check-circle');
+            } else if (a.status == 'warning') {
+                type = BootstrapDialog.TYPE_WARNING;
+                title = 'Cuidado';
+                message = '<h4>' + a.message + '</h4>';
+                buttons = [
+                    {
+                        label:
+                            '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                        cssClass: 'btn-primary btn-lg',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
+                    }
+                ];
             }
             var dialog = BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
@@ -103,9 +146,9 @@ function verifyCode(code) {
                 type: type
             });
 
-            setTimeout(function () {
+            setTimeout(function() {
                 dialog.close();
-            }, 3000);
+            }, 5000);
         },
         error: function(a) {
             location.reload();
@@ -125,7 +168,12 @@ $('#verify').on('input', function(e) {
 });
 
 $('html').bind('keydown', function(e) {
-    if (e.keyCode == 0 && typeof e.originalEvent !== 'undefined' && (typeof e.originalEvent.key == 'undefined' || e.originalEvent.key == 'Unidentified')) {
+    if (
+        e.keyCode == 0 &&
+        typeof e.originalEvent !== 'undefined' &&
+        (typeof e.originalEvent.key == 'undefined' ||
+            e.originalEvent.key == 'Unidentified')
+    ) {
         $('#verify').focus();
     }
 });
@@ -145,7 +193,7 @@ $('.scan-menu').click(function(event) {
 $('.search-menu').click(function(event) {
     event.preventDefault();
 
-    scanner.stop().then(function () {
+    scanner.stop().then(function() {
         scanner = null;
         $('#registrations').removeClass('hidden');
         $('.scan-menu').removeClass('hidden');

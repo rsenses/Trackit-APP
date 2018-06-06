@@ -5,13 +5,10 @@
 {% endblock %}
 
 {% block menu %}
-    {# <a href="{{ path_for('registration.verification', {'id': product_id}) }}">
-        <i class="icon-camera fa-2x" aria-hidden="true"></i>
-    </a> #}
     {% if type %}
     {% else %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}?type=asistente" class="scan-menu">
-        <i class="icon-user-follow fa-2x" aria-hidden="true"></i>
+        <i class="icon-plus fa-2x" aria-hidden="true"></i>
     </a>
     <a href="{{ path_for('product.registrations', {'id': product_id}) }}">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
@@ -72,46 +69,6 @@
                             </select>
                         </div>
                         {{ csrf.field | raw }}
-                        {% if type %}
-                            <div class="col-xs-12">
-                                <div id="text-legal" class="collapse" aria-expanded="true" style="">
-                                    <div class="well">
-                                        <p>Los datos de carácter personal suministrados a través de este formulario van a ser incorporados a un fichero de datos, del que es responsable y destinatario Unidad Editorial, S.A., con domicilio en la avenida de San Luis 25, de Madrid (28033), y serán utilizados para gestionar su alta como usuario de este sitio web: <strong>www.eventosyconferenciasue.com</strong>, así como para remitirle información sobre productos, eventos y servicios propios de Unidad Editorial, S.A., de empresas de su grupo o de terceros, en los sectores de medios de comunicación, deportes, viajes, automóviles, música, audiovisual, servicios financieros, formación, conferencias, periodismo, comunicación, hostelería, productos tecnológicos, servicios de telecomunicaciones y cosmética., incluyendo el envío de comunicaciones comerciales por correo electrónico o cualquier otro medio de comunicación electrónico equivalente (como SMS). En caso de que no desee recibir información publicitaria marque las siguientes casillas:</p>
-                                        <ul style="list-style:none">
-                                            <li>
-                                                <div class="checkbox">
-                                                    <input name="infothird" id="infothird" type="checkbox" value="1">
-                                                    <label for="infothird">No deseo recibir información de terceros.</label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="checkbox">
-                                                    <input name="infomail" id="infomail" type="checkbox" value="1">
-                                                    <label for="infomail">No deseo recibir información publicitaria de Unidad Editorial por e-mail o cualquier otro medio de comunicación electrónica equivalente.</label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <p>Estos datos se tratarán confidencialmente y de acuerdo con lo establecido en la Ley Orgánica 15/1999, de 13 de diciembre, de modo que los usuarios podrán acceder, rectificar, cancelar y oponerse al tratamiento de sus datos dirigiéndose a la dirección anteriormente indicada, o bien a la dirección de correo electrónico <a href="mailto:lopd@unidadeditorial.es">lopd@unidadeditorial.es</a>.
-                                            <br>
-                                            <br>Ayúdenos a mantener dichos datos actualizados comunicándonos cualquier modificación que se produzca en los mismos.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="checkbox checkbox-primary col-xs-12">
-                                    <input id="age" name="age" type="checkbox" value="1">
-                                    <label for="age">
-                                        Confirmo que soy mayor de 18 años
-                                    </label>
-                                </div>
-                                <div class="checkbox checkbox-primary col-xs-12">
-                                    <input id="legal" name="legal" type="checkbox" value="1">
-                                    <label for="legal">
-                                        He leído y acepto las <a data-toggle="collapse" href="#text-legal">Condiciones Legales</a>
-                                    </label>
-                                </div>
-                            </div>
-                        {% endif %}
                         <div class="clearfix"></div>
                         <div class="col-xs-4 col-sm-6 text-left">
                             <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-danger btn-lg {{ type ? 'hidden' }}"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Borrar datos</span></a>
@@ -151,70 +108,65 @@
             });
         }
     </script>
-    {% if type %}
-        <script>
-            $('form').submit(function(event) {
-                event.preventDefault();
+    <script>
+        $('form').submit(function(event) {
+            event.preventDefault();
 
-                var name = $('#firstNameInput').val();
-                var lastname = $('#lastNameInput').val();
-                var typeId = $('#typeId option:selected').text();
+            var name = $('#firstNameInput').val();
+            var lastname = $('#lastNameInput').val();
+            var email = $('#emailInput').val();
+            var businness = $('#companyInput').val();
+            var nif = $('#nifInput').val();
+            var position = $('#positionInput').val();
+            var typeId = $('#typeId option:selected').text();
 
-                createAction(1);
-
+            if(typeId === "Asistente") {
                 BootstrapDialog.show({
                     size: BootstrapDialog.SIZE_LARGE,
-                    title: 'Le damos la bienvenida',
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4></div><p>Gracias por registrarse</p>',
-                    type: BootstrapDialog.TYPE_SUCCESS
-                });
-            });
-
-        $(window).load(function() {
-            $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');
-        });
-        var ageInput = $('input[name="age"]');
-        var legalInput = $('input[name="legal"]');
-        function chekerLegalAge(){
-            if (ageInput.is(':checked') && legalInput.is(':checked')) {
-                $('button[type="submit"]').prop('disabled',false).css('background-color', 'green');
-            } else {
-                $('button[type="submit"]').prop('disabled',true).css('background-color', 'grey');
-            }
-        };
-        $(document).on("click", 'input[name="age"], input[name="legal"]', function(){
-            chekerLegalAge();
-        });
-        </script>
-    {% else %}
-        <script>
-            $('form').submit(function(event) {
-                event.preventDefault();
-
-                var name = $('#firstNameInput').val();
-                var lastname = $('#lastNameInput').val();
-                var typeId = $('#typeId option:selected').text();
-
-                BootstrapDialog.show({
-                    size: BootstrapDialog.SIZE_LARGE,
-                    title: 'Confirmar el acceso',
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4></div><p>Por favor, confirme si ha accedido</p>',
+                    {% if type %}
+                    title: '¿Están correctos los datos?',
+                    {% else %}
+                    title: '¿Están correctos los datos del nuevo '+typeId+'?',
+                    {% endif %}
+                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+email+'<br>'+businness+'<br>'+nif+'<br>'+position+'</small></h4></div><p><span class="text-danger">ATENCIÓN: </span>Requiere validación de entrada, <strong>recibirá un email</strong> con los datos.</p>',
                     buttons: [{
-                        label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp;Sí&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                        label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp; Confirmar datos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
                         cssClass: 'btn-success pull-rigth',
                         action: function() {
-                            createAction(1);
+                            $(this).empty().toggleClass('btn-success btn-warning').html('<i class="fa fa-spinner fa-spin"></i> ENVIANDO');
+                            createAction(0);
                         }
                     }, {
-                        label: '<i class="fa fa-times-circle" aria-hidden="true"></i> No',
+                        label: '<i class="fa fa-chevron-left" aria-hidden="true"></i> Revisar',
                         cssClass: 'btn-danger pull-left',
-                        action: function() {
-                            createAction(0);
+                        action: function(dialog) {
+                            dialog.close();
                         }
                     }],
                     type: BootstrapDialog.TYPE_SUCCESS
                 });
-            });
-        </script>
-    {% endif %}
+            } else {
+                BootstrapDialog.show({
+                    size: BootstrapDialog.SIZE_LARGE,
+                    title: 'Confirmar el acceso',
+                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4></div><p>Por favor, confirme si el '+typeId+' ha accedido</p>',
+                    buttons: [{
+                        label: '<i class="fa fa-chevron-left" aria-hidden="true"></i> No',
+                        cssClass: 'btn-danger pull-left',
+                        action: function(dialog) {
+                            dialog.close();
+                        }
+                    },{
+                        label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp;Sí&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
+                        cssClass: 'btn-success pull-rigth',
+                        action: function() {
+                            $(this).empty().toggleClass('btn-success btn-warning').html('<i class="fa-li fa fa-spinner fa-spin"></i> ENVIANDO');
+                            createAction(1);
+                        }
+                    }],
+                    type: BootstrapDialog.TYPE_SUCCESS
+                });
+            }
+        });
+    </script>
 {% endblock %}

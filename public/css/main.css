@@ -367,6 +367,25 @@ main.is-open {
     -webkit-transform: translate3d(-100px, 0, 0);
     opacity: 1;
 }
+.appened {
+    position: fixed;
+    bottom: 0;
+    z-index: 999;
+    list-style-type: none;
+    color: #ffffff;
+    padding-left: 0;
+    text-align: left;
+}
+.appened li {
+    font-size: 12px;
+    opacity: 1;
+    height: auto;
+}
+.appened li.hid {
+    transition: all 30s;
+    opacity: 0;
+    height: 0;
+}
 /*-------------------------------*/
 /*            Overlay            */
 /*-------------------------------*/
