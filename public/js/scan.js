@@ -103,9 +103,9 @@ function verifyCode(code) {
                     a.user +
                     '<br /><small class="text-danger">' +
                     a.type +
-                    '</small><br><small>' +
+                    '</small><br><span>' +
                     metadata +
-                    '</small></h4>';
+                    '</span></h4>';
                 buttons = [
                     {
                         label:
