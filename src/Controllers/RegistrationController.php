@@ -178,7 +178,6 @@ class RegistrationController
                     'Content-Language' => 'es'
                 ]
             ]);
-            
             return $response->withJson(json_decode($apiRequest->getBody(), true));
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));

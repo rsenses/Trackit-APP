@@ -62,6 +62,7 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
+                                <th>Orden</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -96,6 +97,8 @@
                                     </td>
                                     <td class="company">
                                         {{ customer.company }}
+                                    </td>
+                                    <td>
                                     </td>
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
