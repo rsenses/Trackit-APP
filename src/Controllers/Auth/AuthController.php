@@ -9,15 +9,10 @@ use Psr\Log\LoggerInterface;
 use Slim\Flash\Messages;
 use App\Validation\ValidatorInterface;
 use League\OAuth2\Client\Provider\GenericProvider;
-use Exception;
 use Slim\Interfaces\RouterInterface;
 use Respect\Validation\Validator as v;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-
-use App\Entities\User;
+use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController
 {
@@ -58,12 +53,14 @@ class AuthController
 
         try {
             // Try to get an access token using the resource owner password credentials grant.
-            $_SESSION['accessToken'] = $this->oauth->getAccessToken('password', [
+            $accessToken = $this->oauth->getAccessToken('password', [
                 'username' => filter_var($request->getParam('email'), FILTER_SANITIZE_EMAIL),
                 'password' => filter_var($request->getParam('password'), FILTER_SANITIZE_STRING)
             ]);
+
+            $_SESSION['accessToken'] = $accessToken;
         } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
-            $this->flash->addMessage('danger', $e->getMessage());
+            $this->flash->addMessage('danger', 'Email o contraseña no válidos.');
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
@@ -71,18 +68,19 @@ class AuthController
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/date', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
 
             $product = json_decode($apiRequest->getBody());
-        } catch (RequestException $e) {
+        } catch (BadResponseException $e) {
             if ($e->getResponse()->getStatusCode() === 400) {
-                $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody())->message);
+                $this->flash->addMessage('danger', 'Ningún producto asignado.');
             } else {
-                $this->flash->addMessage('danger', $e->getMessage());
+                throw new \Exception($e->getMessage(), 500);
             }
+
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
