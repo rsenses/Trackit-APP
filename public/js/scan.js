@@ -137,20 +137,6 @@ function verifyCode(code) {
                         }
                     }
                 ];
-                $('.appened').append(
-                    '<li style="backgroud:#ec971f;">' +
-                        a.user +
-                        ' ' +
-                        a.type +
-                        ' ' +
-                        metadata +
-                        '</li>'
-                );
-                if ($('.appened li').length >= 3) {
-                    $('.appened')
-                        .find('li:first')
-                        .remove();
-                }
             }
             var dialog = BootstrapDialog.show({
                 size: BootstrapDialog.SIZE_LARGE,
@@ -162,7 +148,7 @@ function verifyCode(code) {
 
             setTimeout(function() {
                 dialog.close();
-            }, 3000);
+            }, 5000);
         },
         error: function(a) {
             location.reload();
