@@ -67,7 +67,7 @@
                         </thead>
                         <tbody class="list hidden">
                             {% for customer in registrations %}
-                                {% if customer.is_authorized == 0 %}
+                                {% if customer.is_authorized == 0 || customer.is_cancelled == 1 %}
                                 <tr class="bg-danger">
                                 {% else %}
                                 <tr>
@@ -81,9 +81,6 @@
                                             {{ customer.type.name }}
                                             {% if customer.is_authorized == 0 %}
                                                  | Denegado
-                                            {% endif %}
-                                            {% if customer.is_confirmed == 0 %}
-                                                 | No Confirmado
                                             {% endif %}
                                             {% if customer.is_cancelled == 1 %}
                                                  | No Asiste

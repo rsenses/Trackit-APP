@@ -71,9 +71,6 @@
                                             {% if customer.is_authorized == 0 %}
                                                  | Denegado
                                             {% endif %}
-                                            {% if customer.is_confirmed == 0 %}
-                                                 | No Confirmado
-                                            {% endif %}
                                             {% if customer.is_cancelled == 1 %}
                                                  | No Asiste
                                             {% endif %}
