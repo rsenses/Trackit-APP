@@ -29,15 +29,10 @@ $app->group('', function () {
         // All Products
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
         $this->get('/{id:[0-9]+}/registrations', 'ProductController:instaRegistrationsAction')->setName('product.registrations');
-        // $this->get('/{id:[0-9]+}/registrations/insta', 'ProductController:allRegistrationsAction')->setName('product.registrations.insta');
-        // $this->get('/{id:[0-9]+}/registrations/{type:[a-z0-9-]+}', 'ProductController:registrationsAction')->setName('product.registrations');
     });
 
     // Registration Group
     $this->group('/registration', function () {
-        // Product QR Screen
-        // $this->get('/old/verification/product/{id:[0-9]+}', 'RegistrationController:productOldAction')->setName('registration.verification.old');
-        // $this->get('/verification/product/{id:[0-9]+}', 'RegistrationController:productAction')->setName('registration.verification');
         // Verify
         $this->get('/verify/{qr}', 'RegistrationController:verifyAction')->setName('registration.verify');
         // Toggle Verification
