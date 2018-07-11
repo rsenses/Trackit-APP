@@ -1,8 +1,9 @@
 <?php
+
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
-    $url  = parse_url($_SERVER['REQUEST_URI']);
+    $url = parse_url($_SERVER['REQUEST_URI']);
     $file = __DIR__ . $url['path'];
     if (is_file($file)) {
         return false;
@@ -20,14 +21,14 @@ error_reporting(-1);
 ini_set('ignore_repeated_source', 0);
 ini_set('ignore_repeated_errors', 1); // do not log repeating errors
 // source of error plays role in determining if errors are different
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__.'/../storage/logs/'.date('Y-m-d').'_error.log');
 if ($settings['settings']['displayErrorDetails']) {
     ini_set('display_errors', 1); // Mostramos los errores en pantalla
     ini_set('display_startup_errors', 1);
 } else {
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
+    ini_set('log_errors', 1);
+    ini_set('error_log', __DIR__ . '/../storage/logs/' . date('Y-m-d') . '_error.log');
 }
 
 // Set up session
