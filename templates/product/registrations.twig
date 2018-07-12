@@ -1,82 +1,71 @@
 {% extends 'layouts/private.twig' %}
 
-{% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
-{% endblock %}
-
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}">
-        <i class="icon-user-following fa-2x" aria-hidden="true"></i>
-    </a>
-    <a href="#0" class="scan-menu">
-        <i class="icon-camera fa-2x" aria-hidden="true"></i>
-    </a>
-    <a href="#0" class="search-menu hidden">
-        <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
-    </a>
-    <a href="#0" class="logo hidden-xs lenovo">
-        <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
-    </a>
-    <a href="#0" class="logo-mobile visible-xs lenovo">
-        <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
-    </a>
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="material-icons">person_add</i></a>
+    <a href="#0" class="scan-menu btn-floating btn-large waves-effect waves-light right transparent"><i class="material-icons">camera_alt</i></a>
+    <a href="#0" class="search-menu btn-floating btn-large waves-effect waves-light right transparent"><i class="material-icons">search</i></a>
+    <a href="#0" class="laser-menu btn-floating btn-large waves-effect waves-light right transparent"><i class="material-icons">speaker_phone</i></a>
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
 
 {% block content %}
-    <div id="registrations">
+    <main id="registrations">
         <div class="row">
-            <div class="col-xs-12 text-center">
+            <div class="col s12 text-center">
                 <div class="container">
-                    <h3 id="product-name"></h3>
+                    <h3 id="product-name" class="white-text"></h3>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                {# <div class="col s12">
                     <div class="to-scan">
-                        <h4 class="text-white">Listo para escanear</h4>
+                        <h4 class="white-text show-on-small">Listo para escanear</h4>
                         <ul class="appened"></ul>
                     </div>
                     <div style="position:fixed;top:-200px">
                         <input type="text" class="form-control" id="verify" />
                     </div>
-                    <div class="input-group to-search">
-                        <input type="text" class="search form-control" placeholder="Búsqueda predictiva" id="search" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-danger btn-clear hidden" type="button">
-                                <i class="fa fa-times"></i>
+                </div> #}
+                <div class="col s12">
+                    <div class="row mb-0">
+                        <div class="input-field col s11">
+                            <i class="material-icons prefix white-text btn-search">search</i>
+                            <input type="text" class="search white" id="search" />
+                            <label for="search">Búsqueda predictiva</label>
+                        </div>
+                        <div class="input-field col s1">
+                            <button class="btn btn-large btn-floating right waves-effect waves-light btn-clear red hide" type="submit" name="action">
+                                <i class="material-icons">close</i>
                             </button>
-                            <button class="btn btn-default btn-search" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row to-show">
-                <div class="col-xs-12">
-                    <table class="table table-striped">
+                <div class="col s12">
+                    <table id="list" class="hide grey lighten-5">
                         <thead>
                             <tr>
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
-                                <th class="text-center">Acciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody class="list hidden">
+                        <tbody>
                             {% for customer in registrations %}
                                 {% if customer.is_authorized == 0 or customer.is_cancelled == 1 %}
-                                <tr class="bg-danger">
+                                <tr class=" deep-orange darken-3">
                                 {% else %}
                                 <tr>
                                 {% endif %}
-                                    <td class="name">
+                                    <td>
                                         {{ customer.first_name }} {{ customer.last_name }} <br>
                                         {% if customer.type.name ==  'Ponente'%}
-                                            <h5 class="text-danger">{{ customer.type.name }}</h5>
+                                            <h5 class="deep-orange-text">{{ customer.type.name }}</h5>
                                         {% else %}
                                             <small>
                                             {{ customer.type.name }}
@@ -89,10 +78,10 @@
                                             </small>
                                         {% endif %}
                                     </td>
-                                    <td class="nif">
+                                    <td>
                                         {{ customer.nif }}
                                     </td>
-                                    <td class="company">
+                                    <td>
                                         {{ customer.company }}
                                     </td>
                                     <td>
@@ -101,16 +90,16 @@
                                     <td class="verification">
                                         {% if customer.verification > 0 %}
                                             <span class="text-success">
-                                                <i class="fa fa-toggle-on fa-3x" aria-hidden="true"></i>
+                                                <i class="fa fa-toggle-on fa-3x" aria-hide="true"></i>
                                             </span>
                                         {% else %}
                                             {% if customer.is_authorized == 0 %}
                                                 <span class="text-secondary">
-                                                    <i class="fa fa-ban fa-3x" aria-hidden="true"></i>
+                                                    <i class="fa fa-ban fa-3x" aria-hide="true"></i>
                                                 </span>
                                             {% else %}
                                                 <a href="#0" class="text-muted" data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hidden="true"></i>
+                                                    <i class="fa fa-toggle-on fa-rotate-180 fa-3x" aria-hide="true"></i>
                                                 </a>
                                             {% endif %}
                                         {% endif %}
@@ -118,10 +107,21 @@
                                 </tr>
                             {% endfor %}
                         </tbody>
-                        <tbody class="nolist">
+                    </table>
+                    <table class="nolist grey lighten-5">
+                        <thead>
                             <tr>
-                                <td class="name" colspan="4">
-                                    Actualmente no se muestran resultados
+                                <th>Nombre Apellidos</th>
+                                <th>DNI</th>
+                                <th>Empresa</th>
+                                <th>Orden</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Actualmente no se muestran resultados.
                                 </td>
                             </tr>
                         </tbody>
@@ -129,14 +129,15 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div id="instascan" class="hidden">
+    </main>
+    <div id="instascan" class="hide">
         <video id="preview"></video>
     </div>
 {% endblock %}
 {% block footer %}
-    <a href="#0" class="toggler">
-        <i class="icon-arrow-up" aria-hidden="true"></i>
+<footer>
+    {# <a href="#0" class="toggler">
+        <i class="icon-arrow-up" aria-hide="true"></i>
     </a>
     <ul class="charts-container invisible">
         <li>
@@ -163,26 +164,28 @@
                 </div>
              </div>
         </li>
-    </ul>
+    </ul> #}
+</footer>
+
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
-    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
-    <script src="{{ base_url() }}/js/list.js"></script>
-    <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script>
-    <script src="{{ base_url() }}/js/scan.js?v53"></script>
+    {# <script src="{{ base_url() }}/js/list.js"></script> #}
+    <script src="{{ base_url() }}/js/searchtable.js"></script>
+    {# <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script> #}
+    {# <script src="{{ base_url() }}/js/scan.js?v53"></script> #}
+    {# <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script> #}
+    {# <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script> #}
     <script>
-        var customerList = new List('registrations', {
+
+        {# var customerList = new List('registrations', {
             valueNames: [
                 'name',
                 'nif',
                 'company'
             ],
-
             shouldAccentFold: true
-        });
-
+        }); #}
         var info = function () {
             $.ajax({
                 type: "GET",
@@ -199,7 +202,7 @@
                     $('#count-vips').text(a.registrations.vip);
                     $('#count-verified-vips').text(a.verifications.vip);
 
-                    loadChart(a);
+                    // loadChart(a);
                 },
                 error: function(a) {
                     console.log(a);
@@ -211,7 +214,7 @@
             });
         };
 
-        var loadChart = function (a) {
+        {# var loadChart = function (a) {
             var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
             $('.chart-title, .chart span').animate({opacity: 1}, 3000);
             $('.chart').animate({opacity: 1}, 3000);
@@ -255,20 +258,20 @@
                 size: 150
             });
             if (percentAssistants >= 0) {
-                $('.asistentes').removeClass('hidden');
+                $('.asistentes').removeClass('hide');
             }
             if (percentSpeakers >= 0) {
-                $('.ponentes').removeClass('hidden');
+                $('.ponentes').removeClass('hide');
             }
             if (percentVips >= 0) {
-                $('.vips').removeClass('hidden');
+                $('.vips').removeClass('hide');
             }
             $('.chart-1').data('easyPieChart').update(percentAssistants);
             $('.chart-2').data('easyPieChart').update(percentSpeakers);
             $('.chart-3').data('easyPieChart').update(percentVips);
-        };
+        };#}
 
-        $('.verification a').click(function(event) {
+        {# $('.verification a').click(function(event) {
             event.preventDefault();
 
             var unique_id = $(this).data('uniqueid');
@@ -289,7 +292,7 @@
                             title = 'Error';
                             message = '<h4>'+a.message+'</h4>';
                             buttons = [{
-                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                label: '<i class="fa fa-times-circle" aria-hide="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',
                                 action: function(dialog) {
                                     dialog.close();
@@ -302,7 +305,7 @@
                             buttons = [
                                 {
                                     label:
-                                        '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                        '<i class="fa fa-times-circle" aria-hide="true"></i> Cerrar',
                                     cssClass: 'btn-primary btn-lg',
                                     action: function(dialog) {
                                         dialog.close();
@@ -318,7 +321,7 @@
                             title = a.message;
                             message = '<h4>'+a.user+'<br /><small class="text-danger">'+a.type+'</small><br><small>'+metadata+'</small></h4>';
                             buttons = [{
-                                label: '<i class="fa fa-times-circle" aria-hidden="true"></i> Cerrar',
+                                label: '<i class="fa fa-times-circle" aria-hide="true"></i> Cerrar',
                                 cssClass: 'btn-primary btn-lg',
                                 action: function(dialog) {
                                     dialog.close();
@@ -345,42 +348,37 @@
                     }
                 });
             }
-        });
+        }); #}
 
         $(document).on('click', '.toggler', function(event) {
             event.preventDefault();
-
             $(this).toggleClass('active');
-
-            $('.charts-container').toggleClass('invisible');
+            // $('.charts-container').toggleClass('hide');
         }).on('click', 'input.search', function () {
-            $('.charts-container').addClass('invisible');
-            $('.toggler').removeClass('active');
+            // $('.charts-container').addClass('hide');
+            $('.toggler').removeClass('hide');
         }).on('keyup', 'input.search', function () {
             var key = $('input.search').val();
-
             if (key.length >= 3) {
-                $('.list').removeClass('hidden');
-                $('.btn-clear').removeClass('hidden');
-                $('.nolist').addClass('hidden');
-                $('.btn-search').addClass('hidden');
+                mySearch();
+                $('#list').removeClass('hide');
+                $('.btn-clear').removeClass('hide');
+                $('.nolist').addClass('hide');
             } else {
-                $('.nolist').removeClass('hidden');
-                $('.list').addClass('hidden');
-                $('.btn-clear').addClass('hidden');
-                $('.btn-search').removeClass('hidden');
+                $('.nolist').removeClass('hide');
+                $('#list').addClass('hide');
+                $('.btn-clear').addClass('hide');
             }
         }).on('click', '.btn-clear', function () {
             $('input.search').val('');
-            $('.nolist').removeClass('hidden');
-            $('.list').addClass('hidden');
-            $('.btn-clear').addClass('hidden');
-            $('.btn-search').removeClass('hidden');
+            $('.nolist').removeClass('hide');
+            $('#list').addClass('hide');
+            $('.btn-clear').addClass('hide');
         });
-
+        
         $(document).ready(function() {
-            info();
-            // monitorEvents();
-        });
+             info();
+             // monitorEvents();
+         });
     </script>
 {% endblock %}

@@ -7,7 +7,6 @@
 
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="theme-color" content="#0051b2">
 
         {# <meta http-equiv="cache-control" content="max-age=0" />
         <meta http-equiv="cache-control" content="no-cache" />
@@ -25,91 +24,31 @@
         <link rel="manifest" href="/manifest.json">
         <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
 
-        <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ base_url() }}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ base_url() }}/css/simple-line-icons.css">
-
-        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
-
+        <link rel="stylesheet" href="{{ base_url() }}/css/materialize.min.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/material-icons.css">
+        <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/main.css"/>
 
         {% block styles %}{% endblock %}
     </head>
 
     <body>
-    <div class="overlay"></div>
-        <div id="wrapper">
-            <header>
-                <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-                    <ul class="nav sidebar-nav">
-                        <li class="sidebar-brand">
-                            <a href="#">
-                                <img src="/images/trackit-imagotipo-70x70.png" alt="Trackit" class="img-responsive">
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ayuda<span class="caret"></span></a>
-                            <div class="dropdown-menu" role="menu">
-                                <p>
-                                    <strong>PREFERENCIAS:</strong>
-                                    Por defecto, no debe introducir la ip a menos que no se disponga de conexión a internet. En ese caso, el administrador le proporcionará la ip del servidor local.
-                                </p>
-                                {#
-                                <p>
-                                    Introduzca su usuario y la contraseña. La sesión se bloqueará automáticamente fuera de los horarios establecidos para el evento. Una vez logueado, se muestra un resumen del evento.Escaneo de códigos QR.
-                                </p> #}
-                                <p>En la pantalla aparecerán distintos mensajes de incidencia identificados por un color: Color verde, Usuario validado correctamente y Color rojo: Muestra un código de error</p>
-{#                                 <p>Si no lee el código QR, se puede realizar una inserción manual del código alfanumérico que aparece junto a él. Es posible crear nuevos registros para el evento.</p>
- #}                             <p>En el formulario de registro hay tres campos que deben ser rellenados obligatoriamente: Nombre,Apellidos,Correo Electrónico</p>
-                                <p>El usuario recibirá un correo de validación</p>
-                            </div>
-                        </li>
-{#                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Créditos<span class="caret"></span></a>
-                            <div class="dropdown-menu" role="menu">
-                                <p>"</p>
-                            </div>
-                        </li> #}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Preferencias <span class="caret"></span></a>
-                            <div class="dropdown-menu" role="menu">
-                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="https://api.trackitsuite.com">
-                            </div>
-                        </li>
-{#                         <li>
-                            <a href="https://szimek.github.io/signature_pad/">Firma</a>
-                        </li>  #}
-                        <li>
-                            <a href="{{ path_for('auth.signout') }}"><i class="icon-user-unfollow fa-2x"></i></a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="menu-wrapper">
-                    <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                        <span class="hamb-top"></span>
-                        <span class="hamb-middle"></span>
-                        <span class="hamb-bottom"></span>
-                    </button>
-                    {% block menu %}{% endblock %}
-                </div>
-            </header>
-            <main id="page-content-wrapper">
-
-                {% include 'partials/flash.twig' %}
-                {% block content %}{% endblock %}
-            </main>
-            <footer>
-                {% block footer %}{% endblock %}
-            </footer>
-        </div>
+        <header>
+            {% include 'partials/nav.twig' %}
+            <nav>
+                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                {% block menu %}{% endblock %}
+            </nav>
+        </header>
+        {% include 'partials/flash.twig' %}
+        {% block content %}{% endblock %}
+        {% block footer %}{% endblock %}
 
         <!-- All Javascript plugins goes here -->
-        <script src="{{ base_url() }}/js/jquery.min.js"></script>
-        <script src="{{ base_url() }}/js/bootstrap.min.js"></script>
+        <script src="{{ base_url() }}/js/jquery-2.1.1.min.js"></script>
+        <script src="{{ base_url() }}/js/materialize.js"></script>
 
-        <script src="{{ base_url() }}/js/menu.js"></script>
         <script src="{{ base_url() }}/js/main.js"></script>
 
-        {# {% include 'partials/analytics.twig' %} #}
         {% block scripts %}{% endblock %}
     </body>
 

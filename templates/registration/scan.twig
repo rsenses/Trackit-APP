@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
 {% endblock %}
 
+
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product.product_id}) }}" class="scan-menu">
         <i class="icon-user-following fa-2x" aria-hidden="true"></i>
@@ -11,9 +12,6 @@
     <a href="{{ path_for('product.registrations', {'id': product.product_id}) }}">
         <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
     </a>
-    {# <a href="{{ path_for('registration.verification', {'id': product.product_id}) }}">
-        <i class="icon-camera fa-2x" aria-hidden="true"></i>
-    </a> #}
     <a href="{{ path_for('product.registrations', {'id': product.product_id}) }}" class="logo hidden-xs">
         <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
     </a>
