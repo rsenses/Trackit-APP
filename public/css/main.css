@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Rubik';
     font-style: normal;
@@ -104,6 +105,12 @@ nav .logo-menu {
 .mb-0 {
     margin-bottom: 0;
 }
+.mr-10 {
+    margin-right: 10px;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
 .sidenav {
     background-color: #0051b2;
     color: rgba(255, 255, 255, 0.5);
@@ -117,26 +124,48 @@ nav .logo-menu {
 .sidenav li a {
     color: rgba(255, 255, 255, 0.5);
 }
-.sidenav li a i.material-icons {
+.sidenav li a i.mdi {
     color: rgba(255, 255, 255, 0.5);
 }
 .btn-clear {
-    margin-top: 6px;
-}
-.btn-search {
-    margin-top: 10px;
+    position: absolute;
+    right: 14px;
+    top: 4px;
+    z-index: 0;
 }
 .btn-search i,
 .btn-clear i {
     font-size: 2.6em;
+}
+#list tbody tr td  {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#list tbody tr td:first-child span {
+    text-transform: capitalize;
+    font-weight: 300;
+    color: #141414
 }
 table thead tr th {
     color: #000;
     font-weight: 200;
 }
 table thead tr th:last-child,
-table thead tr td:last-child {
+table tbody tr td:last-child {
     text-align: center;
+}
+table thead tr th:first-child,
+table tbody tr td:first-child {
+    text-align: left;
+}
+#list  tbody tr td:nth-child(2) {
+    text-transform: uppercase;
+}
+#list  tbody tr td:last-child i {
+    font-size: 40px;
+}
+#list tbody tr td:last-child i.mdi-block-helper {
+    font-size: 20px;
 }
 input {
    height: 4em !important;
@@ -144,6 +173,7 @@ input {
 input,
 input + label {
     padding-left: 10px !important;
+    width: calc(100% - 10px) !important;
 }
 input + label {
     padding-top: 5px;
@@ -170,7 +200,91 @@ input + label.active {
 .closer {
     padding: 5px;
 }
-@media only screen and (min-width: 601px;) {
+.modal .modal-content p {
+    font-size: 1.5em;
+}
+.modal p span.type {
+    font-size: 1.2rem;
+    font-style: oblique;
+}
+.charts-container {
+    display: block;
+    height: auto;
+    outline: 1px;
+    transition: .5s all;
+    list-style-type: none;
+    padding-left: 0;
+    padding-bottom: 0px;
+    color: #222;
+    margin: 0 auto;
+    text-align: center;
+}
+.charts-container li {
+    display: inline-block;
+    margin: 0 30px;
+    padding: 0;
+    line-height: 18px;
+    overflow: hidden;
+    min-width: 150px;
+    max-width: 150px;
+}
+.chart {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+}
+.chart canvas {
+    width: 97% !important;
+    height: 97% !important;
+}
+
+.chart .inside-values {
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: calc(50% - 18px);
+    bottom: calc(50% - 20px);
+}
+.chart .inside-values span:first-child {
+    font-size: 21px;
+}
+.chart-title {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: .5px;
+}
+.chart-title i {
+    display: inline-block;
+    margin-top: 2px;
+}
+#count-registrations,
+#count-verifications {
+    color: #2BAAB1;
+}
+#count-speakers,
+#count-verified-speakers {
+    color: #007bff;
+}
+#count-vips,
+#count-verified-vips {
+    color: #6f42c1;
+    font-weight: 400;
+}
+#count-registrations,
+#count-speakers,
+#count-vips {
+    font-size: 18px;
+    font-weight: 400;
+}
+canvas, video {
+    width: 100%;
+}
+@media only screen and (min-width: 601px) {
     .container {
         width: 95%;;
     }

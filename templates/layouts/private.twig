@@ -25,7 +25,7 @@
         <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
 
         <link rel="stylesheet" href="{{ base_url() }}/css/materialize.min.css">
-        <link rel="stylesheet" href="{{ base_url() }}/css/material-icons.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/materialdesignicons.min.css">
         <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/main.css"/>
 
         {% block styles %}{% endblock %}
@@ -35,7 +35,7 @@
         <header>
             {% include 'partials/nav.twig' %}
             <nav>
-                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="mdi mdi-menu"></i></a>
                 {% block menu %}{% endblock %}
             </nav>
         </header>
@@ -46,7 +46,6 @@
         <!-- All Javascript plugins goes here -->
         <script src="{{ base_url() }}/js/jquery-2.1.1.min.js"></script>
         <script src="{{ base_url() }}/js/materialize.js"></script>
-
         <script src="{{ base_url() }}/js/main.js"></script>
 
         {% block scripts %}{% endblock %}

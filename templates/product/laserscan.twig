@@ -1,0 +1,149 @@
+{% extends 'layouts/private.twig' %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
+{% endblock %}
+
+{% block content %}
+    <main id="registrations">
+        <div class="row">
+            <div class="col s12 text-center">
+                <div class="container">
+                    <h4 id="product-name" class="white-text"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row  mb-0">
+                <div class="col s12">
+                    <div class="to-scan">
+                        <h4 class="white-text show-on-small">Listo para escanear</h4>
+                        <ul class="appened"></ul>
+                    </div>
+                    <div style="position:fixed;top:-200px">
+                        <input type="text" class="form-control" id="verify" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block footer %}
+<footer>
+    <div id="modalmsg" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ base_url() }}/js/searchtable.js"></script>
+    {# <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script> #}
+    {# <script src="{{ base_url() }}/js/scan.js?v53"></script> #}
+    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
+    <script>
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product_id }}",
+                dataType: "json",
+                cache: false,
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                },
+                error: function(a) {
+                    console.log(a);
+                }
+            });
+        }
+
+        var scanner;
+
+        function startScan() {
+            scanner.addListener('scan', function(code) {
+                if (code.length !== 0) {
+                    verifyCode(code);
+                }
+            });
+        }
+        function verifyCode(code) {
+            $('#verify').val('');
+
+            $.ajax({
+                type: 'GET',
+                url: '/registration/verify/' + code + '?method=qr',
+                dataType: 'json',
+                cache: false,
+                success: function(a) {
+                    $('#modalmsg').modal('open');
+                    var title, message, buttons, type;
+                    var metadata = '';
+                    if (a.status == 'error') {
+                        style = 'red';
+                        title = 'Error';
+                        message = a.message;
+                    } else if (a.status == 'warning') {
+                        style = 'orange';
+                        title = 'Cuidado';
+                        message = a.message;
+                    } else if (a.status == 'success') {
+                        for (var key in a.metadata) {
+                            metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                        }
+                        style = 'green';
+                        title = a.message;
+                        message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
+                    }
+                    $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
+                    $('#modalmsg, #modalmsg .modal-footer').addClass(style);
+                    $('#modalmsg .modal-content h4').html(title);
+                    $('#modalmsg .modal-content p').html(message);
+                    $(this).data('uniqueid', null)
+                },
+                error: function(a) {
+                    location.reload();
+                }
+            });
+        }
+
+        $('#verify').on('input', function(e) {
+            var code = $(this).val();
+
+            $(this).hide();
+            $(this).blur();
+
+            verifyCode(code);
+
+            $(this).show();
+        });
+
+        $('html').bind('keydown', function(e) {
+            if (
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+            ) {
+                $('#verify').focus();
+            }
+        });
+
+        $(document).ready(function() {
+            info();
+            $('#modalmsg').modal();
+             // monitorEvents();
+         });
+    </script>
+{% endblock %}

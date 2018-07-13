@@ -54,27 +54,6 @@ class RegistrationController
         $this->view = $view;
     }
 
-    public function productOldAction(Request $request, Response $response, array $args)
-    {
-        try {
-            $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [
-                'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
-                    'Content-Language' => 'es'
-                ]
-            ]);
-
-            return $this->view->render($response, 'registration/scan.twig', [
-                'product' => json_decode($apiRequest->getBody())
-            ]);
-        } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
-            $this->flash->addMessage('danger', $e->getMessage());
-
-            return $response->withRedirect($this->router->pathFor('auth.signin'));
-        }
-    }
 
     public function productAction(Request $request, Response $response, array $args)
     {
@@ -86,17 +65,11 @@ class RegistrationController
                 ]
             ]);
 
-            return $this->view->render($response, 'registration/scan.twig', [
+            return $this->view->render($response, 'registration/camerascan.twig', [
                 'product' => json_decode($apiRequest->getBody()),
                 'product_id' => $args['id']
             ]);
         } catch (ClientException $e) {
-            // if ($e->getResponse()->getBody() === 401) {
-            //     $this->flash->addMessage('danger', json_decode($e->getResponse()->getBody(), true)->message);
-
-            //     return $response->withRedirect($this->router->pathFor('auth.signin'));
-            // }
-
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
         } catch (BadResponseException $e) {
             $this->flash->addMessage('danger', $e->getMessage());

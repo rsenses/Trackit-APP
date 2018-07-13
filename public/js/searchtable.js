@@ -105,7 +105,6 @@ function mySearch() {
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     filter =  removeDiacritics(filter);
-    console.log(filter);
     table = document.getElementById("list");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {

@@ -28,7 +28,9 @@ $app->group('', function () {
     $this->group('/product', function () {
         // All Products
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
-        $this->get('/{id:[0-9]+}/registrations', 'ProductController:instaRegistrationsAction')->setName('product.registrations');
+        $this->get('/{id:[0-9]+}/search', 'ProductController:searchAction')->setName('product.search');
+        $this->get('/{id:[0-9]+}/camerascan', 'ProductController:cameraScanAction')->setName('product.camerascan');
+        $this->get('/{id:[0-9]+}/laserscan', 'ProductController:laserScanAction')->setName('product.laserscan');
     });
 
     // Registration Group

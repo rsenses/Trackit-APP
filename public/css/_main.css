@@ -75,7 +75,7 @@ input.search {
     border-radius: 6px;
 }
 input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #000000;sdadsa
+  color: #000000;
 }
 input::-moz-placeholder { /* Firefox 19+ */
   color: #000000;
@@ -613,82 +613,7 @@ footer .charts-container.invisible {
     opacity: 0;
     transition: .5s all;
 }
-footer .charts-container {
-    display: block;
-    height: auto;
-    outline: 1px;
-    transition: .5s all;
-    list-style-type: none;
-    padding-left: 0;
-    margin-bottom: 0;
-    padding-top: 30px;
-    padding-bottom: 40px;
-    background-color: #fff;
-    color: #222;
-}
-footer .charts-container li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    line-height: 18px;
-    overflow: hidden;
-    min-width: 32%;
-    max-width: 32%;
-}
-footer .chart {
-    position: relative;
-    margin: 0 auto;
-    display: block;
-}
-footer .chart canvas {
-    width: 97% !important;
-    height: 97% !important;
-}
 
-footer .chart .inside-values {
-    font-size: 12px;
-    line-height: 30px;
-    text-align: center;
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: calc(50% - 18px);
-    bottom: calc(50% - 20px);
-}
-footer .chart .inside-values span:first-child {
-    font-size: 21px;
-}
-footer .chart-title {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 200;
-    letter-spacing: .5px;
-
-}
-footer .chart-title i {
-    display: inline-block;
-    margin-top: 2px;
-}
-#count-registrations,
-#count-verifications {
-    color: #2BAAB1;
-}
-#count-speakers,
-#count-verified-speakers {
-    color: #007bff;
-}
-#count-vips,
-#count-verified-vips {
-    color: #6f42c1;
-    font-weight: 400;
-}
-#count-registrations,
-#count-speakers,
-#count-vips {
-    font-size: 18px;
-    font-weight: 400;
-}
 canvas, video {
     width: 100%;
 }

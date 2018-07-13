@@ -1,0 +1,143 @@
+{% extends 'layouts/private.twig' %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
+{% endblock %}
+
+{% block content %}
+    <main id="registrations">
+            <div id="instascan" class="">
+                <video id="preview"></video>
+            </div>
+            <div class="row">
+            <div class="col s12 text-center">
+                <div class="container">
+                    <h4 id="product-name" class="white-text center-align"></h4>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block footer %}
+<footer>
+    <div id="modalmsg" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ base_url() }}/js/searchtable.js"></script>
+    <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script>
+    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
+    <script>
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product_id }}",
+                dataType: "json",
+                cache: false,
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                },
+                error: function(a) {
+                    console.log(a);
+                }
+            });
+        }
+
+        var scanner;
+
+        function startScan() {
+            scanner.addListener('scan', function(code) {
+                if (code.length !== 0) {
+                    verifyCode(code);
+                }
+            });
+        }
+
+        function startCamera() {
+            scanner = new Instascan.Scanner({
+                mirror: false,
+                video: document.getElementById('preview'),
+                refractoryPeriod: 10000,
+                scanPeriod: 8
+            });
+            Instascan.Camera.getCameras().then(function(cameras) {
+                if (cameras.length != 0) {
+                    if (cameras.length > 1) {
+                        camera = cameras[1];
+
+                        scanner.start(camera);
+                    } else {
+                        camera = cameras[0];
+
+                        scanner.start(camera);
+                    }
+
+                    startScan();
+                } else {
+                    console.log('No hemos detectado cámara')
+                }
+            });
+        }
+
+       function verifyCode(code) {
+            $.ajax({
+                type: 'GET',
+                url: '/registration/verify/' + code + '?method=qr',
+                dataType: 'json',
+                cache: false,
+                success: function(a) {
+                    $('#modalmsg').modal('open');
+                    var title, message, buttons, type;
+                    var metadata = '';
+                    if (a.status == 'error') {
+                        style = 'red';
+                        title = 'Error';
+                        message = a.message;
+                    } else if (a.status == 'warning') {
+                        style = 'orange';
+                        title = 'Cuidado';
+                        message = a.message;
+                    } else if (a.status == 'success') {
+                        for (var key in a.metadata) {
+                            metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                        }
+                        style = 'green';
+                        title = a.message;
+                        message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
+                    }
+                    $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
+                    $('#modalmsg, #modalmsg .modal-footer').addClass(style);
+                    $('#modalmsg .modal-content h4').html(title);
+                    $('#modalmsg .modal-content p').html(message);
+                },
+                error: function(a) {
+                    location.reload();
+                }
+            });
+        }
+
+
+
+        $(document).ready(function() {
+            info();
+            startCamera();
+            $('#modalmsg').modal();
+             // monitorEvents();
+         });
+    </script>
+{% endblock %}
