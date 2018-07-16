@@ -29,10 +29,11 @@ host('scl.prs3.expomark.es')
     ->identityFile('~/.ssh/do_rsa')
     // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
     ->stage('production')
+    // ->set('branch', 'clean')
     ->set('deploy_path', '/var/www/app.trackitsuite.com'); // Define the base path to deploy your project to.
 
 // Specify the repository from which to download your project's code.
-// The server needs to have git installed for this to work.
+// The server needs to have git installed for this to work.de
 // If you're not using a forward agent, then the server has to be able to clone
 // your project from this repository.
 
