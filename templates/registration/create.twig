@@ -5,21 +5,11 @@
 {% endblock %}
 
 {% block menu %}
-    {% if type %}
-    {% else %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}?type=asistente" class="scan-menu">
-        <i class="icon-plus fa-2x" aria-hidden="true"></i>
-    </a>
-    <a href="{{ path_for('product.registrations', {'id': product_id}) }}">
-        <i class="icon-magnifier fa-2x" aria-hidden="true"></i>
-    </a>
-    {% endif %}
-    <a href="{{ path_for('product.registrations', {'id': product_id}) }}" class="logo hidden-xs">
-        <img src="/images/trackit-nav.png" alt="Trackit" class="img-responsive img-block">
-    </a>
-    <a href="{{ path_for('product.registrations', {'id': product_id}) }}" class="logo-mobile visible-xs">
-        <img src="/images/logo_trackit.png" alt="Trackit" class="img-responsive img-block">
-    </a>
+    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
 
 {% block content %}
@@ -84,7 +74,7 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script>
+    {# <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script> #}
     <script>
         function createAction(verification) {
             var action = $('form').attr('action');

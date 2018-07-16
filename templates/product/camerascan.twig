@@ -9,11 +9,10 @@
 {% endblock %}
 
 {% block content %}
-    <main id="registrations">
-            <div id="instascan" class="">
-                <video id="preview"></video>
-            </div>
-            <div class="row">
+    <main id="camerascan">
+        <video id="preview" class="responsive-video"></video>
+        <a href="#0" class="cameraLaunch hide"></a>
+        <div class="row">
             <div class="col s12 text-center">
                 <div class="container">
                     <h4 id="product-name" class="white-text center-align"></h4>
@@ -38,7 +37,6 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script src="{{ base_url() }}/js/instascan.min.js"></script>
     <script>
         var info = function () {
@@ -56,7 +54,6 @@
                 }
             });
         }
-
         var scanner;
 
         function startScan() {
@@ -68,6 +65,7 @@
         }
 
         function startCamera() {
+
             scanner = new Instascan.Scanner({
                 mirror: false,
                 video: document.getElementById('preview'),
@@ -85,15 +83,14 @@
 
                         scanner.start(camera);
                     }
-
                     startScan();
                 } else {
-                    console.log('No hemos detectado cámara')
+                    console.log('No hemos detectado cámara');
                 }
             });
         }
 
-       function verifyCode(code) {
+        function verifyCode(code) {
             $.ajax({
                 type: 'GET',
                 url: '/registration/verify/' + code + '?method=qr',
@@ -129,14 +126,14 @@
                 }
             });
         }
-
-
-
-        $(document).ready(function() {
-            info();
+        $(document).on('click', '.cameraLaunch', function() {
             startCamera();
-            $('#modalmsg').modal();
-             // monitorEvents();
+        });
+        $(document).ready(function() {
+            setTimeout(function() {
+                $(".cameraLaunch").trigger('click');
+            },100);
+            info();
          });
     </script>
 {% endblock %}

@@ -122,16 +122,19 @@ nav .logo-menu {
     background-color: rgba(255, 255, 255, 0.2);
 }
 .sidenav li a {
-    color: rgba(255, 255, 255, 0.5);
+    color: #FFFFFF;
+    text-transform: uppercase;
 }
 .sidenav li a i.mdi {
-    color: rgba(255, 255, 255, 0.5);
+    color: #FFFFFF;
+    font-size: 2em;
 }
 .btn-clear {
     position: absolute;
     right: 14px;
     top: 4px;
     z-index: 0;
+    opacity: 0.1;
 }
 .btn-search i,
 .btn-clear i {
@@ -281,7 +284,9 @@ input + label.active {
     font-size: 18px;
     font-weight: 400;
 }
-canvas, video {
+audio, canvas, progress, video {
+    display: inline-block;
+    vertical-align: baseline;
     width: 100%;
 }
 @media only screen and (min-width: 601px) {

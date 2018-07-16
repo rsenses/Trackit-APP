@@ -9,21 +9,18 @@
 {% endblock %}
 
 {% block content %}
-    <main id="registrations">
+    <main id="laserscan">
         <div class="row">
-            <div class="col s12 text-center">
+            <div class="col s12">
                 <div class="container">
-                    <h4 id="product-name" class="white-text"></h4>
+                    <h4 id="product-name" class="white-text center-align"></h4>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="row  mb-0">
-                <div class="col s12">
-                    <div class="to-scan">
-                        <h4 class="white-text show-on-small">Listo para escanear</h4>
-                        <ul class="appened"></ul>
-                    </div>
+            <div class="row mb-0">
+                <div class="col s12 white-text center-align">
+                    <div class="head-scan"></div>
                     <div style="position:fixed;top:-200px">
                         <input type="text" class="form-control" id="verify" />
                     </div>
@@ -50,6 +47,7 @@
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script>
+
         var info = function () {
             $.ajax({
                 type: "GET",
@@ -59,6 +57,7 @@
                 context: this,
                 success: function(a) {
                     $('#product-name').text(a.name);
+                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar lectura.</small></h4>');
                 },
                 error: function(a) {
                     console.log(a);
@@ -67,11 +66,12 @@
         }
 
         var scanner;
-
         function startScan() {
             scanner.addListener('scan', function(code) {
                 if (code.length !== 0) {
                     verifyCode(code);
+                    $('.head-scan').empty();
+                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Código detectado<br><small>'+code+'</small></h4>');
                 }
             });
         }
@@ -134,13 +134,16 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 $('#verify').focus();
+                $('.head-scan').empty();
+                $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
+            } else {
+                $('.head-scan').empty();
+                $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar lectura.</small></h4>');
             }
         });
 
         $(document).ready(function() {
             info();
-            $('#modalmsg').modal();
-             // monitorEvents();
          });
     </script>
 {% endblock %}
