@@ -5,11 +5,11 @@
     <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
-    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu hide-on-small-only">
 {% endblock %}
 
 {% block content %}
-    <main id="search">
+    <main id="searchUsers">
         <div class="row">
             <div class="col s12 text-center">
                 <div class="container">
@@ -36,7 +36,7 @@
                     <table id="list" class="hide grey lighten-5">
                         <thead>
                             <tr>
-                                <th style="min-width:40%;">Nombre Apellidos</th>
+                                <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
