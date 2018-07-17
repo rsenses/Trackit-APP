@@ -13,7 +13,4 @@ $(document).ready(function() {
     if ($('#modalcharts').length) {
         $('#modalcharts').modal();
     }
-    var ww = window.screen.availHeight;
-    var wh = window.screen.availWidth;
-    alert(ww+'x'+wh);
 });
