@@ -4,6 +4,9 @@ $(document).on('click', '.closer', function(event){
 });
 
 $(document).ready(function() {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        alert('mobile detect');
+    }
     if ($('.sidenav').length) {
         $('.sidenav').sidenav();
     }
