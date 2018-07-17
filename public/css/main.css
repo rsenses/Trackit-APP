@@ -78,10 +78,6 @@ header, main {
     position: relative;
 }
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 0;
     color: #FFFFFF;
     background-color: transparent;
 }
@@ -289,8 +285,18 @@ audio, canvas, progress, video {
     vertical-align: baseline;
     width: 100%;
 }
-@media only screen and (min-width: 601px) {
+@media(min-width:576px){
     .container {
         width: 95%;;
     }
 }
+@media(min-width:768px){
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 0;
+    }
+}
+@media(min-width:992px){}
+@media(min-width:1200px){}

@@ -4,9 +4,6 @@ $(document).on('click', '.closer', function(event){
 });
 
 $(document).ready(function() {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        alert('mobile detect');
-    }
     if ($('.sidenav').length) {
         $('.sidenav').sidenav();
     }
@@ -16,4 +13,7 @@ $(document).ready(function() {
     if ($('#modalcharts').length) {
         $('#modalcharts').modal();
     }
+    var ww = window.screen.availHeight;
+    var wh = window.screen.availWidth;
+    alert(ww+'x'+wh);
 });
