@@ -108,6 +108,8 @@
                     $('#modalmsg .modal-content h4').html(title);
                     $('#modalmsg .modal-content p').html(message);
                     $(this).data('uniqueid', null)
+                    $('.head-scan').empty();
+                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar lectura.</small></h4>');
                 },
                 error: function(a) {
                     location.reload();
@@ -126,7 +128,7 @@
             $(this).show();
         });
 
-        $('html').bind('keypress', function(e) {
+        $('html').bind('keydown', function(e) {
             if (
                 e.keyCode == 0 &&
                 typeof e.originalEvent !== 'undefined' &&
@@ -136,7 +138,16 @@
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
-            } else {
+            }
+        });
+
+        $('html').bind('keyup', function(e) {
+            if (
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+            ) {
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar lectura.</small></h4>');
             }
