@@ -2,18 +2,17 @@
 
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
-    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
-    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
     <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
 
 {% block content %}
     <main id="camerascan">
-        <video id="preview" class="responsive-video"></video>
-        <a href="#0" class="cameraLaunch">
-            <h1><i class="mdi mdi-camera"></i></h1>
-            <h4>Haz click aquí para abrir</h4>
+        <video id="preview" class="responsive-video hide"></video>
+        <a href="#0" class="cameraLaunch btn btn-block">
+            <i class="mdi mdi-camera"></i>
         </a>
         <div class="row">
             <div class="col s12 text-center">
@@ -68,13 +67,13 @@
         }
 
         function startCamera() {
-
             scanner = new Instascan.Scanner({
                 mirror: false,
                 video: document.getElementById('preview'),
                 refractoryPeriod: 10000,
                 scanPeriod: 8
             });
+            console.log('scanner', scanner);
             Instascan.Camera.getCameras().then(function(cameras) {
                 if (cameras.length != 0) {
                     if (cameras.length > 1) {
@@ -131,11 +130,11 @@
         }
         $(document).on('click', '.cameraLaunch', function() {
             startCamera();
+            console.log('click');
+            $('#preview').removeClass('hide');
+            $(this).addClass('hide')
         });
         $(document).ready(function() {
-            setTimeout(function() {
-                $(".cameraLaunch").trigger('click');
-            },100);
             info();
          });
     </script>

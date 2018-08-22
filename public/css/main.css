@@ -81,26 +81,18 @@ footer {
     color: #FFFFFF;
     background-color: transparent;
 }
-footer .modal-trigger {
-    display: none;
-}
+
 nav {
     background-color: #0051b2;
 }
-nav .btn-floating {
+nav a.btn-floating {
     margin-top: 4px;
-}
-nav .btn-floating.right {
     margin-right: 5px;
 }
 nav .btn-floating.right:first-child {
     margin-right: 10px;
 }
-nav .logo-menu {
-    margin-right: 100px;
-    max-height: 58px;
-    margin-top: 2px;
-}
+
 .mb-0 {
     margin-bottom: 0;
 }
@@ -138,13 +130,26 @@ nav .logo-menu {
     color: #FFFFFF;
     font-size: 2em;
 }
+.sidenav-trigger i {
+    font-size: 2.4em;
+}
+.alerts .closer {
+    position: absolute;
+    right: 5px;
+}
+.alerts .card-content i {
+    font-size: 24px;
+}
+
 .btn-clear {
     position: absolute;
     right: 14px;
-    top: 4px;
+    top: 12px;
     z-index: 0;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
 }
-.btn-search i,
 .btn-clear i {
     font-size: 2.6em;
 }
@@ -157,6 +162,7 @@ nav .logo-menu {
     font-weight: 300;
     color: #141414
 }
+
 table thead tr th {
     color: #000;
     padding: 5px;
@@ -165,14 +171,6 @@ table thead tr th {
 table thead tr th:last-child,
 table tbody tr td:last-child {
     text-align: center;
-}
-table thead tr th:nth-child(2),
-table thead tr th:nth-child(3),
-table thead tr th:nth-child(4),
-table tbody tr td:nth-child(2),
-table tbody tr td:nth-child(3),
-table tbody tr td:nth-child(4) {
-    display: none;
 }
 table thead tr th:first-child,
 table tbody tr td:first-child {
@@ -224,13 +222,12 @@ nav .btn-floating.btn-large {
     width: 44px;
     font-size: 13px;
     line-height: 44px;
+
 }
 nav .btn-floating.btn-large i {
     line-height: 44px;
 }
-#product-name {
-    display: none;
-}
+
 .closer {
     padding: 5px;
 }
@@ -259,8 +256,8 @@ nav .btn-floating.btn-large i {
     padding: 0;
     line-height: 18px;
     overflow: hidden;
-    min-width: 150px;
-    max-width: 150px;
+    min-width: 100px;
+    max-width: 100px;
 }
 .chart {
     position: relative;
@@ -320,18 +317,86 @@ audio, canvas, progress, video {
     vertical-align: baseline;
     width: 100%;
 }
-@media(min-width:576px){
-    .container {
-        width: 95%;;
+.logo-menu,
+#product-name,
+footer .modal-trigger,
+table thead tr th:nth-child(2),
+table thead tr th:nth-child(3),
+table thead tr th:nth-child(4),
+table tbody tr td:nth-child(2),
+table tbody tr td:nth-child(3),
+table tbody tr td:nth-child(4) {
+    display: none;
+}
+.container {
+    width: 95%;;
+}
+.cameraLaunch {
+
+}
+@media screen and (min-width:550px) and (orientation: portrait){
+    footer .modal-trigger {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
+    nav a.btn-floating.right {
+        margin-top: 6px;
+    }
+    nav .logo-menu {
+        margin-right: 65px;
+        max-height: 46px;
+        margin-top: 4px;
+    }
+    .laser-scan {
+        display: none;
+    }
+    .logo-menu,
+    #product-name,
+    footer .modal-trigger {
+        display: block;
+    }
+    table thead tr th:nth-child(2),
+    table thead tr th:nth-child(3),
+    table thead tr th:nth-child(4),
+    table tbody tr td:nth-child(2),
+    table tbody tr td:nth-child(3),
+    table tbody tr td:nth-child(4) {
+        display: table-cell;
     }
 }
-@media(min-width:768px){
+@media screen and (min-width:768px) and (orientation: portrait){
     footer {
         position: fixed;
         bottom: 0;
         width: 100%;
         padding: 0;
     }
+    .charts-container li {
+        min-width: 150px;
+        max-width: 150px;
+    }
+    nav .logo-menu {
+        margin-right: 100px;
+        max-height: 58px;
+        margin-top: 2px;
+    }
 }
-@media(min-width:992px){}
-@media(min-width:1200px){}
+@media screen and (min-width:733px) and (orientation: portrait){
+    .container {
+        width: 90%;;
+    }
+    nav .logo-menu {
+        max-height: 60px;
+        margin-top: 1px;
+    }
+    nav a.btn-floating.btn-large {
+        height: 54px;
+        width: 54px;
+        font-size: 14px;
+        line-height: 54px;
+        margin-top: 4px;
+    }
+}
+@media screen and (min-width:1200px) and (orientation: portrait){
+}

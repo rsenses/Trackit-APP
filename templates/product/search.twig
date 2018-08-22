@@ -3,9 +3,9 @@
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
     <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
-    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
-    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-qrcode-scan"></i></a>
-    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu hide-on-small-only">
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
+    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
                         <div class="input-field col s12">
                             <input type="text" class="search white" id="search" />
                             <label for="search">Búsqueda predictiva</label>
-                            <button class="btn btn-large btn-floating waves-effect waves-light btn-clear red hide" type="submit" name="action">
+                            <button class="btn btn-floating waves-effect waves-light btn-clear red hide" type="submit" name="action">
                                 <i class="mdi mdi-close"></i>
                             </button>
                         </div>
@@ -106,7 +106,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
+                                <td colspan="5">
                                     Actualmente no se muestran resultados.
                                 </td>
                             </tr>

@@ -9,6 +9,7 @@ $app->group('/print', function () {
     // Sign In
     $this->get('/test', 'PrintController:testAction')->setName('print.test');
 });
+
 // Guest users routes
 $app->group('/auth', function () {
     // Sign In
