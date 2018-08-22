@@ -54,7 +54,9 @@
          url(../fonts/Rubik-Medium.woff) format('woff'),
          url(../fonts/Rubik-Medium.ttf) format('truetype');
   }
-
+html {
+    background-color: #0051b2;
+}
 body {
     background-color: #0051b2;
     height: 100vh;
