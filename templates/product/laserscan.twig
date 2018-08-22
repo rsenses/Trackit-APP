@@ -2,7 +2,7 @@
 
 {% block menu %}
     <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
-    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
     <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
@@ -126,7 +126,7 @@
             $(this).show();
         });
 
-        $('html').bind('keydown', function(e) {
+        $('html').bind('keypress', function(e) {
             if (
                 e.keyCode == 0 &&
                 typeof e.originalEvent !== 'undefined' &&
