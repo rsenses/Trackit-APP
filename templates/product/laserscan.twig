@@ -128,14 +128,16 @@
 
             $(this).show();
         });
+        var fired = false;
 
         $('html').bind('keydown', function(e) {
-            if (
+            if (!fired &&
                 e.keyCode == 0 &&
                 typeof e.originalEvent !== 'undefined' &&
                 (typeof e.originalEvent.key == 'undefined' ||
                     e.originalEvent.key == 'Unidentified')
             ) {
+                fired = true;
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
@@ -148,7 +150,9 @@
                 typeof e.originalEvent !== 'undefined' &&
                 (typeof e.originalEvent.key == 'undefined' ||
                     e.originalEvent.key == 'Unidentified')
+
             ) {
+                fired = false;
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
             }
