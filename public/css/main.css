@@ -334,6 +334,21 @@ table tbody tr td:nth-child(4) {
 .container {
     width: 95%;;
 }
+.results-scan {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+.results-scan p {
+    margin-top: 0;
+    padding-left: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+.results-scan p:last-child {
+    border-bottom: 0;
+}
 .cameraLaunch {
 
 }
