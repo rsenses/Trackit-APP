@@ -1,8 +1,8 @@
 {% extends 'layouts/private.twig' %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
-    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green camera-scan"><i class="mdi mdi-camera"></i></a>
+    <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple camera-scan"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
     <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
@@ -10,10 +10,16 @@
 
 {% block content %}
     <main id="camerascan">
+        <div class="container">
+            <div class="row">
+                <div class="col s6 offset-s3">
+                    <a href="#0" class="mt-30 cameraLaunch waves-effect waves-dark btn-large green">
+                        <i class="mdi mdi-camera left"></i> Pulsa para abrir cámara
+                    </a>
+                </div>
+            </div>
+        </div>
         <video id="preview" class="responsive-video hide"></video>
-        <a href="#0" class="cameraLaunch btn btn-block">
-            <i class="mdi mdi-camera"></i>
-        </a>
         <div class="row">
             <div class="col s12 text-center">
                 <div class="container">
@@ -56,6 +62,7 @@
                 }
             });
         }
+
         var scanner;
 
         function startScan() {
@@ -73,13 +80,15 @@
                 refractoryPeriod: 10000,
                 scanPeriod: 8
             });
-            console.log('scanner', scanner);
+
+
             Instascan.Camera.getCameras().then(function(cameras) {
                 if (cameras.length != 0) {
                     if (cameras.length > 1) {
                         camera = cameras[1];
 
                         scanner.start(camera);
+
                     } else {
                         camera = cameras[0];
 
@@ -129,10 +138,9 @@
             });
         }
         $(document).on('click', '.cameraLaunch', function() {
-            startCamera();
-            console.log('click');
             $('#preview').removeClass('hide');
             $(this).addClass('hide')
+            startCamera();
         });
         $(document).ready(function() {
             info();

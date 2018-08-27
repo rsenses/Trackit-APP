@@ -1,10 +1,10 @@
 {% extends 'layouts/private.twig' %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
     <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
-    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
     <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
 
@@ -83,7 +83,6 @@
                 dataType: 'json',
                 cache: false,
                 success: function(a) {
-                    $('#modalmsg').modal('open');
                     var title, message, buttons, type;
                     var metadata = '';
                     if (a.status == 'error') {
@@ -110,6 +109,7 @@
                     $('#modalmsg, #modalmsg .modal-footer').addClass(style);
                     $('#modalmsg .modal-content h4').html(title);
                     $('#modalmsg .modal-content p').html(message);
+                    $('#modalmsg').modal('open');
                     $(this).data('uniqueid', null)
                 },
                 error: function(a) {

@@ -1,9 +1,9 @@
 {% extends 'layouts/private.twig' %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
     <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
-    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
     <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
 {% endblock %}
@@ -115,6 +115,7 @@
                 </div>
             </div>
         </div>
+        <div class="results-scan search"></div>
     </main>
 {% endblock %}
 {% block footer %}
@@ -284,6 +285,7 @@
                             style = 'green';
                             title = a.message;
                             message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
+                            $('.results-scan').html('<p class="white-text">'+a.user+': <small>Orden'+metadata+'</small></p>');
                         }
                         $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
                         $('#modalmsg, #modalmsg .modal-footer').addClass(style);

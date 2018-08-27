@@ -94,7 +94,28 @@ nav a.btn-floating {
 nav .btn-floating.right:first-child {
     margin-right: 10px;
 }
+.purple {
+    background-color: #9868bd !important;
+}
+.green {
+    background-color: #6ac700 !important;
+}
 
+.mt-0 {
+    margin-top: 0;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
 .mb-0 {
     margin-bottom: 0;
 }
@@ -103,6 +124,12 @@ nav .btn-floating.right:first-child {
 }
 .mb-10 {
     margin-bottom: 10px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+.mb-30 {
+    margin-bottom: 30px;
 }
 .sidenav {
     background-color: #0051b2;
@@ -191,15 +218,29 @@ input {
    height: 4em !important;
 }
 input,
+div + label,
 input + label {
     padding-left: 10px !important;
     width: calc(100% - 10px) !important;
 }
+
 input + label {
     padding-top: 5px;
     font-size: 18px !important;
 }
+
+.select-wrapper {
+    margin-top: 0px;
+}
+.select-wrapper + label {
+    top: -40px;
+    font-size: 1em !important;
+}
+.dropdown-content li > a, .dropdown-content li > span {
+    color: #000;
+}
 input + label.active,
+div + label,
 input:focus + label.active {
     padding-top: 0;
     top: -10px;
@@ -229,12 +270,28 @@ nav .btn-floating.btn-large {
 nav .btn-floating.btn-large i {
     line-height: 44px;
 }
-
+.select-wrapper input.select-dropdown {
+    background-color: #fff;
+    margin-top: 0;
+}
+.select-wrapper .caret {
+    fill: rgba(0,0,0,1);
+    z-index: 9998;
+}
 .closer {
     padding: 5px;
 }
+.modal.lg {
+    max-height: 80%;
+}
 .modal .modal-content p {
     font-size: 1.5em;
+}
+.modal.inscriptions .modal-content p {
+    line-height: 1em;
+}
+.modal.inscriptions .modal-content p small {
+    font-size: 60%;
 }
 .modal p span.type {
     font-size: 1.2rem;
@@ -339,6 +396,9 @@ table tbody tr td:nth-child(4) {
     bottom: 0px;
     width: 100%;
 }
+.results-scan.search {
+    background-color: #0051b2;
+}
 .results-scan p {
     margin-top: 0;
     padding-left: 10px;
@@ -348,6 +408,9 @@ table tbody tr td:nth-child(4) {
 }
 .results-scan p:last-child {
     border-bottom: 0;
+}
+.results-scan p:first-child {
+    margin-top: 5px;
 }
 .cameraLaunch {
 
@@ -415,6 +478,9 @@ table tbody tr td:nth-child(4) {
         font-size: 14px;
         line-height: 54px;
         margin-top: 4px;
+    }
+    nav .btn-floating.btn-large i {
+        line-height: 54px;
     }
 }
 @media screen and (min-width:1200px) and (orientation: portrait){

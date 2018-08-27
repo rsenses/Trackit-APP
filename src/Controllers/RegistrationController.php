@@ -86,6 +86,14 @@ class RegistrationController
             'registration_type' => $this->settings['enum']['registration_type']
         ]);
     }
+    public function inscriptionsAction(Request $request, Response $response, array $args)
+    {
+        return $this->view->render($response, 'registration/inscriptions.twig', [
+            'product_id' => $args['id'],
+            'type' => $request->getQueryParam('type'),
+            'registration_type' => $this->settings['enum']['registration_type']
+        ]);
+    }
 
     public function saveAction(Request $request, Response $response, array $args)
     {

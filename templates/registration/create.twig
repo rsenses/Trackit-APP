@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block menu %}
-    <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right green"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
     <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
@@ -13,64 +13,73 @@
 {% endblock %}
 
 {% block content %}
-    <div id="create">
-        <div class="container">
+<main id="create" class="create container">
+    <div class="row">
+        <div class="col s12">
+            <h5 class="left-align white-text mb-30">Nuevo registro</h5>
+        </div>
+        <form action="{{ path_for('registration.save', {'id': product_id}) }}" method="POST" class="inscriptions col s12">
             <div class="row">
-                <div class="col-xs-12">
-                    <form action="{{ path_for('registration.save', {'id': product_id}) }}" method="POST" class="row">
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label for="firstNameInput">Nombre <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="firstNameInput" placeholder="Cecilia" name="first_name" required autocomplete="off">
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label for="lastNameInput">Apellidos <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="lastNameInput" placeholder="Rodríguez de Diego" name="last_name" required autocomplete="off">
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label for="emailInput">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="emailInput" placeholder="ejemplo@gmail.com" name="email" required autocomplete="off">
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-6">
-                            <label for="nifInput">DNI, pasaporte, etc <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="nifInput" placeholder="Nº de indentificación" name="nif" required autocomplete="off">
-                        </div>
-                        {% if type %}
-                        <div class="form-group col-xs-12 col-sm-6">
-                        {% else %}
-                        <div class="form-group col-xs-12 col-sm-4">
-                        {% endif %}
-                            <label for="companyInput">Empresa</label>
-                            <input type="text" class="form-control" id="companyInput" placeholder="Nombre de la Empresa S.A." name="company" autocomplete="off">
-                        </div>
-                        {% if type %}
-                        <div class="form-group col-xs-12 col-sm-6">
-                        {% else %}
-                        <div class="form-group col-xs-12 col-sm-4">
-                        {% endif %}
-                            <label for="positionInput">Cargo</label>
-                            <input type="text" class="form-control" id="positionInput" placeholder="Puesto de trabajo" name="position" autocomplete="off">
-                        </div>
-                        <div class="form-group col-xs-12 col-sm-4 {{ type ? 'hidden' }}">
-                            <label for="typeId">Tipo de registro <span class="text-danger">*</span></label>
-                            <select class="form-control" id="typeId" name="registration_type_id" required>
-                                {% for type in registration_type %}
-                                    <option value="{{ loop.index }}">{{ type }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        {{ csrf.field | raw }}
-                        <div class="clearfix"></div>
-                        <div class="col-xs-4 col-sm-6 text-left">
-                            <a href="{{ path_for('registration.create', {'id': product_id}) }}" class="btn btn-danger btn-lg {{ type ? 'hidden' }}"><i class="fa fa-trash" aria-hidden="true"></i> <span class="hidden-xs">Borrar datos</span></a>
-                        </div>
-                        <div class="col-xs-8 col-sm-6 text-right">
-                            <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
-                        </div>
-                    </form>
+                <div class="col s12 ">
+                    {% include 'partials/flash.twig' %}
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" class="white validate" id="firstNameInput" placeholder="Cecilia" name="first_name" required autocomplete="off">
+                    <label for="firstNameInput">Nombre</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" class="white validate" id="lastNameInput" placeholder="Rodríguez de Diego" name="last_name" required autocomplete="off">
+                    <label for="lastNameInput">Apellidos</label>
+                </div>
+                <div class="input-field col s12 m12">
+                    <input type="email" class="white validate" id="emailInput" placeholder="ejemplo@gmail.com" name="email" required autocomplete="off">
+                    <label for="emailInput">Email</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" class="white validate" id="nifInput" placeholder="Nº de indentificación" name="nif" required autocomplete="off">
+                    <label for="nifInput">DNI, pasaporte, etc</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" class="white validate" id="companyInput" placeholder="Nombre de la Empresa S.A." name="company" autocomplete="off">
+                    <label for="companyInput">Empresa</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input type="text" class="white validate" id="positionInput" placeholder="Puesto de trabajo" name="position" autocomplete="off">
+                    <label for="positionInput">Cargo</label>
+                </div>
+                <div class="input-field col s12 m6">
+                    <select class="white validate" id="typeId" name="registration_type_id" required>
+                        {% for type in registration_type %}
+                            <option value="{{ loop.index }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="typeId">Tipo de registro</label>
+                </div>
+                {{ csrf.field | raw }}
+                <div class="col s12 right-align">
+                    <button class="waves-effect waves-dark btn-large green text-white" type="submit" name="action">Registrar
+                        <i class="mdi mdi-login right"></i>
+                    </button>
                 </div>
             </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
+{% block footer %}
+<footer>
+    <div id="modalmsg" class="inscriptions modal lg orange">
+        <div class="modal-content">
+            <h5 class="mt-0 mb-3 center-align"><i class="mdi mdi-alert"></i><br>Revise los datos<br></h5>
+            <p class="msg"></p>
+            <p><small><strong>ATENCIÓN:</strong> Recibirá un correro electrónico con el proceso de acreditación.</small></p>
+        </div>
+        <div class="modal-footer orange">
+            <a href="#0" class="waves-effect white-text waves-white green btn-flat" onclick="createAction();"><i class="mdi mdi-check right"></i>Confirmar</a>
+            <a href="#0" class="left modal-close waves-effect white-text waves-white grey btn-flat">Atrás</a>
         </div>
     </div>
+</footer>
 {% endblock %}
 
 {% block scripts %}
@@ -118,8 +127,8 @@
                     {% else %}
                     title: '¿Están correctos los datos del nuevo '+typeId+'?',
                     {% endif %}
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+email+'<br>'+businness+'<br>'+nif+'<br>'+position+'</small></h4></div><p><span class="text-danger">ATENCIÓN: </span>Requiere validación de entrada, <strong>recibirá un email</strong> con los datos.</p>',
                     buttons: [{
+                    message: '<div class="well"><h4>'+name+' '+lastname+'<br>'+businness+'<br>'+nif+'<br>'+position+'</small></h4></div><</span>Requiere validación de entrada, <strong>recibirá un email</strong> con los datos.</p>',
                         label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp; Confirmar datos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
                         cssClass: 'btn-success pull-rigth',
                         action: function() {
@@ -139,8 +148,8 @@
                 BootstrapDialog.show({
                     size: BootstrapDialog.SIZE_LARGE,
                     title: 'Confirmar el acceso',
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<br><small class="text-danger">'+typeId+'</small></h4></div><p>Por favor, confirme si el '+typeId+' ha accedido</p>',
                     buttons: [{
+                    message: '<div class="well"><h4>'+name+' '+lastname+'<bmall></h4></div><p>Por favor, confirme si el '+typeId+' ha accedido</p>',
                         label: '<i class="fa fa-chevron-left" aria-hidden="true"></i> No',
                         cssClass: 'btn-danger pull-left',
                         action: function(dialog) {
