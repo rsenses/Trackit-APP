@@ -1,18 +1,16 @@
-{% extends 'layouts/private.twig' %}
-
-{% block styles %}
-    <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css"/>
-{% endblock %}
-
-{% block menu %}
-    <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
-    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
-    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-magnify"></i></a>
-    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
-    <img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu">
-{% endblock %}
-
-{% block content %}
+{% extends 'layouts/private.twig' %} {% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css" /> {% endblock %} {% block menu
+%}
+<a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i
+        class="mdi mdi-account-plus"></i></a>
+<a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i
+        class="mdi mdi-camera"></i></a>
+<a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i
+        class="mdi mdi-magnify"></i></a>
+<a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i
+        class="mdi mdi-qrcode-scan"></i></a>
+<img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img right logo-menu"> {% endblock %} {% block content
+%}
 <main id="create" class="create container">
     <div class="row">
         <div class="col s12">
@@ -50,7 +48,7 @@
                 <div class="input-field col s12 m6">
                     <select class="white validate" id="typeId" name="registration_type_id" required>
                         {% for type in registration_type %}
-                            <option value="{{ loop.index }}">{{ type }}</option>
+                        <option value="{{ loop.index }}">{{ type }}</option>
                         {% endfor %}
                     </select>
                     <label for="typeId">Tipo de registro</label>
@@ -65,10 +63,9 @@
         </form>
     </div>
 </main>
-{% endblock %}
-{% block footer %}
+{% endblock %} {% block footer %}
 <footer>
-    <div id="modalmsg" class="inscriptions modal lg orange">
+    <div id="modalmsg" class="inscriptions modal lg green">
         <div class="modal-content">
             <h5 class="mt-0 mb-3 center-align"><i class="mdi mdi-alert"></i><br>Revise los datos<br></h5>
             <p class="msg"></p>
@@ -80,93 +77,44 @@
         </div>
     </div>
 </footer>
-{% endblock %}
+{% endblock %} {% block scripts %}
 
-{% block scripts %}
-    {# <script src="{{ base_url() }}/js/bootstrap-dialog.min.js"></script> #}
-    <script>
-        function createAction(verification) {
-            var action = $('form').attr('action');
-            var method = $('form').attr('method');
-            var serializedData = $('form').serialize();
+<script>
+    function createAction() {
+        var action = $('form').attr('action');
+        var method = $('form').attr('method');
+        var serializedData = $('form').serialize();
 
-            $.ajax({
-                type: method,
-                url: action,
-                data: serializedData+'&verification='+verification,
-                context: this,
-                cache: false,
-                success: function(data) {
-                    setTimeout(function() {
-                        location.reload(true);
-                    }, 3000);
-                },
-                error: function(data) {
-                    console.log(data);
-                }
-            });
-        }
-    </script>
-    <script>
-        $('form').submit(function(event) {
-            event.preventDefault();
-
-            var name = $('#firstNameInput').val();
-            var lastname = $('#lastNameInput').val();
-            var email = $('#emailInput').val();
-            var businness = $('#companyInput').val();
-            var nif = $('#nifInput').val();
-            var position = $('#positionInput').val();
-            var typeId = $('#typeId option:selected').text();
-
-            if(typeId === "Asistente") {
-                BootstrapDialog.show({
-                    size: BootstrapDialog.SIZE_LARGE,
-                    {% if type %}
-                    title: '¿Están correctos los datos?',
-                    {% else %}
-                    title: '¿Están correctos los datos del nuevo '+typeId+'?',
-                    {% endif %}
-                    buttons: [{
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<br>'+businness+'<br>'+nif+'<br>'+position+'</small></h4></div><</span>Requiere validación de entrada, <strong>recibirá un email</strong> con los datos.</p>',
-                        label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp; Confirmar datos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-                        cssClass: 'btn-success pull-rigth',
-                        action: function() {
-                            $(this).empty().toggleClass('btn-success btn-warning').html('<i class="fa fa-spinner fa-spin"></i> ENVIANDO');
-                            createAction(0);
-                        }
-                    }, {
-                        label: '<i class="fa fa-chevron-left" aria-hidden="true"></i> Revisar',
-                        cssClass: 'btn-danger pull-left',
-                        action: function(dialog) {
-                            dialog.close();
-                        }
-                    }],
-                    type: BootstrapDialog.TYPE_SUCCESS
-                });
-            } else {
-                BootstrapDialog.show({
-                    size: BootstrapDialog.SIZE_LARGE,
-                    title: 'Confirmar el acceso',
-                    buttons: [{
-                    message: '<div class="well"><h4>'+name+' '+lastname+'<bmall></h4></div><p>Por favor, confirme si el '+typeId+' ha accedido</p>',
-                        label: '<i class="fa fa-chevron-left" aria-hidden="true"></i> No',
-                        cssClass: 'btn-danger pull-left',
-                        action: function(dialog) {
-                            $(this).empty().toggleClass('btn-success btn-warning').html('<i class="fa-li fa fa-spinner fa-spin"></i> ENVIANDO');
-                            createAction(0);
-                        }
-                    },{
-                        label: '&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true"></i>&nbsp;Sí&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',
-                        cssClass: 'btn-success pull-rigth',
-                        action: function() {
-                            $(this).empty().toggleClass('btn-success btn-warning').html('<i class="fa-li fa fa-spinner fa-spin"></i> ENVIANDO');
-                            createAction(1);
-                        }
-                    }],
-                    type: BootstrapDialog.TYPE_SUCCESS
-                });
+        $.ajax({
+            type: method,
+            url: action,
+            data: serializedData + '&verification=0',
+            context: this,
+            cache: false,
+            success: function (data) {
+                setTimeout(function () {
+                    location.reload(true);
+                }, 3000);
+            },
+            error: function (data) {
+                console.log(data);
             }
         });
-    </script>
-{% endblock %}
+    }
+</script>
+<script>
+    $('form').submit(function (event) {
+        event.preventDefault();
+
+        var name = $('#firstNameInput').val();
+        var lastname = $('#lastNameInput').val();
+        var email = $('#emailInput').val();
+        var businness = $('#companyInput').val();
+        var nif = $('#nifInput').val();
+        var position = $('#positionInput').val();
+        var typeId = $('#typeId option:selected').text();
+
+        $('#modalmsg .modal-content p.msg').html(name + ' ' + lastname + '<br><small>' + email);
+        $('#modalmsg').modal('open');
+    });
+</script> {% endblock %}
