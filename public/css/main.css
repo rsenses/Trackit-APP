@@ -436,7 +436,9 @@ video {
 }
 
 .logo-menu,
-#product-name,
+
+/* #product-name, */
+
 footer .modal-trigger,
 table thead tr th:nth-child(2),
 table thead tr th:nth-child(3),
