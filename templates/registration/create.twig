@@ -34,7 +34,7 @@
                     <label for="emailInput">Email</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input type="text" class="white validate" id="nifInput" placeholder="Nº de indentificación" name="nif" required autocomplete="off">
+                    <input type="text" class="white validate" id="nifInput" placeholder="Nº de indentificación" name="nif" autocomplete="off">
                     <label for="nifInput">DNI, pasaporte, etc</label>
                 </div>
                 <div class="input-field col s12 m6">
@@ -71,8 +71,8 @@
             <p class="msg"></p>
             <p><small><strong>ATENCIÓN:</strong> Recibirá un correro electrónico con el proceso de acreditación.</small></p>
         </div>
-        <div class="modal-footer orange">
-            <a href="#0" class="waves-effect white-text waves-white green btn-flat" onclick="createAction();"><i class="mdi mdi-check right"></i>Confirmar</a>
+        <div class="modal-footer green">
+            <a href="#0" class="waves-effect white-text waves-white orange btn-flat save-action" onclick="createAction();"><i class="mdi mdi-check right"></i>Confirmar</a>
             <a href="#0" class="left modal-close waves-effect white-text waves-white grey btn-flat">Atrás</a>
         </div>
     </div>
@@ -84,11 +84,15 @@
         var action = $('form').attr('action');
         var method = $('form').attr('method');
         var serializedData = $('form').serialize();
-
+        var btnLaunch = $('.save-action');
+        var btnBack = $('.modal-close');
+        btnBack.addClass('hide');
+        btnLaunch.removeClass('green').addClass('red');
+        btnLaunch.empty().html('<i class="mdi mdi-loading mdi-spin right"></i> ENVIANDO');
         $.ajax({
             type: method,
             url: action,
-            data: serializedData + '&verification=0',
+            data: serializedData + '&verification=1',
             context: this,
             cache: false,
             success: function (data) {

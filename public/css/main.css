@@ -1,62 +1,52 @@
-
 @font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 400;
-    src: url(../fonts/Rubik-Regular.eot); /* For IE6-8 */
-    src: local('Rubik'),
-         local('Rubik-Regular'),
-         url(../fonts/Rubik-Regular.woff2) format('woff2'),
-         url(../fonts/Rubik-Regular.woff) format('woff'),
-         url(../fonts/Rubik-Regular.ttf) format('truetype');
-  }
-  @font-face {
+    src: url(../fonts/Rubik-Regular.eot);
+    /* For IE6-8 */
+    src: local('Rubik'), local('Rubik-Regular'), url(../fonts/Rubik-Regular.woff2) format('woff2'), url(../fonts/Rubik-Regular.woff) format('woff'), url(../fonts/Rubik-Regular.ttf) format('truetype');
+}
+
+@font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 700;
-    src: url(../fonts/Rubik-Bold.eot); /* For IE6-8 */
-    src: local('Rubik'),
-         local('Rubik-Bold'),
-         url(../fonts/Rubik-Bold.woff2) format('woff2'),
-         url(../fonts/Rubik-Bold.woff) format('woff'),
-         url(../fonts/Rubik-Bold.ttf) format('truetype');
-  }
-  @font-face {
+    src: url(../fonts/Rubik-Bold.eot);
+    /* For IE6-8 */
+    src: local('Rubik'), local('Rubik-Bold'), url(../fonts/Rubik-Bold.woff2) format('woff2'), url(../fonts/Rubik-Bold.woff) format('woff'), url(../fonts/Rubik-Bold.ttf) format('truetype');
+}
+
+@font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 900;
-    src: url(../fonts/Rubik-Black.eot); /* For IE6-8 */
-    src: local('Rubik'),
-         local('Rubik-Black'),
-         url(../fonts/Rubik-Black.woff2) format('woff2'),
-         url(../fonts/Rubik-Black.woff) format('woff'),
-         url(../fonts/Rubik-Black.ttf) format('truetype');
-  }
-  @font-face {
+    src: url(../fonts/Rubik-Black.eot);
+    /* For IE6-8 */
+    src: local('Rubik'), local('Rubik-Black'), url(../fonts/Rubik-Black.woff2) format('woff2'), url(../fonts/Rubik-Black.woff) format('woff'), url(../fonts/Rubik-Black.ttf) format('truetype');
+}
+
+@font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 200;
-    src: url(../fonts/Rubik-Light.eot); /* For IE6-8 */
-    src: local('Rubik'),
-         local('Rubik-Light'),
-         url(../fonts/Rubik-Light.woff2) format('woff2'),
-         url(../fonts/Rubik-Light.woff) format('woff'),
-         url(../fonts/Rubik-Light.ttf) format('truetype');
-  }
-  @font-face {
+    src: url(../fonts/Rubik-Light.eot);
+    /* For IE6-8 */
+    src: local('Rubik'), local('Rubik-Light'), url(../fonts/Rubik-Light.woff2) format('woff2'), url(../fonts/Rubik-Light.woff) format('woff'), url(../fonts/Rubik-Light.ttf) format('truetype');
+}
+
+@font-face {
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 300;
-    src: url(../fonts/Rubik-Medium.eot); /* For IE6-8 */
-    src: local('Rubik'),
-         local('Rubik-Medium'),
-         url(../fonts/Rubik-Medium.woff2) format('woff2'),
-         url(../fonts/Rubik-Medium.woff) format('woff'),
-         url(../fonts/Rubik-Medium.ttf) format('truetype');
-  }
+    src: url(../fonts/Rubik-Medium.eot);
+    /* For IE6-8 */
+    src: local('Rubik'), local('Rubik-Medium'), url(../fonts/Rubik-Medium.woff2) format('woff2'), url(../fonts/Rubik-Medium.woff) format('woff'), url(../fonts/Rubik-Medium.ttf) format('truetype');
+}
+
 html {
     background-color: #0051b2;
 }
+
 body {
     background-color: #0051b2;
     height: 100vh;
@@ -64,6 +54,7 @@ body {
     font-family: 'Rubik', Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
+
 body:before {
     content: '';
     height: 100vh;
@@ -71,14 +62,17 @@ body:before {
     position: fixed;
     z-index: 0;
     top: 0;
-    background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 100%);
-    background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%);
-    background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%,rgba(0,0,0,0.25) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0051b2',GradientType=1 );
+    background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 100%);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0051b2', GradientType=1);
 }
-header, main {
+
+header,
+main {
     position: relative;
 }
+
 footer {
     color: #FFFFFF;
     background-color: transparent;
@@ -87,16 +81,20 @@ footer {
 nav {
     background-color: #0051b2;
 }
+
 nav a.btn-floating {
     margin-top: 4px;
     margin-right: 5px;
 }
+
 nav .btn-floating.right:first-child {
     margin-right: 10px;
 }
+
 .purple {
     background-color: #9868bd !important;
 }
+
 .green {
     background-color: #6ac700 !important;
 }
@@ -116,56 +114,75 @@ nav .btn-floating.right:first-child {
 .mt-30 {
     margin-top: 30px;
 }
+
 .mb-0 {
     margin-bottom: 0;
 }
+
 .mr-10 {
     margin-right: 10px;
 }
+
 .mb-10 {
     margin-bottom: 10px;
 }
+
 .mb-20 {
     margin-bottom: 20px;
 }
+
 .mb-30 {
     margin-bottom: 30px;
 }
+
 .sidenav {
     background-color: #0051b2;
     max-width: 270px !important;
     color: rgba(255, 255, 255, 0.5);
 }
+
 .sidenav .logo img {
-    max-width: 200px;
+    max-width: 150px;
 }
-.sidenav li > a {
+
+.sidenav li>a {
     padding-left: 15px;
 }
-.sidenav li > a > i, .sidenav li > a > [class^="mdi-"], .sidenav li > a li > a > [class*="mdi-"], .sidenav li > a > i.material-icons {
+
+.sidenav li>a>i,
+.sidenav li>a>[class^="mdi-"],
+.sidenav li>a li>a>[class*="mdi-"],
+.sidenav li>a>i.material-icons {
     margin-right: 15px;
 }
+
 .sidenav .subheader {
     color: rgba(255, 255, 255, 0.5);
 }
+
 .sidenav .divider {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
 .sidenav li a {
     color: #FFFFFF;
     text-transform: uppercase;
 }
+
 .sidenav li a i.mdi {
     color: #FFFFFF;
     font-size: 2em;
 }
+
 .sidenav-trigger i {
     font-size: 2.4em;
 }
+
 .alerts .closer {
     position: absolute;
     right: 5px;
 }
+
 .alerts .card-content i {
     font-size: 24px;
 }
@@ -179,13 +196,16 @@ nav .btn-floating.right:first-child {
     height: 40px;
     line-height: 40px;
 }
+
 .btn-clear i {
     font-size: 2.6em;
 }
-#list tbody tr td  {
+
+#list tbody tr td {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 #list tbody tr td:first-child span {
     text-transform: capitalize;
     font-weight: 300;
@@ -197,34 +217,41 @@ table thead tr th {
     padding: 5px;
     font-weight: 200;
 }
+
 table thead tr th:last-child,
 table tbody tr td:last-child {
     text-align: center;
 }
+
 table thead tr th:first-child,
 table tbody tr td:first-child {
     text-align: left;
 }
-#list  tbody tr td:nth-child(2) {
+
+#list tbody tr td:nth-child(2) {
     text-transform: uppercase;
 }
-#list  tbody tr td:last-child i {
+
+#list tbody tr td:last-child i {
     font-size: 40px;
 }
+
 #list tbody tr td:last-child i.mdi-block-helper {
     font-size: 20px;
 }
+
 input {
-   height: 4em !important;
+    height: 4em !important;
 }
+
 input,
-div + label,
-input + label {
+div+label,
+input+label {
     padding-left: 10px !important;
     width: calc(100% - 10px) !important;
 }
 
-input + label {
+input+label {
     padding-top: 5px;
     font-size: 18px !important;
 }
@@ -232,71 +259,88 @@ input + label {
 .select-wrapper {
     margin-top: 0px;
 }
-.select-wrapper + label {
+
+.select-wrapper+label {
     top: -40px;
     font-size: 1em !important;
 }
-.dropdown-content li > a, .dropdown-content li > span {
+
+.dropdown-content li>a,
+.dropdown-content li>span {
     color: #000;
 }
-input + label.active,
-div + label,
-input:focus + label.active {
+
+input+label.active,
+div+label,
+input:focus+label.active {
     padding-top: 0;
     top: -10px;
     padding-left: 0 !important;
     color: azure !important;
 }
+
 input.valid {
     border-bottom: 1px solid #4CAF50;
     -webkit-box-shadow: 0 1px 0 0 #4CAF50;
     box-shadow: 0 1px 0 0 #4CAF50;
 }
-input + label.active {
+
+input+label.active {
     margin-top: -4px;
 }
+
 .logo-login {
     position: relative;
     max-width: 40%;
     margin: 0 auto;
 }
+
 nav .btn-floating.btn-large {
     height: 44px;
     width: 44px;
     font-size: 13px;
     line-height: 44px;
-
 }
+
 nav .btn-floating.btn-large i {
     line-height: 44px;
 }
+
 .select-wrapper input.select-dropdown {
     background-color: #fff;
     margin-top: 0;
 }
+
 .select-wrapper .caret {
-    fill: rgba(0,0,0,1);
+    fill: rgba(0, 0, 0, 1);
     z-index: 9998;
 }
+
 .closer {
     padding: 5px;
 }
+
 .modal.lg {
     max-height: 80%;
 }
+
 .modal .modal-content p {
     font-size: 1.5em;
 }
+
 .modal.inscriptions .modal-content p {
     line-height: 1em;
 }
+
 .modal.inscriptions .modal-content p small {
     font-size: 60%;
 }
+
 .modal p span.type {
     font-size: 1.2rem;
     font-style: oblique;
 }
+
 .charts-container {
     display: block;
     height: auto;
@@ -309,6 +353,7 @@ nav .btn-floating.btn-large i {
     margin: 0 auto;
     text-align: center;
 }
+
 .charts-container li {
     display: inline-block;
     margin: 0 30px;
@@ -318,11 +363,13 @@ nav .btn-floating.btn-large i {
     min-width: 100px;
     max-width: 100px;
 }
+
 .chart {
     position: relative;
     margin: 0 auto;
     display: block;
 }
+
 .chart canvas {
     width: 97% !important;
     height: 97% !important;
@@ -338,9 +385,11 @@ nav .btn-floating.btn-large i {
     top: calc(50% - 18px);
     bottom: calc(50% - 20px);
 }
+
 .chart .inside-values span:first-child {
     font-size: 21px;
 }
+
 .chart-title {
     margin: 0 auto;
     text-align: center;
@@ -348,34 +397,44 @@ nav .btn-floating.btn-large i {
     font-weight: 200;
     letter-spacing: .5px;
 }
+
 .chart-title i {
     display: inline-block;
     margin-top: 2px;
 }
+
 #count-registrations,
 #count-verifications {
     color: #2BAAB1;
 }
+
 #count-speakers,
 #count-verified-speakers {
     color: #007bff;
 }
+
 #count-vips,
 #count-verified-vips {
     color: #6f42c1;
     font-weight: 400;
 }
+
 #count-registrations,
 #count-speakers,
 #count-vips {
     font-size: 18px;
     font-weight: 400;
 }
-audio, canvas, progress, video {
+
+audio,
+canvas,
+progress,
+video {
     display: inline-block;
     vertical-align: baseline;
     width: 100%;
 }
+
 .logo-menu,
 .camera-scan,
 #product-name,
@@ -388,17 +447,22 @@ table tbody tr td:nth-child(3),
 table tbody tr td:nth-child(4) {
     display: none;
 }
+
 .container {
-    width: 95%;;
+    width: 95%;
+    ;
 }
+
 .results-scan {
     position: fixed;
     bottom: 0px;
     width: 100%;
 }
+
 .results-scan.search {
     background-color: #0051b2;
 }
+
 .results-scan p {
     margin-top: 0;
     padding-left: 10px;
@@ -406,16 +470,18 @@ table tbody tr td:nth-child(4) {
     padding-bottom: 5px;
     border-bottom: 1px solid #ccc;
 }
+
 .results-scan p:last-child {
     border-bottom: 0;
 }
+
 .results-scan p:first-child {
     margin-top: 5px;
 }
-.cameraLaunch {
 
-}
-@media screen and (min-width:550px) and (orientation: portrait){
+.cameraLaunch {}
+
+@media screen and (min-width:550px) and (orientation: portrait) {
     footer .modal-trigger {
         position: fixed;
         bottom: 10px;
@@ -447,7 +513,8 @@ table tbody tr td:nth-child(4) {
         display: table-cell;
     }
 }
-@media screen and (min-width:768px) and (orientation: portrait){
+
+@media screen and (min-width:768px) and (orientation: portrait) {
     footer {
         position: fixed;
         bottom: 0;
@@ -464,9 +531,11 @@ table tbody tr td:nth-child(4) {
         margin-top: 2px;
     }
 }
-@media screen and (min-width:733px) and (orientation: portrait){
+
+@media screen and (min-width:733px) and (orientation: portrait) {
     .container {
-        width: 90%;;
+        width: 90%;
+        ;
     }
     nav .logo-menu {
         max-height: 60px;
@@ -483,5 +552,5 @@ table tbody tr td:nth-child(4) {
         line-height: 54px;
     }
 }
-@media screen and (min-width:1200px) and (orientation: portrait){
-}
+
+@media screen and (min-width:1200px) and (orientation: portrait) {}
