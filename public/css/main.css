@@ -436,7 +436,6 @@ video {
 }
 
 .logo-menu,
-.camera-scan,
 #product-name,
 footer .modal-trigger,
 table thead tr th:nth-child(2),
@@ -446,6 +445,10 @@ table tbody tr td:nth-child(2),
 table tbody tr td:nth-child(3),
 table tbody tr td:nth-child(4) {
     display: none;
+}
+
+#camerascan>.container>.row {
+    margin-bottom: 0;
 }
 
 .container {
