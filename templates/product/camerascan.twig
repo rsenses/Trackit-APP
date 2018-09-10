@@ -94,7 +94,8 @@
                     }
                     startScan();
                 } else {
-                    console.log('No hemos detectado cámara');
+                    $('#modalmsg').modal('open');
+                    $('#modalmsg .modal-content h4').html('No hemos detectado cámara');
                 }
             });
         }
