@@ -496,6 +496,7 @@ table tbody tr td:nth-child(4) {
     nav .logo-menu img {
         margin-left: 70px;
         max-height: 58px;
+        padding-top: 5px;
     }
     .laser-scan {
         display: none;

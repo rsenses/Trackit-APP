@@ -37,7 +37,7 @@
             <nav class="center">
                 <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="mdi mdi-menu"></i></a>
                 {% block menu %}{% endblock %}
-                <a href="/auth/signin" class="logo-menu"><img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img"></a>
+                <a href="{{ path_for('product.search', {'id': product_id}) }}" class="logo-menu"><img src="/images/trackit-nav.png" alt="Trackit" class="responsive-img"></a>
             </nav>
         </header>
         {% include 'partials/flash.twig' %}

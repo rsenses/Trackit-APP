@@ -79,8 +79,8 @@
                 scanPeriod: 8
             });
 
-
             Instascan.Camera.getCameras().then(function(cameras) {
+
                 if (cameras.length != 0) {
                     if (cameras.length > 1) {
                         camera = cameras[1];
@@ -94,8 +94,9 @@
                     }
                     startScan();
                 } else {
-                    $('#modalmsg').modal('open');
-                    $('#modalmsg .modal-content h4').html('No hemos detectado cámara');
+                                $('#modalmsg').modal('open');
+            $('#modalmsg, #modalmsg .modal-footer').addClass('red');
+            $('#modalmsg .modal-content h4').html('camera');
                 }
             });
         }
