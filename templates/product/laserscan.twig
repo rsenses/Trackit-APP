@@ -109,7 +109,10 @@
                     $('#modalmsg .modal-content h4').html(title);
                     $('#modalmsg .modal-content p').html(message);
                     $('#modalmsg').modal('open');
-                    $(this).data('uniqueid', null)
+                    $(this).data('uniqueid', null);
+                    setTimeout(function(){
+                        $('#modalmsg').modal('onCloseEnd', true);
+                    }, 5000)
                 },
                 error: function(a) {
                     location.reload();
