@@ -322,10 +322,9 @@
                 $('.head-scan').html('<h1><i class="mdi mdi-alert"></i></h1><h4>Cargando escaner... <br><small></small></h4>');
                 count = 0;
                 setTimeout(function(){
-                    for(count = 0; count < 5; count++) {
-                        if (cout = 5) {
-                            window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
-                        }
+                    count++;
+                    if (cout == 5) {
+                        window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
                     }
                 }, 1000);
             }
@@ -338,6 +337,7 @@
                     e.originalEvent.key == 'Unidentified')
 
             ) {
+                count = 0;
                 fired = false;
                 $('.head-scan').empty();
             }
