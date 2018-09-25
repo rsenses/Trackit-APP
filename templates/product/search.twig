@@ -318,12 +318,16 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 fired = true;
-                $('#modalmsg').modal('open');
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-alert"></i></h1><h4>Cargando escaner... <br><small></small></h4>');
+                count = 0;
                 setTimeout(function(){
-                    window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
-                }, 5000)
+                    for(count = 0; count < 5; count++) {
+                        if (cout = 5) {
+                            window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
+                        }
+                    }
+                }, 1000);
             }
         });
         $('html').bind('keyup', function(e) {
