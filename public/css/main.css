@@ -43,14 +43,14 @@
     src: local('Rubik'), local('Rubik-Medium'), url(../fonts/Rubik-Medium.woff2) format('woff2'), url(../fonts/Rubik-Medium.woff) format('woff'), url(../fonts/Rubik-Medium.ttf) format('truetype');
 }
 
-html {
-    background-color: #0051b2;
-}
-
+html,
 body {
     background-color: #0051b2;
     height: 100vh;
     position: relative;
+}
+
+body {
     font-family: 'Rubik', Arial, Helvetica, sans-serif;
     font-size: 14px;
 }
