@@ -111,8 +111,8 @@
                     $('#modalmsg').modal('open');
                     $(this).data('uniqueid', null);
                     setTimeout(function(){
-                        $('#modalmsg').modal('onCloseEnd', true);
-                    }, 5000)
+                        $('#modalmsg').modal('close');
+                    }, 3000)
                 },
                 error: function(a) {
                     location.reload();
@@ -140,6 +140,7 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 fired = true;
+                $('#modalmsg').modal('close');
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');

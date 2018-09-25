@@ -114,6 +114,7 @@
                 </div>
             </div>
         </div>
+        <div class="head-scan"></div>
         <div class="results-scan search"></div>
     </main>
 {% endblock %}
@@ -297,11 +298,44 @@
                         $('.nolist').removeClass('hide');
                         $('#list').addClass('hide');
                         $('.btn-clear').addClass('hide');
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 3000)
                     },
                     error: function(a) {
                         console.log(a);
                     }
                 });
+            }
+        });
+
+        var fired = false;
+        $('html').bind('keydown', function(e) {
+            if (!fired &&
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+            ) {
+                fired = true;
+                $('#modalmsg').modal('open');
+                $('.head-scan').empty();
+                $('.head-scan').html('<h1><i class="mdi mdi-alert"></i></h1><h4>Cargando escaner... <br><small></small></h4>');
+                setTimeout(function(){
+                    window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
+                }, 5000)
+            }
+        });
+        $('html').bind('keyup', function(e) {
+            if (
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+
+            ) {
+                fired = false;
+                $('.head-scan').empty();
             }
         });
 
