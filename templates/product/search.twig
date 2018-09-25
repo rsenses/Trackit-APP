@@ -310,8 +310,10 @@
         });
 
         var fired = false;
+        var count = 0;
         $('html').bind('keydown', function(e) {
             if (!fired &&
+                e.keyCode == 32 &&
                 e.keyCode == 0 &&
                 typeof e.originalEvent !== 'undefined' &&
                 (typeof e.originalEvent.key == 'undefined' ||
@@ -320,24 +322,24 @@
                 fired = true;
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-alert"></i></h1><h4>Cargando escaner... <br><small></small></h4>');
-                count = 0;
                 setTimeout(function(){
                     count++;
-                    if (cout == 5) {
+                    if (count == 5) {
                         window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
                     }
                 }, 1000);
+                $('.results-scan').html('<p class="white-text">'+count+'</p>');
             }
         });
         $('html').bind('keyup', function(e) {
             if (
+                e.keyCode == 32 &&
                 e.keyCode == 0 &&
                 typeof e.originalEvent !== 'undefined' &&
                 (typeof e.originalEvent.key == 'undefined' ||
                     e.originalEvent.key == 'Unidentified')
 
             ) {
-                count = 0;
                 fired = false;
                 $('.head-scan').empty();
             }
