@@ -320,14 +320,14 @@
             ) {
                 fired = true;
                 $('.head-scan').empty();
-                $('.head-scan').html('<h1 class="center-text white-text"><i class="mdi mdi-alert"></i></h1><h4 class="center-text white-text">Cargando escaner... <br><small></small></h4>');
+                $('.head-scan').html('<h1 class="center-align white-text"><i class="mdi mdi-alert"></i></h1><h4 class="center-align white-text">Cargando escaner... <br><small></small></h4>');
                 setTimeout(function(){
                     count++;
+                    if (count === 4) {
+                        window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
+                    }
                 }, 1000);
                 $('.results-scan').html('<p class="white-text">'+count+'</p>');
-                if (count = 4) {
-                    window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}")
-                }
             }
         });
         $('html').bind('keyup', function(e) {
