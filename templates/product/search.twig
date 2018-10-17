@@ -2,16 +2,16 @@
 
 {% block menu %}
     <a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent"><i class="mdi mdi-account-plus"></i></a>
-    <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a>
+    {# <a href="{{ path_for('product.camerascan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent camera-scan"><i class="mdi mdi-camera"></i></a> #}
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple"><i class="mdi mdi-magnify"></i></a>
     <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan"><i class="mdi mdi-qrcode-scan"></i></a>
 {% endblock %}
 
 {% block content %}
     <main id="searchUsers">
-        <div class="row">
-            <div class="col s12 text-center">
-                <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 text-center">
                     <h4 id="product-name" class="white-text"></h4>
                 </div>
             </div>
@@ -54,8 +54,8 @@
                                         {% if customer.type.name ==  'Ponente'%}
                                             <h6 class="deep-orange-text">{{ customer.type.name }}</h6>
                                         {% else %}
-                                            <small>
                                             {{ customer.type.name }}
+                                            <small>
                                             {% if customer.is_authorized == 0 %}
                                                  | Denegado
                                             {% endif %}
@@ -76,15 +76,13 @@
                                     </td>
                                     <td>
                                         {% if customer.verification > 0  %}
-                                            <i class="mdi mdi-toggle-switch green-text"></i>
+                                            <i class="mdi mdi-checkbox-multiple-marked green-text"></i>
                                         {% else %}
                                             {% if customer.is_authorized == 0 or customer.is_cancelled == 1 %}
-                                                <span class="text-secondary">
-                                                    <i class="mdi mdi-block-helper"></i>
-                                                </span>
+                                                <i class="black-text mdi mdi-block-helper"></i>
                                             {% else %}
                                                 <a href="#0" class="verification grey-text"  data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="mdi mdi-toggle-switch-off"></i>
+                                                    <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
                                                 </a>
                                             {% endif %}
                                         {% endif %}
@@ -167,8 +165,6 @@
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
-    {# <script src="{{ base_url() }}/js/instascan.min.js?v=1"></script> #}
-    {# <script src="{{ base_url() }}/js/scan.js?v53"></script> #}
     <script>
         var info = function () {
             $.ajax({
@@ -258,6 +254,8 @@
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
+            
+            $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin amber-text');
 
             if (unique_id) {
                 $.ajax({
@@ -291,19 +289,23 @@
                         $('#modalmsg, #modalmsg .modal-footer').addClass(style);
                         $('#modalmsg .modal-content h4').html(title);
                         $('#modalmsg .modal-content p').html(message);
-                        $(this).data('uniqueid', null)
+                        $(this).data('uniqueid', null);
                         $('input.search').val('');
-                        $(this).empty();
-                        $(this).parent('td').html('<i class="mdi mdi-toggle-switch green-text"></i>');
-                        $('.nolist').removeClass('hide');
-                        $('#list').addClass('hide');
                         $('.btn-clear').addClass('hide');
+                        console.log($(this).children('i'));
+                        $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('amber-text').addClass('mdi-checkbox-multiple-marked green-text');
+                        
                         setTimeout(function(){
                             $('#modalmsg').modal('close');
-                        }, 3000)
+                            setTimeout(function(){
+                                $('.nolist').removeClass('hide');
+                                $('#list').addClass('hide');
+                            }, 1000);
+                        }, 4000);
                     },
                     error: function(a) {
                         console.log(a);
+                        $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('amber-text').addClass('mdi-checkbox-multiple-blank-outline grey-text');
                     }
                 });
             }

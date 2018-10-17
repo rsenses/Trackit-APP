@@ -202,8 +202,8 @@ nav .btn-floating.right:first-child {
 }
 
 #list tbody tr td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 #list tbody tr td:first-child span {
@@ -237,7 +237,7 @@ table tbody tr td:first-child {
 }
 
 #list tbody tr td:last-child i.mdi-block-helper {
-    font-size: 20px;
+    font-size: 30px;
 }
 
 input {
@@ -437,8 +437,7 @@ video {
 
 .logo-menu,
 
-/* #product-name, */
-
+#product-name,
 footer .modal-trigger,
 table thead tr th:nth-child(2),
 table thead tr th:nth-child(3),
@@ -485,6 +484,10 @@ table tbody tr td:nth-child(4) {
 }
 
 @media screen and (min-width:550px) {
+    #list tbody tr td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
     footer .modal-trigger {
         position: fixed;
         bottom: 10px;
