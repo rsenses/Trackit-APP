@@ -6,8 +6,8 @@ $(document).on('click', '.closer', function(event) {
 
 $(document).ready(function() {
     var ww = window.screen.width;
-    // var wh = window.screen.height;
-    // $('body').append('<div style="color:#FFF;position:fixed;bottom:10px;right:10px;">' + ww + 'x' + wh + '</div>')
+    var wh = window.screen.height;
+    $('body').append('<div style="color:#FFF;position:fixed;bottom:10px;right:10px;">' + ww + 'x' + wh + '</div>')
     $('select').formSelect();
 
     if ($('#email').length) {
