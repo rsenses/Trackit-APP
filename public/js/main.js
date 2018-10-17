@@ -3,6 +3,20 @@ $(document).on('click', '.closer', function(event) {
     element = $(this).parent().hide("slow");
 });
 
+$(document).on('click', '.help', function(event) {
+    $(this).toggleClass('disable');
+    if($(this).hasClass('disable')) {
+        console.log('none');
+        
+        $('.tooltipped').tooltip();
+        $(this).html('DESCACTIVAR AYUDA <i class="mdi mdi-tooltip"></i>');
+    } else {
+        console.log('yes');
+        
+        $('.tooltipped').tooltip('destroy');
+        $(this).html('ACTIVAR AYUDA <i class="mdi mdi-tooltip-outline"></i>');
+    }
+});
 
 $(document).ready(function() {
     var ww = window.screen.width;
@@ -13,7 +27,6 @@ $(document).ready(function() {
     if ($('#email').length) {
         $('#email').focus();
     }
-
     if (ww <= 360 && ($('form.login').length)) {
         var action = $('form.login').attr('action');
         $('form.login').attr('action', action + '?mobile')
