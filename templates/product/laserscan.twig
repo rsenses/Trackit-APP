@@ -140,6 +140,7 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 fired = true;
+                $('#modalmsg').modal('close');
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
