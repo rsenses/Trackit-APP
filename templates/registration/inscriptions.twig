@@ -1,0 +1,102 @@
+{% extends 'layouts/private.twig' %} {% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css" /> {% endblock %} {% block menu
+%}
+<a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light purple right tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i
+        class="mdi mdi-account-plus"></i></a>
+<a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de asistentes insitu REQUIERE ENTRADA/QR"><i
+        class="mdi mdi-magnify"></i></a>
+<a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan tooltipped" data-position="right" data-tooltip="Escaner de ENTRADAS/QR"><i
+        class="mdi mdi-qrcode-scan"></i></a>
+{% endblock %}
+{% block content %}
+<main id="create" class="inscriptions container">
+    <div class="row">
+        <div class="col s12">
+            <h5 class="left-align white-text"><i class="mdi mdi-account"></i> Bienvenido</h5>
+            <p class="left-align white-text mb-30">Por favor rellena los datos para solicitar tu entrada.</p>
+        </div>
+        <form action="{{ path_for('registration.save', {'id': product_id}) }}" method="POST" class="inscriptions col s12">
+            <div class="row">
+                <div class="col s12">
+                    {% include 'partials/flash.twig' %}
+                </div>
+                <div class="input-field col s12">
+                    <input id="firstNameInput" type="text" class="white validate" name="first_name" required autocomplete="off" placeholder="Cecilia">
+                    <label for="firstNameInput">Nombre</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="lastNameInput" type="text" class="white validate" name="last_name" required autocomplete="off" placeholder="Rodríguez de Diego">
+                    <label for="lastNameInput">Apellidos</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="emailInput" type="text" class="white validate" name="email" required autocomplete="off" placeholder="ejemplo@gmail.com">
+                    <label for="emailInput">Email</label>
+                </div>
+                {{ csrf.field | raw }}
+                <div class="col s12 right-align">
+                    <button class="waves-effect waves-dark btn-large green text-white" type="submit" name="action">SOLICITAR ENTRADA
+                        <i class="mdi mdi-login right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %} {% block footer %}
+<footer>
+    <div id="modalmsg" class="inscriptions modal lg orange">
+        <div class="modal-content">
+            <h5 class="mt-0 mb-3 center-align"><i class="mdi mdi-alert"></i><br>Revise los datos<br></h5>
+            <p class="msg"></p>
+            <h6><strong>ATENCIÓN:</strong> Recibirá un correro electrónico con el proceso de acreditación.</h6>
+        </div>
+        <div class="modal-footer orange">
+            <a href="#0" class="waves-effect white-text waves-white green btn-flat save-action" onclick="createAction();"><i class="mdi mdi-check right"></i>Confirmar</a>
+            <a href="#0" class="left modal-close waves-effect white-text waves-white grey btn-flat">Atrás</a>
+        </div>
+    </div>
+</footer>
+{% endblock %} 
+{% block scripts %}
+<script>
+    function createAction() {
+
+        var action = $('form').attr('action');
+        var method = $('form').attr('method');
+        var serializedData = $('form').serialize();
+        
+        var btnLaunch = $('.save-action');
+        var btnBack = $('.modal-close');
+        btnBack.addClass('hide');
+        btnLaunch.removeClass('green').addClass('red');
+        btnLaunch.empty().html('<i class="mdi mdi-loading mdi-spin right"></i> ENVIANDO');
+
+        $.ajax({
+            type: method,
+            url: action,
+            data: serializedData + '&verification=0',
+            context: this,
+            cache: false,
+            success: function (data) {
+                setTimeout(function () {
+                    location.reload(true);
+                }, 3000);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+</script>
+<script>
+    $('form').submit(function (event) {
+        event.preventDefault();
+
+        var name = $('#firstNameInput').val();
+        var lastname = $('#lastNameInput').val();
+        var email = $('#emailInput').val();
+        var typeId = "Asistente";
+        $('#modalmsg .modal-content p.msg').html(name + ' ' + lastname + '<br><small>' + email);
+        $('#modalmsg').modal('open');
+    });
+</script> {% endblock %}

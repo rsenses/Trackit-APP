@@ -84,7 +84,14 @@ class AuthController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
-        return $response->withRedirect($this->router->pathFor('product.registrations', ['id' => $product->id]));
+        $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        if (strpos($url,'mobile') !== false) {
+            return $response->withRedirect($this->router->pathFor('product.laserscan', ['id' => $product->id]));
+        } else {
+            return $response->withRedirect($this->router->pathFor('product.search', ['id' => $product->id]));
+        }
+
+
     }
 
     public function getSignOutAction(Request $request, Response $response, array $args)

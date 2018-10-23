@@ -9,6 +9,7 @@ $app->group('/print', function () {
     // Sign In
     $this->get('/test', 'PrintController:testAction')->setName('print.test');
 });
+
 // Guest users routes
 $app->group('/auth', function () {
     // Sign In
@@ -28,7 +29,9 @@ $app->group('', function () {
     $this->group('/product', function () {
         // All Products
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
-        $this->get('/{id:[0-9]+}/registrations', 'ProductController:instaRegistrationsAction')->setName('product.registrations');
+        $this->get('/{id:[0-9]+}/search', 'ProductController:searchAction')->setName('product.search');
+        $this->get('/{id:[0-9]+}/camerascan', 'ProductController:cameraScanAction')->setName('product.camerascan');
+        $this->get('/{id:[0-9]+}/laserscan', 'ProductController:laserScanAction')->setName('product.laserscan');
     });
 
     // Registration Group
@@ -39,6 +42,8 @@ $app->group('', function () {
         $this->get('/toggle/verification/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:toggleVerificationAction')->setName('registration.toggle.verification');
         // Create Registration
         $this->get('/create/product/{id:[0-9]+}', 'RegistrationController:createAction')->setName('registration.create');
+        // Create Inscriptions
+        $this->get('/inscriptions/product/{id:[0-9]+}', 'RegistrationController:inscriptionsAction')->setName('registration.inscriptions');
         // Save New Registration
         $this->post('/save/product/{id:[0-9]+}', 'RegistrationController:saveAction')->setName('registration.save');
     });
