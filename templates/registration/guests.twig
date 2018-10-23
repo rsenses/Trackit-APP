@@ -91,7 +91,7 @@
         $.ajax({
             type: method,
             url: action,
-            data: serializedData + '&verification=',
+            data: serializedData + '&verification=1',
             context: this,
             cache: false,
             success: function (data) {
