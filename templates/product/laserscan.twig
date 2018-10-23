@@ -87,10 +87,16 @@
                         style = 'red';
                         title = 'Error';
                         message = a.message;
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 1000)
                     } else if (a.status == 'warning') {
                         style = 'orange';
                         title = 'Cuidado';
                         message = a.message;
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 1000)
                     } else if (a.status == 'success') {
                         for (var key in a.metadata) {
                             metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
@@ -102,6 +108,9 @@
                             $('.results-scan p:first-child').remove();
                         }
                         $('.results-scan').append('<p class="white-text">'+a.user+': <small>Orden'+metadata+'</small></p>');
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 3000)
                     }
 
                     $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
@@ -111,9 +120,6 @@
 
                     $('#modalmsg').modal('open');
                     $(this).data('uniqueid', null);
-                    setTimeout(function(){
-                        $('#modalmsg').modal('close');
-                    }, 3000)
                 },
                 error: function(a) {
                     location.reload();
