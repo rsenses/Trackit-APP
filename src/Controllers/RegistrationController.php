@@ -80,7 +80,7 @@ class RegistrationController
 
     public function createAction(Request $request, Response $response, array $args)
     {
-        return $this->view->render($response, 'registration/create.twig', [
+        return $this->view->render($response, 'registration/guests.twig', [
             'product_id' => $args['id'],
             'type' => $request->getQueryParam('type'),
             'registration_type' => $this->settings['enum']['registration_type']
@@ -88,7 +88,7 @@ class RegistrationController
     }
     public function inscriptionsAction(Request $request, Response $response, array $args)
     {
-        return $this->view->render($response, 'registration/inscriptions.twig', [
+        return $this->view->render($response, 'registration/assistants.twig', [
             'product_id' => $args['id'],
             'type' => $request->getQueryParam('type'),
             'registration_type' => $this->settings['enum']['registration_type']

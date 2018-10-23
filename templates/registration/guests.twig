@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css" />
 {% endblock %} 
 {% block menu %}
-<a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i
+<a href="{{ path_for('registration.assistants', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i
         class="mdi mdi-account-plus"></i></a>
 <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de asistentes insitu REQUIERE ENTRADA/QR"><i
         class="mdi mdi-magnify"></i></a>
@@ -46,11 +46,9 @@
                 </div>
                 <div class="input-field col s12 m6">
                     <select class="white validate" id="typeId" name="registration_type_id" required>
-                        {% for type in registration_type %}
-                            {% if type != 'Asistente' %}
-                                <option value="{{ loop.index }}">{{ type }}</option>
-                            {% endif %}
-                        {% endfor %}
+                        <option value="3">Invitado</option>
+                        <option value="5">Ponente</option>
+                        <option value="6">Prensa</option>
                     </select>
                     <label for="typeId">Tipo de registro</label>
                 </div>
@@ -66,13 +64,13 @@
 </main>
 {% endblock %} {% block footer %}
 <footer>
-    <div id="modalmsg" class="inscriptions modal lg green">
+    <div id="modalmsg" class="inscriptions modal lg  grey darken-2">
         <div class="modal-content">
             <h5 class="mt-0 mb-3 center-align"><i class="mdi mdi-alert"></i><br>Revise los datos<br></h5>
             <p class="msg"></p>
             <p><small><strong>ATENCIÓN:</strong> Recibirá un correro electrónico con el proceso de acreditación.</small></p>
         </div>
-        <div class="modal-footer green">
+        <div class="modal-footer  grey darken-2">
             <a href="#0" class="waves-effect white-text waves-white orange btn-flat save-action" onclick="createAction();"><i class="mdi mdi-check right"></i>Confirmar</a>
             <a href="#0" class="left modal-close waves-effect white-text waves-white grey btn-flat">Atrás</a>
         </div>
@@ -88,7 +86,7 @@
         var btnLaunch = $('.save-action');
         var btnBack = $('.modal-close');
         btnBack.addClass('hide');
-        btnLaunch.removeClass('green').addClass('red');
+        btnLaunch.removeClass('grey darken-2').addClass('red');
         btnLaunch.empty().html('<i class="mdi mdi-loading mdi-spin right"></i> ENVIANDO');
         $.ajax({
             type: method,

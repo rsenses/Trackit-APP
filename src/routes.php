@@ -41,9 +41,9 @@ $app->group('', function () {
         // Toggle Verification
         $this->get('/toggle/verification/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:toggleVerificationAction')->setName('registration.toggle.verification');
         // Create Registration
-        $this->get('/create/product/{id:[0-9]+}', 'RegistrationController:createAction')->setName('registration.create');
+        $this->get('/create/product/{id:[0-9]+}', 'RegistrationController:createAction')->setName('registration.guests');
         // Create Inscriptions
-        $this->get('/inscriptions/product/{id:[0-9]+}', 'RegistrationController:inscriptionsAction')->setName('registration.inscriptions');
+        $this->get('/inscriptions/product/{id:[0-9]+}', 'RegistrationController:inscriptionsAction')->setName('registration.assistants');
         // Save New Registration
         $this->post('/save/product/{id:[0-9]+}', 'RegistrationController:saveAction')->setName('registration.save');
     });

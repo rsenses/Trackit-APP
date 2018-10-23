@@ -1,7 +1,7 @@
 {% extends 'layouts/private.twig' %} {% block styles %}
 <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/bootstrap-dialog.min.css" /> {% endblock %} {% block menu
 %}
-<a href="{{ path_for('registration.inscriptions', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light purple right tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i
+<a href="{{ path_for('registration.assistants', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light purple right tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i
         class="mdi mdi-account-plus"></i></a>
 <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de asistentes insitu REQUIERE ENTRADA/QR"><i
         class="mdi mdi-magnify"></i></a>
