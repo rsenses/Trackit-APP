@@ -141,9 +141,6 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 fired = true;
-                if($('#modalmsg').modal('open')) {
-                    $('#modalmsg').modal('close');
-                }
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
@@ -159,9 +156,6 @@
 
             ) {
                 fired = false;
-                if($('#modalmsg').modal('open')) {
-                    $('#modalmsg').modal('close');
-                }
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
             }
