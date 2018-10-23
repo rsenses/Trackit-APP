@@ -103,6 +103,7 @@
                         }
                         $('.results-scan').append('<p class="white-text">'+a.user+': <small>Orden'+metadata+'</small></p>');
                     }
+                    $('#modalmsg').modal('close');
                     $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
                     $('#modalmsg, #modalmsg .modal-footer').addClass(style);
                     $('#modalmsg .modal-content h4').html(title);
@@ -139,6 +140,7 @@
                     e.originalEvent.key == 'Unidentified')
             ) {
                 fired = true;
+                $('#modalmsg').modal('close');
                 $('#verify').focus();
                 $('.head-scan').empty();
                 $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
