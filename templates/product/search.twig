@@ -41,14 +41,14 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="display: table-caption; width: 100%; max-height: 450px;  overflow-y: auto; overflow-x: hidden;">
                             {% for customer in registrations %}
                                 {% if customer.is_authorized == 0 or customer.is_cancelled == 1 %}
                                 <tr class="red lighten-3">
                                 {% elseif customer.verification > 0 %}
                                 <tr class="green lighten-5">
                                 {% else %}
-                                <tr>
+                                <tr class="white">
                                 {% endif %}
                                     <td>
                                         <span>{{ customer.first_name }} {{ customer.last_name }}</span><br>
