@@ -3,20 +3,20 @@ $(document).on('click', '.closer', function(event) {
     element = $(this).parent().hide("slow");
 });
 
-$(document).on('click', '.help', function(event) {
-    $(this).toggleClass('disable');
-    if($(this).hasClass('disable')) {
-        console.log('none');
+// $(document).on('click', '.help', function(event) {
+//     $(this).toggleClass('disable');
+//     if($(this).hasClass('disable')) {
+//         console.log('none');
         
-        $('.tooltipped').tooltip();
-        $(this).html('DESCACTIVAR AYUDA <i class="mdi mdi-tooltip"></i>');
-    } else {
-        console.log('yes');
+//         $('.tooltipped').tooltip();
+//         $(this).html('DESCACTIVAR AYUDA <i class="mdi mdi-tooltip"></i>');
+//     } else {
+//         console.log('yes');
         
-        $('.tooltipped').tooltip('destroy');
-        $(this).html('ACTIVAR AYUDA <i class="mdi mdi-tooltip-outline"></i>');
-    }
-});
+//         $('.tooltipped').tooltip('destroy');
+//         $(this).html('ACTIVAR AYUDA <i class="mdi mdi-tooltip-outline"></i>');
+//     }
+// });
 
 $(document).ready(function() {
     var ww = window.screen.width;

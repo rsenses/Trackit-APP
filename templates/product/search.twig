@@ -256,6 +256,7 @@
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
             
+            $(this).removeClass('verification');
             $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin blue-text');
 
             if (unique_id) {
@@ -293,7 +294,7 @@
                         $(this).data('uniqueid', null);
                         $('input.search').val('');
                         $('.btn-clear').addClass('hide');
-                        console.log($(this).children('i'));
+                        $(this).closest('tr').addClass('green lighten-5');
                         $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check green-text');
                         
                         setTimeout(function(){
@@ -308,6 +309,7 @@
                     },
                     error: function(a) {
                         console.log(a);
+                        $(this).addClass('verification');
                         $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check grey-text');
                     }
                 });
