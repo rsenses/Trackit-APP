@@ -45,6 +45,8 @@
                             {% for customer in registrations %}
                                 {% if customer.is_authorized == 0 or customer.is_cancelled == 1 %}
                                 <tr class="red lighten-3">
+                                {% elseif customer.verification > 0 %}
+                                <tr class="green lighten-5">
                                 {% else %}
                                 <tr>
                                 {% endif %}
@@ -75,13 +77,13 @@
                                     </td>
                                     <td>
                                         {% if customer.verification > 0  %}
-                                            <i class="mdi mdi-checkbox-multiple-marked green-text"></i>
+                                            <i class="mdi mdi-check green-text"></i>
                                         {% else %}
                                             {% if customer.is_authorized == 0 or customer.is_cancelled == 1 %}
                                                 <i class="black-text mdi mdi-block-helper"></i>
                                             {% else %}
                                                 <a href="#0" class="verification grey-text"  data-uniqueid="{{ customer.unique_id }}">
-                                                    <i class="mdi mdi-checkbox-multiple-blank-outline"></i>
+                                                    <i class="mdi mdi-check"></i>
                                                 </a>
                                             {% endif %}
                                         {% endif %}
@@ -254,7 +256,7 @@
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
             
-            $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin amber-text');
+            $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin blue-text');
 
             if (unique_id) {
                 $.ajax({
@@ -292,19 +294,21 @@
                         $('input.search').val('');
                         $('.btn-clear').addClass('hide');
                         console.log($(this).children('i'));
-                        $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('amber-text').addClass('mdi-checkbox-multiple-marked green-text');
+                        $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check green-text');
                         
                         setTimeout(function(){
                             $('#modalmsg').modal('close');
                             setTimeout(function(){
                                 $('.nolist').removeClass('hide');
-                                $('#list').addClass('hide');
+                                setTimeout(function(){
+                                    $('#list').addClass('hide');
+                                }, 1000);
                             }, 1000);
-                        }, 4000);
+                        }, 6000);
                     },
                     error: function(a) {
                         console.log(a);
-                        $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('amber-text').addClass('mdi-checkbox-multiple-blank-outline grey-text');
+                        $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check grey-text');
                     }
                 });
             }

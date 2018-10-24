@@ -173,7 +173,10 @@ nav .btn-floating.right:first-child {
     color: #FFFFFF;
     font-size: 2em;
 }
-
+nav .sidenav-trigger {
+    display: block;
+    width: 64px;
+}
 .sidenav-trigger i {
     font-size: 2.4em;
 }
@@ -226,6 +229,7 @@ table tbody tr td:last-child {
 table thead tr th:first-child,
 table tbody tr td:first-child {
     text-align: left;
+    min-width: 30%;
 }
 
 #list tbody tr td:nth-child(2) {
@@ -233,13 +237,25 @@ table tbody tr td:first-child {
 }
 
 #list tbody tr td:last-child i {
-    font-size: 40px;
-}
-
-#list tbody tr td:last-child i.mdi-block-helper {
     font-size: 30px;
 }
 
+#list tbody tr td:last-child i.mdi-block-helper {
+    font-size: 20px;
+}
+a.verification {
+    margin: 0 auto;
+    height: 40px;
+    width: 40px;
+    display: block;
+    line-height: 40px;
+    background-color: #3333;
+    border-radius: 100px;
+}
+#list tbody tr td:last-child a.verification i {
+    font-size: 20px;
+    color: #000;
+}
 input {
     height: 4em !important;
 }
