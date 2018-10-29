@@ -316,40 +316,6 @@
             }
         });
 
-        var fired = false;
-        var codeunt = 0;
-        $('html').bind('keydown', function(e) {
-            if (!fired &&
-                e.keyCode == 0 &&
-                typeof e.originalEvent !== 'undefined' &&
-                (typeof e.originalEvent.key == 'undefined' ||
-                    e.originalEvent.key == 'Unidentified')
-            ) {
-                fired = true;
-                $('.head-scan').empty();
-                $('.head-scan').html('<h1 class="center-text white-text"><i class="mdi mdi-alert"></i></h1><h4 class="center-text white-text">Cargando escaner... <br><small></small></h4>');
-                setTimeout(function(){
-                    count++;
-                    if (count === 4) {
-                        window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
-                    }
-                }, 1000);
-                $('.results-scan').html('<p class="white-text">'+count+'</p>');
-            }
-        });
-        $('html').bind('keyup', function(e) {
-            if (
-                e.keyCode == 0 &&
-                typeof e.originalEvent !== 'undefined' &&
-                (typeof e.originalEvent.key == 'undefined' ||
-                    e.originalEvent.key == 'Unidentified')
-
-            ) {
-                fired = false;
-                $('.head-scan').empty();
-            }
-        });
-
         $(document).on('keyup', 'input.search', function () {
             var key = $('input.search').val();
             if (key.length >= 3) {
