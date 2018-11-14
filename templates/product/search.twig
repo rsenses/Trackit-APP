@@ -301,7 +301,7 @@
                         setTimeout(function(){
                             $('#modalmsg').modal('close');
                             setTimeout(function(){
-                                $('.nolist').removeClass('hide');
+                                $('.nolist, footer .modal-trigger').addClass('hide');
                                 setTimeout(function(){
                                     $('#list').addClass('hide');
                                 }, 1000);
@@ -323,15 +323,15 @@
                 mySearch();
                 $('#list').removeClass('hide');
                 $('.btn-clear').removeClass('hide');
-                $('.nolist').addClass('hide');
+                $('.nolist, footer .modal-trigger').addClass('hide');
             } else {
-                $('.nolist').removeClass('hide');
+                $('.nolist, footer .modal-trigger').removeClass('hide');
                 $('#list').addClass('hide');
                 $('.btn-clear').addClass('hide');
             }
         }).on('click', '.btn-clear', function () {
             $('input.search').val('');
-            $('.nolist').removeClass('hide');
+            $('.nolist, footer .modal-trigger').removeClass('hide');
             $('#list').addClass('hide');
             $('.btn-clear').addClass('hide');
         });

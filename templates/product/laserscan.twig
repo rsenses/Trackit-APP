@@ -30,6 +30,7 @@
 {% endblock %}
 {% block footer %}
 <footer>
+    <a class="btn-floating right btn-large waves-effect waves-light blue mr-10 mb-10 modal-trigger" href="#modalcharts"><i class="mdi mdi-chart-arc"></i></a>
     <div id="modalmsg" class="modal">
         <div class="modal-content">
             <h4></h4>
@@ -37,6 +38,36 @@
         </div>
         <div class="modal-footer">
             <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
+        </div>
+    </div>
+     <div id="modalcharts" class="modal bottom-sheet">
+        <div class="modal-content">
+            <ul class="charts-container">
+                <li>
+                    <div class="chart-box asistentes">
+                        <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
+                        <div class="chart-title asistentes">
+                            <span id="count-registrations"></span> <br class="visible-xs">Asistentes
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chart-box ponentes">
+                        <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
+                        <div class="chart-title  ponentes">
+                            <span id="count-speakers"></span> <br class="visible-xs">Ponentes
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chart-box vips">
+                        <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></span></div>
+                        <div class="chart-title vips">
+                            <span id="count-vips"></span><br class="visible-xs"> Vips
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </footer>
