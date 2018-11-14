@@ -383,12 +383,12 @@ nav .btn-floating.btn-large i {
 
 .charts-container li {
     display: inline-block;
-    margin: 0 30px;
+    margin: 0 4px;
     padding: 0;
     line-height: 18px;
     overflow: hidden;
-    min-width: 100px;
-    max-width: 100px;
+    min-width: 80px;
+    max-width: 80px;
 }
 
 .chart {
