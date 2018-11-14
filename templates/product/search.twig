@@ -293,13 +293,13 @@
                         $('#modalmsg .modal-content h4').html(title);
                         $('#modalmsg .modal-content p').html(message);
                         $(this).data('uniqueid', null);
-                        $('input.search').val('');
-                        $('.btn-clear').addClass('hide');
                         $(this).closest('tr').addClass('green lighten-5');
                         $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check green-text');
                         
                         setTimeout(function(){
                             $('#modalmsg').modal('close');
+                            $('input.search').val('');
+                            $('.btn-clear').addClass('hide');
                             setTimeout(function(){
                                 $('.nolist, footer .modal-trigger').addClass('hide');
                                 setTimeout(function(){

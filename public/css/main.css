@@ -235,7 +235,7 @@ table tbody tr td:last-child {
 table thead tr th:first-child,
 table tbody tr td:first-child {
     text-align: left;
-    min-width: 30%;
+    min-width: 80%;
 }
 .to-show {
     display: block;
@@ -546,6 +546,11 @@ table tbody tr td:nth-child(4) {
 }
 
 @media screen and (min-width:768px) {
+    table thead tr th:first-child,
+    table tbody tr td:first-child {
+        text-align: left;
+        min-width: 30%;
+    }
     footer {
         position: fixed;
         bottom: 0;
