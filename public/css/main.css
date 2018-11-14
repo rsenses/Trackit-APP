@@ -178,9 +178,16 @@ nav .sidenav-trigger {
     width: 64px;
     margin-left: 0;
 }
+.sidenav h3,
+.sidenav p {
+    margin: 0 10px;
+}
+.sidenav p {
+    margin-bottom: 20px;
+}
 .sidenav p {
     color: #FFF;
-    padding-left: 30px;
+    text-align: center;
     line-height: 1.2em;
 }
 .sidenav-trigger i {
