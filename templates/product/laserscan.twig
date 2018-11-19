@@ -75,9 +75,9 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ base_url() }}/js/searchtable.js"></script>
-    <script>
+        <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
 
+    <script>
         var info = function () {
             $.ajax({
                 type: "GET",
@@ -89,12 +89,83 @@
                     $('#product-name').text(a.name);
                     $('#slide-out .product-name').text(a.name);
                     $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+
+                    loadChart(a);
                 },
                 error: function(a) {
                     console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 20000);
                 }
             });
         }
+
+        var loadChart = function (a) {
+            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
+            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
+            $('.chart').animate({opacity: 1}, 3000);
+            $('.chart-1').attr('data-percent', percentAssistants);
+            $('.chart-1').easyPieChart({
+                animate: 3000,
+                barColor: '#2BAAB1',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+            var registrationsSpeakers = $('#count-speakers').text();
+
+            var verificationsSpeakers = $('#count-verified-speakers').text();
+            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            $('.chart-2').attr('data-percent', percentSpeakers);
+            $('.chart-2').easyPieChart({
+                animate: 1000,
+                barColor: '#007bff',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+
+            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
+            $('.chart-3').attr('data-percent', percentVips);
+            $('.chart-3').easyPieChart({
+                animate: 2000,
+                barColor: '#6f42c1',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+            if (percentAssistants >= 0) {
+                $('.asistentes').removeClass('hide');
+            }
+            if (percentSpeakers >= 0) {
+                $('.ponentes').removeClass('hide');
+            }
+            if (percentVips >= 0) {
+                $('.vips').removeClass('hide');
+            }
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
+            $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            $('.chart-3').data('easyPieChart').update(percentVips);
+        };
+
+
 
         var scanner;
         function startScan() {
