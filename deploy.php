@@ -1,4 +1,5 @@
 <?php
+
 namespace Deployer;
 
 // All Deployer recipes are based on `recipe/common.php`.
@@ -24,12 +25,12 @@ task('deploy', [
 after('deploy', 'success');
 
 // Define a server for deployment.
-host('scl.prs3.expomark.es')
-    ->user('deploy')
-    ->identityFile('~/.ssh/do_rsa')
+host('fr1.db.expomark.es')
+    ->user('rsenses')
+    ->identityFile('~/.ssh/id_digitalocean')
     // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
     ->stage('production')
-    ->set('deploy_path', '/var/www/app.trackitsuite.com'); // Define the base path to deploy your project to.
+    ->set('deploy_path', '/var/www/app.trackitsuite.com');
 
 // Specify the repository from which to download your project's code.
 // The server needs to have git installed for this to work.
@@ -49,7 +50,7 @@ set('keep_releases', 2);
 
 task('reload:server', function () {
     run('sudo service nginx reload');
-    run('sudo service php7.1-fpm restart');
+    run('sudo service php7.2-fpm restart');
 });
 
 after('deploy', 'reload:server');
