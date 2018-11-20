@@ -65,7 +65,7 @@ class ProductController
         }
     }
 
-    public function instaRegistrationsAction(Request $request, Response $response, array $args)
+    public function searchAction(Request $request, Response $response, array $args)
     {
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations/all', [
@@ -77,7 +77,7 @@ class ProductController
 
             $registrations = json_decode($apiRequest->getBody(), true);
 
-            return $this->view->render($response, 'product/registrations.twig', [
+            return $this->view->render($response, 'product/search.twig', [
                 'registrations' => $registrations,
                 'product_id' => $args['id'],
             ]);
@@ -88,5 +88,19 @@ class ProductController
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
+    }
+
+    public function laserScanAction(Request $request, Response $response, array $args)
+    {
+        return $this->view->render($response, 'product/laserscan.twig', [
+            'product_id' => $args['id'],
+        ]);
+    }
+
+    public function cameraScanAction(Request $request, Response $response, array $args)
+    {
+        return $this->view->render($response, 'product/camerascan.twig', [
+            'product_id' => $args['id'],
+        ]);
     }
 }

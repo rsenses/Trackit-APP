@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Rubik-Regular.eot); /* For IE6-8 */
+  src: local('Rubik'),
+       local('Rubik-Regular'),
+       url(../fonts/Rubik-Regular.woff2) format('woff2'),
+       url(../fonts/Rubik-Regular.woff) format('woff'),
+       url(../fonts/Rubik-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts/Rubik-Bold.eot); /* For IE6-8 */
+  src: local('Rubik'),
+       local('Rubik-Bold'),
+       url(../fonts/Rubik-Bold.woff2) format('woff2'),
+       url(../fonts/Rubik-Bold.woff) format('woff'),
+       url(../fonts/Rubik-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 900;
+  src: url(../fonts/Rubik-Black.eot); /* For IE6-8 */
+  src: local('Rubik'),
+       local('Rubik-Black'),
+       url(../fonts/Rubik-Black.woff2) format('woff2'),
+       url(../fonts/Rubik-Black.woff) format('woff'),
+       url(../fonts/Rubik-Black.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 200;
+  src: url(../fonts/Rubik-Light.eot); /* For IE6-8 */
+  src: local('Rubik'),
+       local('Rubik-Light'),
+       url(../fonts/Rubik-Light.woff2) format('woff2'),
+       url(../fonts/Rubik-Light.woff) format('woff'),
+       url(../fonts/Rubik-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/Rubik-Medium.eot); /* For IE6-8 */
+  src: local('Rubik'),
+       local('Rubik-Medium'),
+       url(../fonts/Rubik-Medium.woff2) format('woff2'),
+       url(../fonts/Rubik-Medium.woff) format('woff'),
+       url(../fonts/Rubik-Medium.ttf) format('truetype');
+}

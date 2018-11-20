@@ -15,33 +15,25 @@
         <meta name="description" content="Trackit suite, el sistema de gestión de eventos definitivo">
         <!-- Disable screen scaling-->
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0">
-
+        
         <link rel="manifest" href="/manifest.json">
         <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
 
-        <link rel="stylesheet" href="{{ base_url() }}/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ base_url() }}/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ base_url() }}/css/simple-line-icons.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/materialize.min.css">
+        <link rel="stylesheet" href="{{ base_url() }}/css/materialdesignicons.min.css">
 
-        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ base_url() }}/css/main.css?v=5"/>
     </head>
 
     <body>
-    <div class="overlay"></div>
-        <header>
-            {% block head %}{% endblock %}
-        </header>
-        <main>
-            {% block content %}{% endblock %}
-        </main>
-        <footer class="public">
-            {% block footer %}{% endblock %}
-        </footer>
+        {% block head %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block footer %}{% endblock %}
         <!-- All Javascript plugins goes here -->
-        <script src="{{ base_url() }}/js/jquery.min.js"></script>
-        <script src="{{ base_url() }}/js/bootstrap.min.js"></script>
-
-        {# {% include 'partials/analytics.twig' %} #}
+        <script src="{{ base_url() }}/js/jquery-2.1.1.min.js"></script>
+        <script src="{{ base_url() }}/js/materialize.js"></script>
+        <script src="{{ base_url() }}/js/main.js?v=2"></script>
+        {% block scripts %}{% endblock %}
     </body>
 
 </html>

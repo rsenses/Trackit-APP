@@ -32,10 +32,18 @@ host('fr1.db.expomark.es')
     ->stage('production')
     ->set('deploy_path', '/var/www/app.trackitsuite.com');
 
+host('expobeta.com')
+    ->user('root')
+    // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
+    ->stage('testing')
+    ->set('deploy_path', '/var/www/app.trackitsuite.com') // Define the base path to deploy your project to.
+    ->set('branch', 'clean');
+
 // Specify the repository from which to download your project's code.
 // The server needs to have git installed for this to work.
 // If you're not using a forward agent, then the server has to be able to clone
 // your project from this repository.
+
 set('repository', 'git@bitbucket.org:expomark/trackit-app.git');
 
 set('shared_dirs', ['storage/logs', 'storage/cache', 'public/.well-known']);

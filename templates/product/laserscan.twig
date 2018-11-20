@@ -1,0 +1,277 @@
+{% extends 'layouts/private.twig' %}
+
+{% block menu %}
+    <a href="{{ path_for('registration.assistants', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i class="mdi mdi-account-plus"></i></a>
+    <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de asistentes insitu REQUIERE ENTRADA/QR"><i class="mdi mdi-magnify"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple laser-scan tooltipped" data-position="right" data-tooltip="Escaner de ENTRADAS/QR"><i class="mdi mdi-qrcode-scan"></i></a>
+{% endblock %}
+
+{% block content %}
+    <main id="laserscan">
+        <div class="row">
+            <div class="col s12">
+                <div class="container">
+                    <h4 id="product-name" class="white-text center-align"></h4>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row mb-0">
+                <div class="col s12 white-text center-align">
+                    <div class="head-scan"></div>
+                    <div style="position:fixed;top:-200px">
+                        <input type="text" class="form-control" id="verify" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="results-scan"></div>
+    </main>
+{% endblock %}
+{% block footer %}
+<footer>
+    <a class="btn-floating right btn-large waves-effect waves-light blue mr-10 mb-10 modal-trigger" href="#modalcharts"><i class="mdi mdi-chart-arc"></i></a>
+    <div id="modalmsg" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
+        </div>
+    </div>
+     <div id="modalcharts" class="modal bottom-sheet">
+        <div class="modal-content">
+            <ul class="charts-container">
+                <li>
+                    <div class="chart-box asistentes">
+                        <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
+                        <div class="chart-title asistentes">
+                            <span id="count-registrations"></span> <br class="visible-xs">Asistentes
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chart-box ponentes">
+                        <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
+                        <div class="chart-title  ponentes">
+                            <span id="count-speakers"></span> <br class="visible-xs">Ponentes
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chart-box vips">
+                        <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></span></div>
+                        <div class="chart-title vips">
+                            <span id="count-vips"></span><br class="visible-xs"> Vips
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+        <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
+
+    <script>
+        var info = function () {
+            $.ajax({
+                type: "GET",
+                url: "/product/info/{{ product_id }}",
+                dataType: "json",
+                cache: false,
+                context: this,
+                success: function(a) {
+                    $('#product-name').text(a.name);
+                    $('#slide-out .product-name').text(a.name);
+                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
+                    $('#count-registrations').text(a.registrations.all);
+                    $('#count-verifications').text(a.verifications.all);
+                    $('#count-speakers').text(a.registrations.speaker);
+                    $('#count-verified-speakers').text(a.verifications.speaker);
+                    $('#count-vips').text(a.registrations.vip);
+                    $('#count-verified-vips').text(a.verifications.vip);
+
+                    loadChart(a);
+                },
+                error: function(a) {
+                    console.log(a);
+                },
+                complete: function() {
+                    // Previous run complete, schedule the next run
+                    setTimeout(info, 20000);
+                }
+            });
+        }
+
+        var loadChart = function (a) {
+            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
+            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
+            $('.chart').animate({opacity: 1}, 3000);
+            $('.chart-1').attr('data-percent', percentAssistants);
+            $('.chart-1').easyPieChart({
+                animate: 3000,
+                barColor: '#2BAAB1',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+            var registrationsSpeakers = $('#count-speakers').text();
+
+            var verificationsSpeakers = $('#count-verified-speakers').text();
+            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            $('.chart-2').attr('data-percent', percentSpeakers);
+            $('.chart-2').easyPieChart({
+                animate: 1000,
+                barColor: '#007bff',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+
+            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
+            $('.chart-3').attr('data-percent', percentVips);
+            $('.chart-3').easyPieChart({
+                animate: 2000,
+                barColor: '#6f42c1',
+                trackColor: '#d6d6d6',
+                scaleColor: false,
+                lineWidth: 20,
+                trackWidth: 16,
+                lineCap: 'round',
+                size: 150
+            });
+            if (percentAssistants >= 0) {
+                $('.asistentes').removeClass('hide');
+            }
+            if (percentSpeakers >= 0) {
+                $('.ponentes').removeClass('hide');
+            }
+            if (percentVips >= 0) {
+                $('.vips').removeClass('hide');
+            }
+            $('.chart-1').data('easyPieChart').update(percentAssistants);
+            $('.chart-2').data('easyPieChart').update(percentSpeakers);
+            $('.chart-3').data('easyPieChart').update(percentVips);
+        };
+
+
+
+        var scanner;
+        function startScan() {
+            scanner.addListener('scan', function(code) {
+                if (code.length !== 0) {
+                    verifyCode(code);
+                }
+            });
+        }
+        function verifyCode(code) {
+            $('#verify').val('');
+
+            $.ajax({
+                type: 'GET',
+                url: '/registration/verify/' + code + '?method=qr',
+                dataType: 'json',
+                cache: false,
+                success: function(a) {
+                    var title, message, buttons, type;
+                    var metadata = '';
+                    if (a.status == 'error') {
+                        style = 'red';
+                        title = 'Error';
+                        message = a.message;
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 1000)
+                    } else if (a.status == 'warning') {
+                        style = 'orange';
+                        title = 'Cuidado';
+                        message = a.message;
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 1000)
+                    } else if (a.status == 'success') {
+                        for (var key in a.metadata) {
+                            metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                        }
+                        style = 'green';
+                        title = a.message;
+                        message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
+                        if($('.results-scan').children('p').length >= 3) {
+                            $('.results-scan p:first-child').remove();
+                        }
+                        $('.results-scan').append('<p class="white-text">'+a.user+': <small>Orden'+metadata+'</small></p>');
+                        setTimeout(function(){
+                            $('#modalmsg').modal('close');
+                        }, 3000)
+                    }
+
+                    $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
+                    $('#modalmsg, #modalmsg .modal-footer').addClass(style);
+                    $('#modalmsg .modal-content h4').html(title);
+                    $('#modalmsg .modal-content p').html(message);
+
+                    $('#modalmsg').modal('open');
+                    $(this).data('uniqueid', null);
+                },
+                error: function(a) {
+                    location.reload();
+                }
+            });
+        }
+
+        $('#verify').on('input', function(e) {
+            var code = $(this).val();
+
+            $(this).hide();
+            $(this).blur();
+
+            verifyCode(code);
+
+            $(this).show();
+        });
+        var fired = false;
+
+        $('html').bind('keydown', function(e) {
+            if (!fired &&
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+            ) {
+                fired = true;
+                $('#verify').focus();
+                $('.head-scan').empty();
+                $('.head-scan').html('<h1><i class="mdi mdi-loading mdi-spin"></i></h1><h4>Escaneando ...<br><small></small></h4>');
+            }
+        });
+
+        $('html').bind('keyup', function(e) {
+            if (
+                e.keyCode == 0 &&
+                typeof e.originalEvent !== 'undefined' &&
+                (typeof e.originalEvent.key == 'undefined' ||
+                    e.originalEvent.key == 'Unidentified')
+
+            ) {
+                fired = false;
+                $('.head-scan').empty();
+                $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escaner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
+            }
+        });
+
+        $(document).ready(function() {
+            info();
+         });
+    </script>
+{% endblock %}
