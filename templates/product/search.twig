@@ -301,12 +301,13 @@
                             $('input.search').val('');
                             $('.btn-clear').addClass('hide');
                             setTimeout(function(){
-                                $('.nolist, footer .modal-trigger').addClass('hide');
+                                $('.nolist').removeClass('hide');
+                                $('footer .modal-trigger').addClass('hide');
                                 setTimeout(function(){
                                     $('#list').addClass('hide');
                                 }, 1000);
                             }, 1000);
-                        }, 6000);
+                        }, 1000);
                     },
                     error: function(a) {
                         console.log(a);
@@ -314,6 +315,21 @@
                         $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check grey-text');
                     }
                 });
+            }
+        });
+
+        $('html').bind('keydown', function(e) {
+            resW = $(window).width();
+            if (
+            resW <= 600 &&
+            e.keyCode == 32 ||
+            e.keyCode == 0 &&
+            typeof e.originalEvent !== 'undefined' &&
+            (typeof e.originalEvent.key == 'undefined' ||
+            e.originalEvent.key == 'Unidentified')
+            ) {
+                console.log(e.keyCode);
+                window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
             }
         });
 
