@@ -286,7 +286,7 @@
                             style = 'green';
                             title = a.message;
                             message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
-                            $('.results-scan').html('<p class="white-text">'+a.user+': <small>Orden'+metadata+'</small></p>');
+                            $('.results-scan').html('<p class="white-text">'+a.user+': <small>'+metadata+'</small></p>');
                         }
                         $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
                         $('#modalmsg, #modalmsg .modal-footer').addClass(style);
@@ -307,7 +307,7 @@
                                     $('#list').addClass('hide');
                                 }, 1000);
                             }, 1000);
-                        }, 1000);
+                        }, 2000);
                     },
                     error: function(a) {
                         console.log(a);
