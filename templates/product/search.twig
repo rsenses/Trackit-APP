@@ -38,6 +38,7 @@
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
+                                <th>Mesa</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -76,6 +77,9 @@
                                         {{ customer.metadata.orden }}
                                     </td>
                                     <td>
+                                            {{ customer.metadata.mesa }}
+                                        </td>
+                                    <td>
                                         {% if customer.verification > 0  %}
                                             <i class="mdi mdi-check green-text"></i>
                                         {% else %}
@@ -99,6 +103,7 @@
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
+                                <th>Mesa</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -281,12 +286,12 @@
                             message = a.message;
                         } else if (a.status == 'success') {
                             for (var key in a.metadata) {
-                                metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+'<br>';
+                                metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+' / ';
                             }
                             style = 'green';
                             title = a.message;
-                            message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small>'+metadata+'</small>';
-                            $('.results-scan').html('<p class="white-text">'+a.user+': <small>'+metadata+'</small></p>');
+                            message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small> / '+metadata+'</small>';
+                            $('.results-scan').html('<p class="white-text">'+a.user+': <small> / '+metadata+'</small></p>');
                         }
                         $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
                         $('#modalmsg, #modalmsg .modal-footer').addClass(style);
