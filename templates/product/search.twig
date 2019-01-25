@@ -38,7 +38,6 @@
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
-                                <th>Mesa</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -77,9 +76,6 @@
                                         {{ customer.metadata.orden }}
                                     </td>
                                     <td>
-                                            {{ customer.metadata.mesa }}
-                                        </td>
-                                    <td>
                                         {% if customer.verification > 0  %}
                                             <i class="mdi mdi-check green-text"></i>
                                         {% else %}
@@ -103,7 +99,6 @@
                                 <th>DNI</th>
                                 <th>Empresa</th>
                                 <th>Orden</th>
-                                <th>Mesa</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
