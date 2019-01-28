@@ -24,14 +24,6 @@ task('deploy', [
 
 after('deploy', 'success');
 
-// Define a server for deployment.
-host('fr1.db.expomark.es')
-    ->user('rsenses')
-    ->identityFile('~/.ssh/id_digitalocean')
-    // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.
-    ->stage('production')
-    ->set('deploy_path', '/var/www/app.trackitsuite.com');
-
 host('expobeta.com')
     ->user('root')
     // ->forwardAgent() // You can use identity key, ssh config, or username/password to auth on the server.

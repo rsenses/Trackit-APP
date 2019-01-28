@@ -3,7 +3,7 @@
 {% block menu %}
     <a href="{{ path_for('registration.assistants', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent tooltipped" data-position="right" data-tooltip="Registro de invitados SIN ENTRADA/QR"><i class="mdi mdi-account-plus"></i></a>
     <a href="{{ path_for('product.search', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right purple tooltipped" data-position="right" data-tooltip="Registro de asistentes insitu REQUIERE ENTRADA/QR"><i class="mdi mdi-magnify"></i></a>
-    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan tooltipped" data-position="right" data-tooltip="Escaner de ENTRADAS/QR"><i class="mdi mdi-qrcode-scan"></i></a>
+    <a href="{{ path_for('product.laserscan', {'id': product_id}) }}" class="btn-floating btn-large waves-effect waves-light right transparent laser-scan tooltipped" data-position="right" data-tooltip="Escáner de ENTRADAS/QR"><i class="mdi mdi-qrcode-scan"></i></a>
 {% endblock %}
 
 {% block content %}
@@ -52,7 +52,7 @@
                                 {% endif %}
                                     <td>
                                         <span>{{ customer.first_name }} {{ customer.last_name }}</span><br>
-                                        {% if customer.type.name ==  'Ponente'%}
+                                        <!-- {% if customer.type.name ==  'Ponente'%}
                                             <h6 class="deep-orange-text">{{ customer.type.name }}</h6>
                                         {% else %}
                                             {{ customer.type.name }}
@@ -64,7 +64,7 @@
                                                  | No Asiste
                                             {% endif %}
                                             </small>
-                                        {% endif %}
+                                        {% endif %} -->
                                     </td>
                                     <td>
                                         {{ customer.nif }}
@@ -285,7 +285,7 @@
                             }
                             style = 'green';
                             title = a.message;
-                            message = a.user+'<br /><span class="type white-text">'+a.type+'</span><br><small> / '+metadata+'</small>';
+                            message = a.user+'<br /><br><small> / '+metadata+'</small>';
                             $('.results-scan').html('<p class="white-text">'+a.user+': <small> / '+metadata+'</small></p>');
                         }
                         $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
