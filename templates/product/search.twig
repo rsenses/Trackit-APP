@@ -176,11 +176,10 @@
                 },
                 complete: function() {
                     // Previous run complete, schedule the next run
-                    // setTimeout(info, 20000);
+                    setTimeout(info, 60000);
                 }
             });
         };
-        
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
@@ -196,18 +195,22 @@
                     context: this,
                     cache: false,
                     success: function(a) {
+                        console.log(a);
+
                         $('#modalmsg').modal('open');
                         var title, message, buttons, style;
                         var metadata = '';
-                        if (a.state == 'error') {
-                            style = 'red';
-                            title = 'Error';
-                            message = a.message;
-                        } else if (a.state == 'warning') {
-                            style = 'orange';
-                            title = 'Cuidado';
-                            message = a.message;
-                        } else if (a.state == 'success') {
+                        if ("error_level" in a) {
+                            if (a.error_level == 'danger') {
+                                style = 'red';
+                                title = 'Error';
+                                message = a.message;
+                            } else if (a.error_level == 'warning') {
+                                style = 'orange';
+                                title = 'Cuidado';
+                                message = a.message;
+                            }
+                        } else {
                             for (var key in a.metadata) {
                                 metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+' / ';
                             }
