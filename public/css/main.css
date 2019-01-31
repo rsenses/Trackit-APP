@@ -385,11 +385,20 @@ nav .btn-floating.btn-large i {
     margin-bottom: 0;
 }
 #modalcharts .name-bar  {
-    text-transform: capitalize;
     font-size: 12px;
+}
+#modalcharts .name-bar span {
+    text-transform: capitalize;
 }
 #modalcharts .progress {
     height: 14px;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #000;
+}
+#modalcharts .progress.light {
+    color: #FFF;
 }
 #modalcharts .modal-content .row .col:nth-child(1) .progress {
     background-color: #ffebee;

@@ -40,34 +40,10 @@
             <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
         </div>
     </div>
-     <div id="modalcharts" class="modal bottom-sheet">
+    <div id="modalcharts" class="modal bottom-sheet">
         <div class="modal-content">
-            <ul class="charts-container">
-                <li>
-                    <div class="chart-box asistentes">
-                        <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
-                        <div class="chart-title asistentes">
-                            <span id="count-registrations"></span> <br class="visible-xs">Asistentes
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="chart-box ponentes">
-                        <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
-                        <div class="chart-title  ponentes">
-                            <span id="count-speakers"></span> <br class="visible-xs">Ponentes
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="chart-box vips">
-                        <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></span></div>
-                        <div class="chart-title vips">
-                            <span id="count-vips"></span><br class="visible-xs"> Vips
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <div class="row">
+            </div>
         </div>
     </div>
 </footer>
@@ -86,85 +62,28 @@
                 cache: false,
                 context: this,
                 success: function(a) {
-                    $('#product-name').text(a.name);
-                    $('#slide-out .product-name').text(a.name);
-                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escáner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
-                    $('#count-registrations').text(a.registrations.all);
-                    $('#count-verifications').text(a.verifications.all);
-                    $('#count-speakers').text(a.registrations.speaker);
-                    $('#count-verified-speakers').text(a.verifications.speaker);
-                    $('#count-vips').text(a.registrations.vip);
-                    $('#count-verified-vips').text(a.verifications.vip);
-
-                    loadChart(a);
+                    $('#modalcharts .modal-content .row').empty();
+                    for (index in a['registrations'] ) {
+                        var val =  $.map(a['registrations'][index], function(value){
+                            return value;
+                        });
+                        var total = val[0];
+                        var verified = val[1];
+                        var percentage = Math.floor((verified / total) * 100);
+                        isFinite(percentage) ? 0 : percentage;
+                        var valueBar = (percentage >= 50) ? 'light' : '';
+                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><span style="text-tansform: capitalize;">'+ index +'s </span> '+verified+ ' de '+ total +'</p><div class="progress '+ valueBar +'">'+ percentage +'% <div class="determinate" style="width: '+percentage+'%"></div></div></div>');
+                    }
                 },
                 error: function(a) {
                     console.log(a);
                 },
                 complete: function() {
                     // Previous run complete, schedule the next run
-                    setTimeout(info, 20000);
+                    // setTimeout(info, 20000);
                 }
             });
-        }
-
-        var loadChart = function (a) {
-            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
-            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
-            $('.chart').animate({opacity: 1}, 3000);
-            $('.chart-1').attr('data-percent', percentAssistants);
-            $('.chart-1').easyPieChart({
-                animate: 3000,
-                barColor: '#2BAAB1',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-            var registrationsSpeakers = $('#count-speakers').text();
-
-            var verificationsSpeakers = $('#count-verified-speakers').text();
-            var percentSpeakers = (Math.floor((verificationsSpeakers / registrationsSpeakers) * 100)) + 10;
-            $('.chart-2').attr('data-percent', percentSpeakers);
-            $('.chart-2').easyPieChart({
-                animate: 1000,
-                barColor: '#007bff',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-
-            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
-            $('.chart-3').attr('data-percent', percentVips);
-            $('.chart-3').easyPieChart({
-                animate: 2000,
-                barColor: '#6f42c1',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-            if (percentAssistants >= 0) {
-                $('.asistentes').removeClass('hide');
-            }
-            if (percentSpeakers >= 0) {
-                $('.ponentes').removeClass('hide');
-            }
-            if (percentVips >= 0) {
-                $('.vips').removeClass('hide');
-            }
-            $('.chart-1').data('easyPieChart').update(percentAssistants);
-            $('.chart-2').data('easyPieChart').update(percentSpeakers);
-            $('.chart-3').data('easyPieChart').update(percentVips);
         };
-
 
 
         var scanner;
