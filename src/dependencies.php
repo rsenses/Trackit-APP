@@ -1,9 +1,10 @@
 <?php
+
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
 
-$container['HomeController'] =  function ($container) {
+$container['HomeController'] = function ($container) {
     return new App\Controllers\HomeController(
         $container->flash,
         $container->logger,
@@ -12,25 +13,23 @@ $container['HomeController'] =  function ($container) {
     );
 };
 
-$container['AuthController'] =  function ($container) {
+$container['AuthController'] = function ($container) {
     return new App\Controllers\Auth\AuthController(
         $container->view,
         $container->logger,
         $container->flash,
         $container->validator,
-        $container->oauth,
         $container->router,
         $container->guzzle
     );
 };
 
-$container['PrintController'] =  function ($container) {
+$container['PrintController'] = function ($container) {
     return new App\Controllers\PrintController(
         $container->view,
         $container->logger,
         $container->flash,
         $container->validator,
-        $container->oauth,
         $container->router,
         $container->guzzle,
         $container->printer,
@@ -39,11 +38,10 @@ $container['PrintController'] =  function ($container) {
     );
 };
 
-$container['ProductController'] =  function ($container) {
+$container['ProductController'] = function ($container) {
     return new App\Controllers\ProductController(
         $container->view,
         $container->logger,
-        $container->oauth,
         $container->flash,
         $container->router,
         $container->guzzle,
@@ -51,11 +49,10 @@ $container['ProductController'] =  function ($container) {
     );
 };
 
-$container['RegistrationController'] =  function ($container) {
+$container['RegistrationController'] = function ($container) {
     return new App\Controllers\RegistrationController(
         $container->view,
         $container->logger,
-        $container->oauth,
         $container->flash,
         $container->guzzle,
         $container->router,

@@ -8,7 +8,6 @@ use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Slim\Flash\Messages;
 use App\Validation\ValidatorInterface;
-use League\OAuth2\Client\Provider\GenericProvider;
 use Slim\Interfaces\RouterInterface;
 use Respect\Validation\Validator as v;
 use GuzzleHttp\Client;
@@ -16,7 +15,6 @@ use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController
 {
-    private $oauth;
     private $flash;
     private $guzzle;
     private $logger;
@@ -24,9 +22,8 @@ class AuthController
     private $validator;
     private $view;
 
-    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, GenericProvider $oauth, RouterInterface $router, Client $guzzle)
+    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, RouterInterface $router, Client $guzzle)
     {
-        $this->oauth = $oauth;
         $this->flash = $flash;
         $this->guzzle = $guzzle;
         $this->logger = $logger;
@@ -52,28 +49,38 @@ class AuthController
         }
 
         try {
-            // Try to get an access token using the resource owner password credentials grant.
-            $accessToken = $this->oauth->getAccessToken('password', [
-                'username' => filter_var($request->getParam('email'), FILTER_SANITIZE_EMAIL),
-                'password' => filter_var($request->getParam('password'), FILTER_SANITIZE_STRING)
+            $loginRequest = $this->guzzle->request('POST', 'login', [
+                'headers' => [
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ],
+                'form_params' => [
+                    'email' => $request->getParam('email'),
+                    'password' => $request->getParam('password'),
+                ]
             ]);
 
-            $_SESSION['accessToken'] = $accessToken;
-        } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+            $loginResponse = json_decode($loginRequest->getBody());
+
+            $_SESSION['accessToken'] = $loginResponse->api_token;
+        } catch (\Throwable $e) {
             $this->flash->addMessage('danger', 'Email o contraseña no válidos.');
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/date', [
+            $productsRequest = $this->guzzle->request('GET', 'products', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
-                    'Content-Language' => 'es'
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
                 ]
             ]);
 
-            $product = json_decode($apiRequest->getBody());
+            $products = json_decode($productsRequest->getBody());
         } catch (BadResponseException $e) {
             if ($e->getResponse()->getStatusCode() === 400) {
                 $this->flash->addMessage('danger', 'Ningún producto asignado.');
@@ -84,14 +91,19 @@ class AuthController
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
 
-        $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-        if (strpos($url,'mobile') !== false) {
-            return $response->withRedirect($this->router->pathFor('product.laserscan', ['id' => $product->id]));
+        if (count($products) > 1) {
+            // TODO: redirige a nueva ruta con múltiples productos
         } else {
-            return $response->withRedirect($this->router->pathFor('product.search', ['id' => $product->id]));
+            $device = $request->getQueryParams('device');
+
+            if ($device === 'mobile') {
+                $path = 'product.laserscan';
+            } else {
+                $path = 'product.search';
+            }
+
+            return $response->withRedirect($this->router->pathFor('product.search', ['id' => $products[0]->product_id]));
         }
-
-
     }
 
     public function getSignOutAction(Request $request, Response $response, array $args)

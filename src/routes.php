@@ -1,4 +1,5 @@
 <?php
+
 // Routes
 
 // Home
@@ -47,8 +48,4 @@ $app->group('', function () {
         // Save New Registration
         $this->post('/save/product/{id:[0-9]+}', 'RegistrationController:saveAction')->setName('registration.save');
     });
-})->add(new App\Middlewares\AuthenticatedMiddleware(
-    $container->oauth,
-    $container->flash,
-    $container->router
-));
+});

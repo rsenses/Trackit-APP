@@ -8,25 +8,15 @@ use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Slim\Flash\Messages;
 use App\Validation\ValidatorInterface;
-use League\OAuth2\Client\Provider\GenericProvider;
-use Exception;
 use Slim\Interfaces\RouterInterface;
-use Respect\Validation\Validator as v;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Mike42\Escpos\GdEscposImage;
 
-use App\Entities\User;
-
 class PrintController
 {
-    private $oauth;
     private $flash;
     private $gdpos;
     private $guzzle;
@@ -37,9 +27,8 @@ class PrintController
     private $validator;
     private $view;
 
-    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, GenericProvider $oauth, RouterInterface $router, Client $guzzle, Printer $printer, QrCode $qrcode, GdEscposImage $gdpos)
+    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, ValidatorInterface $validator, RouterInterface $router, Client $guzzle, Printer $printer, QrCode $qrcode, GdEscposImage $gdpos)
     {
-        $this->oauth = $oauth;
         $this->flash = $flash;
         $this->gdpos = $gdpos;
         $this->guzzle = $guzzle;
@@ -53,7 +42,6 @@ class PrintController
 
     public function testAction(Request $request, Response $response, array $args)
     {
-
         $this->qrCode->setText('123abc123')
             ->setSize(300);
 

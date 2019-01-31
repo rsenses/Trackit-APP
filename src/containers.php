@@ -8,12 +8,6 @@ $container = $app->getContainer();
 // Service providers
 // -----------------------------------------------------------------------------
 
-// PHP League Oauth Client
-$container['oauth'] = function ($container) {
-    $settings = $container->get('settings')['api']['oauth'];
-    return new League\OAuth2\Client\Provider\GenericProvider($settings);
-};
-
 // Guzzle HTTP
 $container['guzzle'] = function ($container) {
     $settings = $container->get('settings')['api']['guzzle'];

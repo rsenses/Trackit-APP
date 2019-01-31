@@ -6,27 +6,16 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
-use League\OAuth2\Client\Provider\GenericProvider;
-use App\Upload\Upload;
 use Slim\Flash\Messages;
 use Slim\Collection;
-use App\Validation\ValidatorInterface;
 use Slim\Interfaces\RouterInterface;
-use Exception;
-use Carbon\Carbon;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-
-use App\Entities\Product;
-use App\Entities\User;
-use App\Entities\Place;
 
 /**
  *
  */
 class ProductController
 {
-    private $oauth;
     private $flash;
     private $logger;
     private $router;
@@ -34,9 +23,8 @@ class ProductController
     private $settings;
     private $view;
 
-    public function __construct(Twig $view, LoggerInterface $logger, GenericProvider $oauth, Messages $flash, RouterInterface $router, Client $guzzle, Collection $settings)
+    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, RouterInterface $router, Client $guzzle, Collection $settings)
     {
-        $this->oauth = $oauth;
         $this->flash = $flash;
         $this->logger = $logger;
         $this->router = $router;
@@ -48,9 +36,9 @@ class ProductController
     public function infoAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [
+            $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -68,9 +56,9 @@ class ProductController
     public function searchAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/'.$args['id'].'/registrations/all', [
+            $apiRequest = $this->guzzle->request('GET', 'products/' . $args['id'] . '/registrations/all', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);

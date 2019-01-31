@@ -7,24 +7,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Views\Twig;
 use Psr\Log\LoggerInterface;
 use Slim\Flash\Messages;
-use League\OAuth2\Client\Provider\GenericProvider;
 use GuzzleHttp\Client;
 use Slim\Collection;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerErrorResponseException;
-use Exception;
 use Slim\Interfaces\RouterInterface;
 use Slim\Csrf\Guard;
-use Carbon\Carbon;
 use App\Validation\ValidatorInterface;
 use Respect\Validation\Validator as v;
-
-use App\Entities\Customer;
-use App\Entities\Product;
-use App\Entities\Registration;
-use App\Entities\User;
-use App\Entities\Verification;
 
 /**
  *
@@ -35,19 +24,17 @@ class RegistrationController
     private $flash;
     private $guzzle;
     private $logger;
-    private $oauth;
     private $router;
     private $settings;
     private $validator;
     private $view;
 
-    public function __construct(Twig $view, LoggerInterface $logger, GenericProvider $oauth, Messages $flash, Client $guzzle, RouterInterface $router, Guard $csrf, ValidatorInterface $validator, Collection $settings)
+    public function __construct(Twig $view, LoggerInterface $logger, Messages $flash, Client $guzzle, RouterInterface $router, Guard $csrf, ValidatorInterface $validator, Collection $settings)
     {
         $this->csrf = $csrf;
         $this->flash = $flash;
         $this->guzzle = $guzzle;
         $this->logger = $logger;
-        $this->oauth = $oauth;
         $this->router = $router;
         $this->settings = $settings;
         $this->validator = $validator;
@@ -58,9 +45,9 @@ class RegistrationController
     public function productAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/info/'.$args['id'], [
+            $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -120,7 +107,7 @@ class RegistrationController
         try {
             $apiRequest = $this->guzzle->request('POST', 'inscriptions/create/', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ],
                 'form_params' => [
@@ -153,9 +140,9 @@ class RegistrationController
     public function verifyAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/'.$args['qr'].'?'.$request->getUri()->getQuery(), [
+            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'] . '?' . $request->getUri()->getQuery(), [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -172,14 +159,14 @@ class RegistrationController
     public function toggleVerificationAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/'.$args['qr'], [
+            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'], [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
                     'Content-Language' => 'es'
                 ]
             ]);
 
-            return (string) $apiRequest->getBody();
+            return (string)$apiRequest->getBody();
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
         } catch (BadResponseException $e) {
