@@ -99,6 +99,9 @@ nav .btn-floating.right:first-child {
     background-color: #6ac700 !important;
 }
 
+.m-0 {
+    margin: 0;
+}
 .mt-0 {
     margin-top: 0;
 }
@@ -378,98 +381,75 @@ nav .btn-floating.btn-large i {
     font-style: oblique;
 }
 
-.charts-container {
-    display: block;
-    height: auto;
-    outline: 1px;
-    transition: .5s all;
-    list-style-type: none;
-    padding-left: 0;
-    padding-bottom: 0px;
-    color: #222;
-    margin: 0 auto;
-    text-align: center;
+#modalcharts .modal-content .row {
+    margin-bottom: 0;
 }
-
-.charts-container li {
-    display: inline-block;
-    margin: 0 4px;
-    padding: 0;
-    line-height: 18px;
-    overflow: hidden;
-    min-width: 80px;
-    max-width: 80px;
-}
-
-.chart {
-    position: relative;
-    margin: 0 auto;
-    display: block;
-}
-
-.chart canvas {
-    width: 97% !important;
-    height: 97% !important;
-}
-
-.chart .inside-values {
+#modalcharts .name-bar  {
+    text-transform: capitalize;
     font-size: 12px;
-    line-height: 30px;
-    text-align: center;
-    display: block;
-    position: absolute;
-    width: 100%;
-    top: calc(50% - 18px);
-    bottom: calc(50% - 20px);
 }
-
-.chart .inside-values span:first-child {
-    font-size: 21px;
+#modalcharts .progress {
+    height: 14px;
 }
-
-.chart-title {
-    margin: 0 auto;
-    text-align: center;
-    font-size: 14px;
-    font-weight: 200;
-    letter-spacing: .5px;
+#modalcharts .modal-content .row .col:nth-child(1) .progress {
+    background-color: #ffebee;
 }
-
-.chart-title i {
-    display: inline-block;
-    margin-top: 2px;
+#modalcharts .modal-content .row .col:nth-child(2) .progress {
+    background-color: #e8eaf6;
 }
-
-#count-registrations,
-#count-verifications {
-    color: #2BAAB1;
+#modalcharts .modal-content .row .col:nth-child(3) .progress {
+    background-color: #e0f2f1;
 }
-
-#count-speakers,
-#count-verified-speakers {
-    color: #007bff;
+#modalcharts .modal-content .row .col:nth-child(4) .progress {
+    background-color: #f0f4c3;
 }
-
-#count-vips,
-#count-verified-vips {
-    color: #6f42c1;
-    font-weight: 400;
+#modalcharts .modal-content .row .col:nth-child(5) .progress {
+    background-color: #fff3e0;
 }
-
-#count-registrations,
-#count-speakers,
-#count-vips {
-    font-size: 18px;
-    font-weight: 400;
+#modalcharts .modal-content .row .col:nth-child(6) .progress {
+    background-color: #eceff1;
 }
-
-audio,
-canvas,
-progress,
-video {
-    display: inline-block;
-    vertical-align: baseline;
-    width: 100%;
+#modalcharts .modal-content .row .col:nth-child(7) .progress {
+    background-color: #fffde7;
+}
+#modalcharts .modal-content .row .col:nth-child(8) .progress {
+    background-color: #e8f5e9;
+}
+#modalcharts .modal-content .row .col:nth-child(9) .progress {
+    background-color: #e1f5fe;
+}
+#modalcharts .modal-content .row .col:nth-child(10) .progress {
+    background-color: #ede7f6;
+}
+#modalcharts .modal-content .row .col:nth-child(1) .progress .determinate {
+   background-color: #f44336;
+}
+#modalcharts .modal-content .row .col:nth-child(2) .progress .determinate {
+    background-color: #3f51b5;
+}
+#modalcharts .modal-content .row .col:nth-child(3) .progress .determinate {
+    background-color: #009688;
+}
+#modalcharts .modal-content .row .col:nth-child(4) .progress .determinate {
+    background-color: #cddc39;
+}
+#modalcharts .modal-content .row .col:nth-child(5) .progress .determinate {
+    background-color: #ff9800;
+}
+#modalcharts .modal-content .row .col:nth-child(6) .progress .determinate {
+    background-color: #607d8b;
+}
+#modalcharts .modal-content .row .col:nth-child(7) .progress .determinate {
+    background-color: #ffeb3b;
+}
+#modalcharts .modal-content .row .col:nth-child(8) .progress .determinate {
+    background-color: #4caf50;
+}
+#modalcharts .modal-content .row .col:nth-child(9) .progress .determinate {
+    background-color: #03a9f4;
+}
+#modalcharts .modal-content .row .col:nth-child(10) .progress .determinate {
+    background-color: #673ab7;
 }
 footer .modal-trigger {
     position: fixed;

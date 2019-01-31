@@ -126,7 +126,7 @@
             var registrationsSpeakers = $('#count-speakers').text();
 
             var verificationsSpeakers = $('#count-verified-speakers').text();
-            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
+            var percentSpeakers = (Math.floor((verificationsSpeakers / registrationsSpeakers) * 100)) + 10;
             $('.chart-2').attr('data-percent', percentSpeakers);
             $('.chart-2').easyPieChart({
                 animate: 1000,

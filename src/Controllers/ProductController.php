@@ -10,10 +10,9 @@ use Slim\Flash\Messages;
 use Slim\Collection;
 use Slim\Interfaces\RouterInterface;
 use GuzzleHttp\Client;
+use Exception;
+use GuzzleHttp\Exception\ClientException;
 
-/**
- *
- */
 class ProductController
 {
     private $flash;
@@ -36,17 +35,19 @@ class ProductController
     public function infoAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
+            $apiRequest = $this->guzzle->request('GET', 'products/' . $args['id'], [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es'
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
                 ]
             ]);
 
-            return $response->withJson(json_decode($apiRequest->getBody(), true));
+            return $response->withJson(json_decode($apiRequest->getBody()));
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
+        } catch (Exception $e) {
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
@@ -76,7 +77,7 @@ class ProductController
             ]);
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
+        } catch (Exception $e) {
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));

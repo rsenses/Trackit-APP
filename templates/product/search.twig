@@ -139,32 +139,9 @@
     </div>
      <div id="modalcharts" class="modal bottom-sheet">
         <div class="modal-content">
-            <ul class="charts-container">
-                <li>
-                    <div class="chart-box asistentes">
-                        <div class="chart chart-1" data-percent=""><span class="inside-values"><span id="count-verifications"></span></span></div>
-                        <div class="chart-title asistentes">
-                            <span id="count-registrations"></span> <br class="visible-xs">Asistentes
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="chart-box ponentes">
-                        <div class="chart chart-2" data-percent=""><span class="inside-values"><span id="count-verified-speakers"></span></span></div>
-                        <div class="chart-title  ponentes">
-                            <span id="count-speakers"></span> <br class="visible-xs">Ponentes
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="chart-box vips">
-                        <div class="chart chart-3" data-percent=""><span class="inside-values"><span id="count-verified-vips"></span></span></div>
-                        <div class="chart-title vips">
-                            <span id="count-vips"></span><br class="visible-xs"> Vips
-                        </div>
-                    </div>
-                </li>
-            </ul>
+            <div class="row">
+            </div>
+      
         </div>
     </div>
 </footer>
@@ -173,7 +150,6 @@
 
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
-    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script>
         var info = function () {
             $.ajax({
@@ -183,16 +159,17 @@
                 cache: false,
                 context: this,
                 success: function(a) {
-                    $('#product-name').text(a.name);
-                    $('#slide-out .product-name').text(a.name);
-                    $('#count-registrations').text(a.registrations.all);
-                    $('#count-verifications').text(a.verifications.all);
-                    $('#count-speakers').text(a.registrations.speaker);
-                    $('#count-verified-speakers').text(a.verifications.speaker);
-                    $('#count-vips').text(a.registrations.vip);
-                    $('#count-verified-vips').text(a.verifications.vip);
-
-                    loadChart(a);
+                    $('#modalcharts .modal-content .row').empty();
+                    for (index in a['registrations'] ) {
+                        var val =  $.map(a['registrations'][index], function(value){
+                            return value;
+                        });
+                        var total = val[0];
+                        var verified = val[1];
+                        var percentage = Math.round((val[0] / val[1]) * 100);
+                        if(percentage == Infinity){percentage = 0}else{percentage};
+                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><strong>'+total +'</strong> ' + index +'s - Acreditados '+verified+' - '+ percentage +'% </p><div class="progress"><div class="determinate" style="width: '+percentage+'%"></div></div></div>');
+                    }
                 },
                 error: function(a) {
                     console.log(a);
@@ -202,69 +179,12 @@
                     setTimeout(info, 20000);
                 }
             });
-        }
-
-        var loadChart = function (a) {
-            var percentAssistants = Math.floor((a.verifications.all / a.registrations.all) * 100);
-            $('.chart-title, .chart span').animate({opacity: 1}, 3000);
-            $('.chart').animate({opacity: 1}, 3000);
-            $('.chart-1').attr('data-percent', percentAssistants);
-            $('.chart-1').easyPieChart({
-                animate: 3000,
-                barColor: '#2BAAB1',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-            var registrationsSpeakers = $('#count-speakers').text();
-
-            var verificationsSpeakers = $('#count-verified-speakers').text();
-            var percentSpeakers = Math.floor((verificationsSpeakers / registrationsSpeakers) * 100);
-            $('.chart-2').attr('data-percent', percentSpeakers);
-            $('.chart-2').easyPieChart({
-                animate: 1000,
-                barColor: '#007bff',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-
-            var percentVips = Math.floor((a.verifications.vip / a.registrations.vip) * 100);
-            $('.chart-3').attr('data-percent', percentVips);
-            $('.chart-3').easyPieChart({
-                animate: 2000,
-                barColor: '#6f42c1',
-                trackColor: '#d6d6d6',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'round',
-                size: 150
-            });
-            if (percentAssistants >= 0) {
-                $('.asistentes').removeClass('hide');
-            }
-            if (percentSpeakers >= 0) {
-                $('.ponentes').removeClass('hide');
-            }
-            if (percentVips >= 0) {
-                $('.vips').removeClass('hide');
-            }
-            $('.chart-1').data('easyPieChart').update(percentAssistants);
-            $('.chart-2').data('easyPieChart').update(percentSpeakers);
-            $('.chart-3').data('easyPieChart').update(percentVips);
         };
 
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
-            
+
             $(this).removeClass('verification');
             $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin blue-text');
 
@@ -276,6 +196,8 @@
                     context: this,
                     cache: false,
                     success: function(a) {
+                        console.log(a);
+                        return false;
                         $('#modalmsg').modal('open');
                         var title, message, buttons, style;
                         var metadata = '';
