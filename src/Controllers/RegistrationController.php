@@ -10,6 +10,7 @@ use Slim\Flash\Messages;
 use GuzzleHttp\Client;
 use Slim\Collection;
 use GuzzleHttp\Exception\ClientException;
+use Exception;
 use Slim\Interfaces\RouterInterface;
 use Slim\Csrf\Guard;
 use App\Validation\ValidatorInterface;
@@ -122,10 +123,17 @@ class RegistrationController
                     'unique_id' => $args['qr']
                 ]
             ]);
+
             return $response->withJson(json_decode($apiRequest->getBody(), true));
         } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
+            $guzzleResponse = $e->getResponse();
+            $body = json_decode($guzzleResponse->getBody());
+
+            return $response->withJson([
+                'error-level' => $guzzleResponse->getHeader('Error-Level')[0],
+                'message' => $body->message
+            ]);
+        } catch (Exception $e) {
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
