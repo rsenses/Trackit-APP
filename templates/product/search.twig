@@ -130,8 +130,6 @@
     <a class="btn-floating right btn-large waves-effect waves-light blue mr-10 mb-10 modal-trigger" href="#modalcharts"><i class="mdi mdi-chart-arc"></i></a>
     <div id="modalmsg" class="modal">
         <div class="modal-content">
-            <h4></h4>
-            <p></p>
         </div>
         <div class="modal-footer">
             <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
@@ -168,7 +166,7 @@
                         var percentage = Math.floor((verified / total) * 100);
                         isFinite(percentage) ? 0 : percentage;
                         var valueBar = (percentage >= 50) ? 'light' : '';
-                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><span style="text-tansform: capitalize;">'+ index +'s </span> '+verified+ ' de '+ total +'</p><div class="progress '+ valueBar +'">'+ percentage +'% <div class="determinate" style="width: '+percentage+'%"></div></div></div>');
+                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><span style="text-tansform: capitalize;">'+ index +'s </span> '+verified+ ' de '+ total +'</p><div class="progress '+ valueBar +'"><span style="z-index:999; position:absolute;">'+ percentage +'%</span> <div class="determinate" style="width: '+percentage+'%"></div></div></div>');
                     }
                 },
                 error: function(a) {
@@ -180,6 +178,25 @@
                 }
             });
         };
+        function showModal(style,title,message) {
+            $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
+            $('#modalmsg, #modalmsg .modal-footer').addClass(style);
+            $('#modalmsg .modal-content').html('<h4>'+title+'</h4>');
+            $('#modalmsg .modal-content').html(message);      
+        }
+        function cleanner() {
+            $('#modalmsg').modal('close');
+            $('input.search').val('');
+            $('.btn-clear').addClass('hide');
+            setTimeout(function(){
+                $('.nolist').removeClass('hide');
+                $('footer .modal-trigger').addClass('hide');
+                setTimeout(function(){
+                    $('#list').addClass('hide');
+                    $('input.search').focus();
+                }, 1000);
+            }, 1000);
+        }
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
@@ -200,50 +217,37 @@
                         $('#modalmsg').modal('open');
                         var title, message, buttons, style;
                         var metadata = '';
-                        if ('level' in a) {
-                            if (a.level == 'danger') {
-                                style = 'red';
-                                title = 'Error';
-                                message = a.message;
-                            } else if (a.level == 'warning') {
-                                style = 'orange';
-                                title = 'Cuidado';
-                                message = a.message;
-                            }
-                        } else {
                             for (var key in a.metadata) {
-                                metadata += '<strong>'+key+'</strong>: '+a.metadata[key]+' / ';
+                                metadata += '<li><strong>'+key+'</strong>: '+a.metadata[key]+'</li>';
                             }
                             style = 'green';
                             title = 'Correcto';
-                            message = a.customer.first_name+' '+a.customer.last_name+'<br /><br><small> / '+metadata+'</small>';
-                            $('.results-scan').html('<p class="white-text">'+a.user+': <small> / '+metadata+'</small></p>');
-                        }
-                        $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
-                        $('#modalmsg, #modalmsg .modal-footer').addClass(style);
-                        $('#modalmsg .modal-content h4').html(title);
-                        $('#modalmsg .modal-content p').html(message);
-                        $(this).data('uniqueid', null);
-                        $(this).closest('tr').addClass('green lighten-5');
-                        $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check green-text');
-                        
-                        // setTimeout(function(){
-                        //     $('#modalmsg').modal('close');
-                        //     $('input.search').val('');
-                        //     $('.btn-clear').addClass('hide');
-                        //     setTimeout(function(){
-                        //         $('.nolist').removeClass('hide');
-                        //         $('footer .modal-trigger').addClass('hide');
-                        //         setTimeout(function(){
-                        //             $('#list').addClass('hide');
-                        //         }, 1000);
-                        //     }, 1000);
-                        // }, 2000);
+                            message = '<ul class="white-text"><li><h5>'+a.customer.first_name+' '+a.customer.last_name+'</h5></li> '+metadata+'</ul>';
+
+                            $('.results-scan').append(message);
+
+                            $(this).closest('tr').addClass('green lighten-5');
+                            $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check green-text');
+                            showModal(style,title,message);
+                            setTimeout(cleanner(), 2000);
+                        }      
                     },
                     error: function(a) {
-                        console.log(a);
+                        if (a.level == 'danger') {
+                            style = 'red';
+                            title = 'Error';
+                            message = '<p>'+a.message+'</p>';
+                        } else if (a.level == 'warning') {
+                            style = 'orange';
+                            title = 'Cuidado';
+                            message = '<p>'+a.message+'</p>';
+                        }
+
                         $(this).addClass('verification');
                         $(this).children('i').removeClass(function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('blue-text').addClass('mdi-check grey-text');
+                        
+                        showModal(style,title,message);
+                        setTimeout(cleanner(), 2000);
                     }
                 });
             }
