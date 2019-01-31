@@ -47,7 +47,7 @@ class RegistrationController
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -107,7 +107,7 @@ class RegistrationController
         try {
             $apiRequest = $this->guzzle->request('POST', 'inscriptions/create/', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
                     'Content-Language' => 'es'
                 ],
                 'form_params' => [
@@ -142,7 +142,7 @@ class RegistrationController
         try {
             $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'] . '?' . $request->getUri()->getQuery(), [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -161,7 +161,7 @@ class RegistrationController
         try {
             $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'], [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
                     'Content-Language' => 'es'
                 ]
             ]);

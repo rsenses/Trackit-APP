@@ -38,7 +38,7 @@ class ProductController
         try {
             $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
                     'Content-Language' => 'es'
                 ]
             ]);
@@ -56,14 +56,19 @@ class ProductController
     public function searchAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'products/' . $args['id'] . '/registrations/all', [
+            $apiRequest = $this->guzzle->request('GET', 'registrations', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken']->getToken(),
-                    'Content-Language' => 'es'
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ],
+                'query' => [
+                    'product_id' => $args['id']
                 ]
             ]);
 
-            $registrations = json_decode($apiRequest->getBody(), true);
+            $registrations = json_decode($apiRequest->getBody());
 
             return $this->view->render($response, 'product/search.twig', [
                 'registrations' => $registrations,
