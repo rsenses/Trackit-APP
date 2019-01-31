@@ -222,8 +222,11 @@ nav .sidenav-trigger {
     padding-bottom: 0px;
 }
 
-#list tbody tr td:first-child span {
+#list tbody tr td:first-child {
     text-transform: capitalize;
+}
+#list tbody tr td:first-child span,
+#list tbody tr td:first-child small {
     font-weight: 300;
     color: #141414
 }

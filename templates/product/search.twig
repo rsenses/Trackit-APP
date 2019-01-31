@@ -52,7 +52,7 @@
                                 {% endif %}
                                     <td>
                                         <span>{{ registration.customer.first_name }} {{ registration.customer.last_name }}</span><br>
-                                        <!-- {% if registration.type ==  'Ponente'%}
+                                        {% if registration.type ==  'Ponente'%}
                                             <h6 class="deep-orange-text">{{ registration.type }}</h6>
                                         {% else %}
                                             {{ registration.type }}
@@ -64,7 +64,7 @@
                                                  | No Asiste
                                             {% endif %}
                                             </small>
-                                        {% endif %} -->
+                                        {% endif %}
                                     </td>
                                     <td>
                                         {% for meta in registration.customer.metas %}

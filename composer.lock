@@ -884,24 +884,23 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.99.99",
+            "version": "v2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "35469243ebbb9be5086cff57538cac6da2c36852"
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/35469243ebbb9be5086cff57538cac6da2c36852",
-                "reference": "35469243ebbb9be5086cff57538cac6da2c36852",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
+                "reference": "0a58ef6e3146256cc3dc7cc393927bcc7d1b72db",
                 "shasum": ""
             },
             "require": {
-                "php": "^7"
+                "php": ">=5.2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "vimeo/psalm": "^1"
+                "phpunit/phpunit": "4.*|5.*"
             },
             "suggest": {
                 "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
@@ -930,7 +929,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-06T05:12:00+00:00"
+            "time": "2019-01-03T20:59:08+00:00"
         },
         {
             "name": "pimple/pimple",
