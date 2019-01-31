@@ -131,7 +131,7 @@ class RegistrationController
             $level = !empty($guzzleResponse->getHeader('Error-Level')[0]) ? $guzzleResponse->getHeader('Error-Level')[0] : 'danger';
             $message = !empty($body->errors) ? $body->errors->unique_id[0] : $body->message;
 
-            return $response->withJson([
+            return $response->withStatus(401)->withJson([
                 'level' => $level,
                 'message' => $message
             ]);
