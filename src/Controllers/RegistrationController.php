@@ -130,7 +130,7 @@ class RegistrationController
             $body = json_decode($guzzleResponse->getBody());
 
             return $response->withJson([
-                'error-level' => $guzzleResponse->getHeader('Error-Level')[0],
+                'level' => $guzzleResponse->getHeader('Error-Level')[0],
                 'message' => $body->message
             ]);
         } catch (Exception $e) {
