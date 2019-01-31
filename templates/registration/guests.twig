@@ -45,12 +45,12 @@
                     <label for="positionInput">Cargo</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <select class="white validate" id="typeId" name="registration_type_id" required>
-                        <option value="3">Invitado</option>
-                        <option value="5">Ponente</option>
-                        <option value="6">Prensa</option>
+                    <select class="white validate" id="type" name="registration_type" required>
+                        <option>Invitado</option>
+                        <option>Ponente</option>
+                        <option>Prensa</option>
                     </select>
-                    <label for="typeId">Tipo de registro</label>
+                    <label for="type">Tipo de registro</label>
                 </div>
                 {{ csrf.field | raw }}
                 <div class="col s12 right-align">
