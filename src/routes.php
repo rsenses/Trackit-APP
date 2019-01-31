@@ -39,8 +39,6 @@ $app->group('', function () {
     $this->group('/registration', function () {
         // Verify
         $this->get('/verify/{qr}', 'RegistrationController:verifyAction')->setName('registration.verify');
-        // Toggle Verification
-        $this->get('/toggle/verification/{qr:[a-zA-Z0-9_.-]+}', 'RegistrationController:toggleVerificationAction')->setName('registration.toggle.verification');
         // Create Registration
         $this->get('/create/product/{id:[0-9]+}', 'RegistrationController:createAction')->setName('registration.guests');
         // Create Inscriptions

@@ -41,44 +41,17 @@ class RegistrationController
         $this->view = $view;
     }
 
-
-    public function productAction(Request $request, Response $response, array $args)
-    {
-        try {
-            $apiRequest = $this->guzzle->request('GET', 'products/info/' . $args['id'], [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es'
-                ]
-            ]);
-
-            return $this->view->render($response, 'registration/camerascan.twig', [
-                'product' => json_decode($apiRequest->getBody()),
-                'product_id' => $args['id']
-            ]);
-        } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
-            $this->flash->addMessage('danger', $e->getMessage());
-
-            return $response->withRedirect($this->router->pathFor('auth.signin'));
-        }
-    }
-
     public function createAction(Request $request, Response $response, array $args)
     {
         return $this->view->render($response, 'registration/guests.twig', [
-            'product_id' => $args['id'],
-            'type' => $request->getQueryParam('type'),
-            'registration_type' => $this->settings['enum']['registration_type']
+            'product_id' => $args['id']
         ]);
     }
+
     public function inscriptionsAction(Request $request, Response $response, array $args)
     {
         return $this->view->render($response, 'registration/assistants.twig', [
-            'product_id' => $args['id'],
-            'type' => $request->getQueryParam('type'),
-            'registration_type' => $this->settings['enum']['registration_type']
+            'product_id' => $args['id']
         ]);
     }
 
@@ -87,7 +60,7 @@ class RegistrationController
         $validation = $this->validator->validate($request, [
             'first_name' => v::notEmpty(),
             'last_name' => v::notEmpty(),
-            'registration_type_id' => v::notEmpty(),
+            'registration_type' => v::notEmpty(),
             'email' => v::noWhitespace()->notEmpty()->email()
         ]);
 
@@ -105,10 +78,12 @@ class RegistrationController
         }
 
         try {
-            $apiRequest = $this->guzzle->request('POST', 'inscriptions/create/', [
+            $apiRequest = $this->guzzle->request('POST', 'registrations', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es'
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
                 ],
                 'form_params' => [
                     'first_name' => $request->getParam('first_name'),
@@ -118,12 +93,8 @@ class RegistrationController
                     'company' => $request->getParam('company'),
                     'position' => $request->getParam('position'),
                     'product_id' => $args['id'],
-                    'registration_type_id' => $request->getParam('registration_type_id'),
-                    'verification' => $request->getParam('verification'),
-                    'infothird' => $request->getParam('infothird'),
-                    'infomail' => $request->getParam('infomail'),
-                    'legal' => $request->getParam('legal'),
-                    'age' => $request->getParam('age'),
+                    'registration_type' => $request->getParam('registration_type_id'),
+                    'transition' => $request->getParam('verification') ? 'verify' : 'approve',
                 ]
             ]);
 
@@ -140,33 +111,18 @@ class RegistrationController
     public function verifyAction(Request $request, Response $response, array $args)
     {
         try {
-            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'] . '?' . $request->getUri()->getQuery(), [
+            $apiRequest = $this->guzzle->request('POST', 'verifications', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es'
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ],
+                'form_params' => [
+                    'unique_id' => $args['qr']
                 ]
             ]);
             return $response->withJson(json_decode($apiRequest->getBody(), true));
-        } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
-            $this->flash->addMessage('danger', $e->getMessage());
-
-            return $response->withRedirect($this->router->pathFor('auth.signin'));
-        }
-    }
-
-    public function toggleVerificationAction(Request $request, Response $response, array $args)
-    {
-        try {
-            $apiRequest = $this->guzzle->request('GET', 'inscriptions/verify/' . $args['qr'], [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es'
-                ]
-            ]);
-
-            return (string)$apiRequest->getBody();
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
         } catch (BadResponseException $e) {
