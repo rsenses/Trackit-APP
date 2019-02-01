@@ -166,7 +166,7 @@
                         var percentage = Math.floor((verified / total) * 100);
                         isFinite(percentage) ? 0 : percentage;
                         var valueBar = (percentage >= 60) ? 'light' : '';
-                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><span style="text-tansform: capitalize;">'+ index +'s </span> '+verified+ ' de '+ total +'</p><div class="progress '+ valueBar +'"><span style="z-index:999; position:absolute;">'+ percentage +'%</span> <div class="determinate" style="width: '+percentage+'%"></div></div></div>');
+                        $('#modalcharts .modal-content .row').append('<div class="col s6 mb-10"><p class="name-bar m-0 blue-grey-text text-darken-4"><span style="text-tansform: capitalize;">'+ index +'s </span> '+verified+ ' de '+ total +'</p><div class="progress '+ valueBar +'"><span style="z-index:999; position:absolute; left:0;  width:100%;">'+ percentage +'%</span> <div class="determinate" style="width: '+percentage+'%"></div></div></div>');
                     }
                 },
                 error: function(a) {

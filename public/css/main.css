@@ -395,15 +395,18 @@ nav .btn-floating.btn-large i {
     line-height: 14px;
     text-align: center;
     color: #000;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 #modalcharts .progress.light {
     color: #FFF;
+    text-shadow: 0px 1px 0px #000;
 }
 #modalcharts .modal-content .row .col:nth-child(1) .progress {
-    background-color: #ffebee;
+    background-color: #e8eaf6;
 }
 #modalcharts .modal-content .row .col:nth-child(2) .progress {
-    background-color: #e8eaf6;
+    background-color: #ffebee;
 }
 #modalcharts .modal-content .row .col:nth-child(3) .progress {
     background-color: #e0f2f1;
@@ -430,10 +433,10 @@ nav .btn-floating.btn-large i {
     background-color: #ede7f6;
 }
 #modalcharts .modal-content .row .col:nth-child(1) .progress .determinate {
-   background-color: #f44336;
+    background-color: #3f51b5;
 }
 #modalcharts .modal-content .row .col:nth-child(2) .progress .determinate {
-    background-color: #3f51b5;
+   background-color: #f44336;
 }
 #modalcharts .modal-content .row .col:nth-child(3) .progress .determinate {
     background-color: #009688;
