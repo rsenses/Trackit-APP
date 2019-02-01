@@ -20,6 +20,7 @@ $(document).on('click', '.closer', function (event) {
 
 $(document).ready(function () {
     var ww = window.screen.width;
+    console.log(ww);
     // var wh = window.screen.height;
     // $('body').append('<div style="color:#FFF;position:fixed;bottom:10px;right:10px;">' + ww + 'x' + wh + '</div>')
     $('select').formSelect();
@@ -28,6 +29,7 @@ $(document).ready(function () {
         $('#email').focus();
     }
     if (ww <= 360 && ($('form.login').length)) {
+        
         var action = $('form.login').attr('action');
         $('form.login').attr('action', action + '?device=mobile')
     }
