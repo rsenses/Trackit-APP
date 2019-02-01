@@ -104,8 +104,7 @@
             }
         });
     }
-</script>
-<script>
+
     $('form').submit(function (event) {
         event.preventDefault();
 
@@ -120,4 +119,5 @@
         $('#modalmsg .modal-content p.msg').html(name + ' ' + lastname + '<br><small>' + email);
         $('#modalmsg').modal('open');
     });
-</script> {% endblock %}
+</script>
+{% endblock %}

@@ -367,7 +367,6 @@ nav .btn-floating.btn-large i {
 .modal .modal-content p {
     font-size: 1.5em;
 }
-
 .modal.inscriptions .modal-content p {
     line-height: 1em;
 }
@@ -489,7 +488,7 @@ table tbody tr td:nth-child(4) {
     position: fixed;
     bottom: 0px;
     width: 100%;
-    max-height: 10%;
+    max-height: 20%;
     overflow-y: auto;
 }
 
@@ -561,6 +560,9 @@ table tbody tr td:nth-child(4) {
 }
 
 @media screen and (min-width:768px) {
+    .results-scan {
+        max-width: 10%;
+    }
     table thead tr th:first-child,
     table tbody tr td:first-child {
         text-align: left;
