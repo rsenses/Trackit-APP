@@ -34,8 +34,23 @@ class ProductController
 
     public function selectAction(Request $request, Response $response)
     {
+        try {
+            $productsRequest = $this->guzzle->request('GET', 'products', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
+                    'Content-Language' => 'es',
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                ]
+            ]);
+
+            $products = json_decode($productsRequest->getBody());
+        } catch (\Throwable $th) {
+            error_log($th->getMessage());
+        }
+
         return $this->view->render($response, 'product/select.twig', [
-            'products' => $response
+            'products' => $products
         ]);
     }
 

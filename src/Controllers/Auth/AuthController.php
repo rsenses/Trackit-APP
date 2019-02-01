@@ -95,8 +95,7 @@ class AuthController
 
         if (count($products) > 1) {
             // TODO: redirige a nueva ruta con múltiples productos
-            return $response->withRedirect($this->router->pathFor('product.select', ['products' => $products]));
-
+            return $response->withRedirect($this->router->pathFor('product.select'));
         } else {
             $device = $request->getQueryParam('device');
 
