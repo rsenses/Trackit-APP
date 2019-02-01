@@ -32,6 +32,13 @@ class ProductController
         $this->view = $view;
     }
 
+    public function selectAction(Request $request, Response $response)
+    {
+        return $this->view->render($response, 'product/select.twig', [
+            'products' => $response
+        ]);
+    }
+
     public function infoAction(Request $request, Response $response, array $args)
     {
         try {
@@ -91,10 +98,5 @@ class ProductController
         ]);
     }
 
-    public function cameraScanAction(Request $request, Response $response, array $args)
-    {
-        return $this->view->render($response, 'product/camerascan.twig', [
-            'product_id' => $args['id'],
-        ]);
-    }
+
 }
