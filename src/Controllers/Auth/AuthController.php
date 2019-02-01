@@ -102,6 +102,8 @@ class AuthController
                 $path = 'product.search';
             }
 
+            $_SESSION['product_name'] = $products[0]->name;
+
             return $response->withRedirect($this->router->pathFor('product.search', ['id' => $products[0]->product_id]));
         }
     }
