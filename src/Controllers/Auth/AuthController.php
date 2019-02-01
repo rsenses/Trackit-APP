@@ -96,7 +96,7 @@ class AuthController
         } else {
             $device = $request->getQueryParam('device');
 
-            
+
             if ($device == 'mobile') {
                 $path = 'product.laserscan';
             } else {
