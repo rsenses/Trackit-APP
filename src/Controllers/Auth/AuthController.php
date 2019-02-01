@@ -11,7 +11,7 @@ use App\Validation\ValidatorInterface;
 use Slim\Interfaces\RouterInterface;
 use Respect\Validation\Validator as v;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
 
 class AuthController
 {
@@ -81,7 +81,7 @@ class AuthController
             ]);
 
             $products = json_decode($productsRequest->getBody());
-        } catch (BadResponseException $e) {
+        } catch (ClientException $e) {
             if ($e->getResponse()->getStatusCode() === 400) {
                 $this->flash->addMessage('danger', 'Ningún producto asignado.');
             } else {
@@ -89,6 +89,8 @@ class AuthController
             }
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
+        } catch (\Throwable $th) {
+            error_log($th->getMessage());
         }
 
         if (count($products) > 1) {
