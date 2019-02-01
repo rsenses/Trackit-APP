@@ -94,9 +94,10 @@ class AuthController
         if (count($products) > 1) {
             // TODO: redirige a nueva ruta con múltiples productos
         } else {
-            $device = $request->getQueryParams('device');
+            $device = $request->getQueryParam('device');
 
-            if ($device === 'mobile') {
+            
+            if ($device == 'mobile') {
                 $path = 'product.laserscan';
             } else {
                 $path = 'product.search';
@@ -104,7 +105,7 @@ class AuthController
 
             $_SESSION['product_name'] = $products[0]->name;
 
-            return $response->withRedirect($this->router->pathFor('product.search', ['id' => $products[0]->product_id]));
+            return $response->withRedirect($this->router->pathFor($path, ['id' => $products[0]->product_id]));
         }
     }
 
