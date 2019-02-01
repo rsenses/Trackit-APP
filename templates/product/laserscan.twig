@@ -61,8 +61,7 @@
                 context: this,
                 success: function(a) {
                     $('.head-scan').empty();
-                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escáner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');
-                                        
+                    $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escáner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');           
                     $('#modalcharts .modal-content .row').empty();
                     for (index in a['registrations'] ) {
                         var val =  $.map(a['registrations'][index], function(value){
