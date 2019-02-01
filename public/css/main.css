@@ -504,11 +504,9 @@ table tbody tr td:nth-child(4) {
     padding-bottom: 5px;
     border-bottom: 1px solid #ccc;
 }
-
 .results-scan ul:last-child {
     border-bottom: 0;
 }
-
 .results-scan ul:first-child {
     margin-top: 5px;
 }
@@ -519,7 +517,6 @@ table tbody tr td:nth-child(4) {
 .results-scan ul li:first-child:before {
     display: none;
 }
-
 .results-scan ul li:before {
     display: inline-block;
     content: '-';
