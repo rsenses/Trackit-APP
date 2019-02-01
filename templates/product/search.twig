@@ -235,17 +235,17 @@
                         
                         setTimeout(function() {cleanner() }, 2000);
                     },
-                    error: function(a, b, c) {
-
-                        a = JSON.parse(a.responseText);
-                        if (a.level == 'danger') {
-                            style = 'red';
-                            title = 'Error';
-                            message = '<p>'+a.message+'</p>';
-                        } else if (a.level == 'warning') {
+                    error: function(jqXHR) {
+                        var response = JSON.parse(jqXHR.responseText);
+                        
+                        if (jqXHR.status == 403) {
                             style = 'orange';
                             title = 'Cuidado';
-                            message = '<p>'+a.message+'</p>';
+                            message = '<p>'+response.message+'</p>';
+                        } else {
+                            style = 'red';
+                            title = 'Error';
+                            message = '<p>'+response.message+'</p>';
                         }
 
                         $(this).addClass('verification');

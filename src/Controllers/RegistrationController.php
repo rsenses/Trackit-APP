@@ -128,11 +128,9 @@ class RegistrationController
         } catch (ClientException $e) {
             $guzzleResponse = $e->getResponse();
             $body = json_decode($guzzleResponse->getBody());
-            $level = !empty($guzzleResponse->getHeader('Error-Level')[0]) ? $guzzleResponse->getHeader('Error-Level')[0] : 'danger';
             $message = !empty($body->errors) ? $body->errors->unique_id[0] : $body->message;
 
-            return $response->withStatus(401)->withJson([
-                'level' => $level,
+            return $response->withStatus($guzzleResponse->getStatusCode())->withJson([
                 'message' => $message
             ]);
         } catch (Exception $e) {
