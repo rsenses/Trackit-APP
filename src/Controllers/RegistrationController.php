@@ -94,7 +94,7 @@ class RegistrationController
                     'company' => $request->getParam('company'),
                     'position' => $request->getParam('position'),
                     'product_id' => $args['id'],
-                    'registration_type' => $request->getParam('registration_type_id'),
+                    'registration_type' => $request->getParam('registration_type'),
                     'transition' => $request->getParam('verification') ? 'verify' : 'approve',
                 ]
             ]);
@@ -102,7 +102,7 @@ class RegistrationController
             return $response->withJson(json_decode($apiRequest->getBody(), true));
         } catch (ClientException $e) {
             return $response->withJson(json_decode($e->getResponse()->getBody(), true));
-        } catch (BadResponseException $e) {
+        } catch (Exception $e) {
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
