@@ -9,7 +9,9 @@
         {% endif %}
     </li>
     <li><div class="divider"></div></li>
-    <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Registro de usuarios sin ENTRADA/QR" href="{{ path_for('registration.guests', {'id': product_id}) }}">Registro invitados<i class="mdi mdi-account-group"></i></a></li>
+    {% if(product_name) %}    
+        <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Registro de usuarios sin ENTRADA/QR" href="{{ path_for('registration.guests', {'id': product_id}) }}">Registro invitados<i class="mdi mdi-account-group"></i></a></li>
+    {% endif %}
     {# <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Ver guía en PDF" href="#0" >Guía usuario<i class="mdi mdi-file-pdf"></i></a></li> #}
     {# <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Ayuda on-line" href="">Soporte<i class="mdi mdi-help"></i></a></li> #}
     {# <li><a class="waves-effect help" href="#0">ACTIVAR AYUDA<i class="mdi mdi-tooltip-outline"></i></a></li> #}
