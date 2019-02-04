@@ -29,11 +29,12 @@ $app->group('', function () {
     // Product Group
     $this->group('/product', function () {
         // All Products
-        $this->get('/select', 'ProductController:selectAction')->setName('product.select');
+        $this->get('/', 'ProductController:indexAction')->setName('product.index');
         $this->get('/info/{id:[0-9]+}', 'ProductController:infoAction')->setName('product.info');
         $this->get('/{id:[0-9]+}/search', 'ProductController:searchAction')->setName('product.search');
         $this->get('/{id:[0-9]+}/camerascan', 'ProductController:cameraScanAction')->setName('product.camerascan');
         $this->get('/{id:[0-9]+}/laserscan', 'ProductController:laserScanAction')->setName('product.laserscan');
+        $this->get('/{id:[0-9]+}/select', 'ProductController:selectAction')->setName('product.select');
     });
 
     // Registration Group

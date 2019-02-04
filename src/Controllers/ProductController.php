@@ -32,26 +32,22 @@ class ProductController
         $this->view = $view;
     }
 
-    public function selectAction(Request $request, Response $response)
+    public function indexAction(Request $request, Response $response)
     {
-        try {
-            $productsRequest = $this->guzzle->request('GET', 'products', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $_SESSION['accessToken'],
-                    'Content-Language' => 'es',
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/x-www-form-urlencoded',
-                ]
-            ]);
-
-            $products = json_decode($productsRequest->getBody());
-        } catch (\Throwable $th) {
-            error_log($th->getMessage());
-        }
-
         return $this->view->render($response, 'product/select.twig', [
-            'products' => $products
+            'products' => $_SESSION['products']
         ]);
+    }
+
+    public function selectAction(Request $request, Response $response, array $args)
+    {
+        $product = $_SESSION['product'] = $_SESSION['products'][$args['id']];
+
+        $action = $request->getQueryParam('action');
+
+        $path = 'product.' . $action;
+
+        return $response->withRedirect($this->router->pathFor($path, ['id' => $product->product_id]));
     }
 
     public function infoAction(Request $request, Response $response, array $args)
@@ -78,6 +74,11 @@ class ProductController
 
     public function searchAction(Request $request, Response $response, array $args)
     {
+        $product = $_SESSION['product'];
+
+        $registrations = null;
+        $apiResponse = null;
+
         try {
             $apiRequest = $this->guzzle->request('GET', 'registrations', [
                 'headers' => [
@@ -87,23 +88,24 @@ class ProductController
                     'Content-Type' => 'application/x-www-form-urlencoded',
                 ],
                 'query' => [
-                    'product_id' => $args['id']
+                    'product_id' => $product->product_id
                 ]
             ]);
 
             $registrations = json_decode($apiRequest->getBody());
-
-            return $this->view->render($response, 'product/search.twig', [
-                'registrations' => $registrations,
-                'product_id' => $args['id'],
-            ]);
         } catch (ClientException $e) {
-            return $response->withJson(json_decode($e->getResponse()->getBody(), true));
+            $apiResponse = json_decode($e->getResponse()->getBody());
         } catch (Exception $e) {
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         }
+
+        return $this->view->render($response, 'product/search.twig', [
+            'response' => $apiResponse,
+            'registrations' => $registrations,
+            'product' => $product,
+        ]);
     }
 
     public function laserScanAction(Request $request, Response $response, array $args)
@@ -112,6 +114,4 @@ class ProductController
             'product_id' => $args['id'],
         ]);
     }
-
-
 }

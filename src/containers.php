@@ -52,8 +52,12 @@ $container['view'] = function ($container) {
 
     $view->getEnvironment()->addGlobal('flash', $container->flash);
 
-    if (!empty($_SESSION['product_name'])) {
-        $view->getEnvironment()->addGlobal('product_name', $_SESSION['product_name']);
+    if (!empty($_SESSION['products'])) {
+        $view->getEnvironment()->addGlobal('products', $_SESSION['products']);
+    }
+
+    if (!empty($_SESSION['product'])) {
+        $view->getEnvironment()->addGlobal('product', $_SESSION['product']);
     }
 
     return $view;

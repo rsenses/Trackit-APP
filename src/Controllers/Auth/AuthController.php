@@ -80,13 +80,15 @@ class AuthController
                 ]
             ]);
 
-            $products = json_decode($productsRequest->getBody());
+            $_SESSION['products'] = $products = json_decode($productsRequest->getBody());
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 400 ||$e->getResponse()->getStatusCode() === 404  ) {
-                $this->flash->addMessage('danger', 'Ningún producto asignado.');
+            if ($e->getResponse()->getStatusCode() === 400 || $e->getResponse()->getStatusCode() === 404) {
+                $message = 'Ningún producto asignado.';
             } else {
-                throw new \Exception($e->getMessage(), 500);
+                $message = $e->getMessage();
             }
+
+            $this->flash->addMessage('danger', $message);
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         } catch (\Throwable $th) {
@@ -94,11 +96,7 @@ class AuthController
         }
 
         if (count($products) > 1) {
-            
-            // TODO: redirige a nueva ruta con múltiples productos
-            return $response->withRedirect($this->router->pathFor('product.select'));
-            
-
+            return $response->withRedirect($this->router->pathFor('product.index'));
         } else {
             $device = $request->getQueryParam('device');
 
@@ -107,8 +105,8 @@ class AuthController
             } else {
                 $path = 'product.search';
             }
-            
-            $_SESSION['product_name'] = $products[0]->name;
+
+            $_SESSION['product'] = $products[0];
 
             return $response->withRedirect($this->router->pathFor($path, ['id' => $products[0]->product_id]));
         }
