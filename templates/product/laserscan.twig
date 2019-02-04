@@ -49,10 +49,10 @@
 {% endblock %}
 
 {% block scripts %}
-        <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
-    
+    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
     <script>
-        var info = function () {
+        var col;
+        function info() {
             $.ajax({
                 type: "GET",
                 url: "/product/info/{{ product_id }}",
@@ -60,9 +60,9 @@
                 cache: false,
                 context: this,
                 success: function(a) {
-                    $('.head-scan').empty();
+                    $('.head-scan, #modalcharts .modal-content .row').empty();
                     $('.head-scan').html('<h1><i class="mdi mdi-qrcode-scan"></i></h1><h4>Escáner listo <br><small>Pulse las teclas para comenzar búsqueda.</small></h4>');           
-                    $('#modalcharts .modal-content .row').empty();
+                    col = '';
                     for (index in a['registrations'] ) {
                         var val =  $.map(a['registrations'][index], function(value){
                             return value;
@@ -81,11 +81,7 @@
             });
         };
 
-        $(document).on('click', '.modal-trigger', function() {
-            $('#modalcharts .modal-content .row').empty();
-            info();
-        });
-
+        
         function callModal(style,title,message) {
             $('#modalmsg').modal('open');
             $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
@@ -205,13 +201,15 @@
             }
         });
 
-        $(document).ready(function() {
+        $(document).on('click', '.modal-trigger', function() {
             info();
-         });
+        });
     </script>
     <script type="text/javascript">
         var idleTime = 0;
         $(document).ready(function () {
+            info();
+
             //Increment the idle time counter every minute.
             var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
         

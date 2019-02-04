@@ -148,14 +148,15 @@
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script>
-        var info = function () {
+        function info() {
             $.ajax({
                 type: "GET",
                 url: "/product/info/{{ product.product_id }}",
                 dataType: "json",
                 cache: false,
                 context: this,
-                success: function(a) {                    
+                success: function(a) {
+                    $('#modalcharts .modal-content .row').empty();          
                     for (index in a['registrations'] ) {
                         var val =  $.map(a['registrations'][index], function(value){
                             return value;
@@ -197,10 +198,7 @@
         }
         
         $(document).on('click', '.modal-trigger', function() {
-            $('#modalcharts .modal-content .row').empty();
-            setTimeout(function(){
-                info();
-            }, 600);
+            info();
         });
 
         $(document).on('click', '.verification', function(event) {
@@ -220,7 +218,6 @@
                     context: this,
                     cache: false,
                     success: function(a) {
-
                         for (var key in a.metadata) {
                             metadata += '<li><strong>'+key+'</strong>: '+a.metadata[key]+'</li>';
                         }
@@ -294,6 +291,7 @@
         var idleTime = 0;
 
         $(document).ready(function () {
+            info();
             //Increment the idle time counter every minute.
             var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
         
