@@ -197,12 +197,10 @@
         }
         
         $(document).on('click', '.modal-trigger', function() {
-            setTimeout(function(){
-                $('#modalcharts .modal-content .row').empty();
-            }, 600);
+            $('#modalcharts .modal-content .row').empty();
             setTimeout(function(){
                 info();
-            }, 1000);
+            }, 600);
         });
 
         $(document).on('click', '.verification', function(event) {
