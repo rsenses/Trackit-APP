@@ -4,12 +4,12 @@
     </li>
     <li>
         {% if(product_name) %}
-            <h6 class="center-align">Estás en el evento:</h6>
-            <p class="product-name">{{ product_name }}</p>
+        <h6 class="center-align">Estás en el evento:</h6>
+        <p class="product-name">{{ product_name }}</p>
         {% endif %}
     </li>
-    <li><div class="divider"></div></li>
-    {% if(product_name) %}    
+    {% if(product_id) %}
+    <li><div class="divider"></div></li>    
         <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Registro de usuarios sin ENTRADA/QR" href="{{ path_for('registration.guests', {'id': product_id}) }}">Registro invitados<i class="mdi mdi-account-group"></i></a></li>
     {% endif %}
     {# <li><a class="waves-effect tooltipped" data-position="right" data-tooltip="Ver guía en PDF" href="#0" >Guía usuario<i class="mdi mdi-file-pdf"></i></a></li> #}
