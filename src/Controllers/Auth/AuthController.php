@@ -82,7 +82,7 @@ class AuthController
 
             $products = json_decode($productsRequest->getBody());
         } catch (ClientException $e) {
-            if ($e->getResponse()->getStatusCode() === 400) {
+            if ($e->getResponse()->getStatusCode() === 400 ||$e->getResponse()->getStatusCode() === 404  ) {
                 $this->flash->addMessage('danger', 'Ningún producto asignado.');
             } else {
                 throw new \Exception($e->getMessage(), 500);
