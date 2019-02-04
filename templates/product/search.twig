@@ -156,7 +156,6 @@
                 cache: false,
                 context: this,
                 success: function(a) {                    
-                    $('#modalcharts .modal-content .row').empty();
                     for (index in a['registrations'] ) {
                         var val =  $.map(a['registrations'][index], function(value){
                             return value;
@@ -171,10 +170,6 @@
                 },
                 error: function(a) {
                     console.log(a);
-                },
-                complete: function() {
-                    // Previous run complete, schedule the next run
-                    setTimeout(info, 60000);
                 }
             });
         };
@@ -201,6 +196,10 @@
             }, 1000);
         }
         
+        $(document).on('click', '.modal-trigger', function() {
+            $('#modalcharts .modal-content .row').empty();
+            info();
+        });
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
@@ -290,6 +289,7 @@
             $('.btn-clear').addClass('hide');
         });
         var idleTime = 0;
+
         $(document).ready(function () {
             info();
             //Increment the idle time counter every minute.

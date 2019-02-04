@@ -77,13 +77,14 @@
                 },
                 error: function(a) {
                     console.log(a);
-                },
-                complete: function() {
-                    // Previous run complete, schedule the next run
-                    setTimeout(info, 60000);
                 }
             });
         };
+
+        $(document).on('click', '.modal-trigger', function() {
+            $('#modalcharts .modal-content .row').empty();
+            info();
+        });
 
         function callModal(style,title,message) {
             $('#modalmsg').modal('open');
