@@ -33,6 +33,11 @@ $(document).ready(function () {
         var action = $('form.login').attr('action');
         $('form.login').attr('action', action + '?device=mobile')
     }
+    if (ww <= 360 && ($('.btnSelectLaser').length)) {
+        console.log('bla');
+        $('.btnSelectLaser').removeClass('hide');
+        $('.btnSelectSearch').addClass('hide');
+    }
     if ($('.sidenav').length) {
         $('.sidenav').sidenav();
     }
