@@ -197,9 +197,14 @@
         }
         
         $(document).on('click', '.modal-trigger', function() {
-            $('#modalcharts .modal-content .row').empty();
-            info();
+            setTimeout(function(){
+                $('#modalcharts .modal-content .row').empty();
+            }, 600);
+            setTimeout(function(){
+                info();
+            }, 1000);
         });
+
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
