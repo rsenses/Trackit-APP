@@ -133,7 +133,7 @@
                         metadata += '<li><strong>'+key+'</strong>: '+a.metadata[key]+'</li>';
                     }
                     style = 'green';
-                    title = 'Correcto';
+                    title = '<i class="mdi mdi-check-circle"></i>  Correcto';
                     message = '<ul class="white-text"><li><h5>'+a.customer.first_name+' '+a.customer.last_name+'</h5></li><li style="text-transform:capitalize;">'+ a.type +'</li>'+metadata+'</ul>';
 
                     $('.results-scan').append(message);
@@ -150,11 +150,11 @@
                     
                     if (jqXHR.status == 403) {
                         style = 'orange';
-                        title = 'Cuidado';
+                        title = '<i class="mdi mdi-alert-circle-outline"></i> Cuidado';
                         message = '<p>'+response.message+'</p>';
                     } else {
                         style = 'red';
-                        title = 'Error';
+                        title = '<i class="mdi mdi-alert"></i> Error';
                         message = '<p>'+response.message+'</p>';
                     }
                     

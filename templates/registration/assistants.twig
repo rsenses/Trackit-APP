@@ -90,6 +90,18 @@
     }
 </script>
 <script>
+    $('html').bind('keydown', function(e) {
+        resW = $(window).width();
+        if (
+        resW <= 600 &&
+        e.keyCode == 0 &&
+        typeof e.originalEvent !== 'undefined' &&
+        (typeof e.originalEvent.key == 'undefined' ||
+        e.originalEvent.key == 'Unidentified')
+        ) {
+            window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
+        }
+    });
     $('form').submit(function (event) {
         event.preventDefault();
 

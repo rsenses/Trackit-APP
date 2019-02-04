@@ -183,7 +183,7 @@
             $('#modalmsg').modal('open');
             $('#modalmsg, #modalmsg .modal-footer').removeClass('green orange red');
             $('#modalmsg, #modalmsg .modal-footer').addClass(style);
-            $('#modalmsg .modal-content').html('<h4>'+title+'</h4>');
+            $('#modalmsg .modal-content').html('<h4 class="center-align">'+title+'</h4>');
             $('#modalmsg .modal-content').html(message);      
         }
 
@@ -240,11 +240,11 @@
                         
                         if (jqXHR.status == 403) {
                             style = 'orange';
-                            title = 'Cuidado';
+                            title = '<i class="mdi mdi-alert-circle-outline"></i>Cuidado';
                             message = '<p>'+response.message+'</p>';
                         } else {
                             style = 'red';
-                            title = 'Error';
+                            title = '<i class="mdi mdi-alert"></i>Error';
                             message = '<p>'+response.message+'</p>';
                         }
 
@@ -268,7 +268,6 @@
             (typeof e.originalEvent.key == 'undefined' ||
             e.originalEvent.key == 'Unidentified')
             ) {
-                console.log(e.keyCode);
                 window.location.replace("{{ path_for('product.laserscan', {'id': product_id}) }}");
             }
         });
