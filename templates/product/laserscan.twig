@@ -29,7 +29,7 @@
     </main>
 {% endblock %}
 {% block footer %}
-<footer>
+{# <footer>
     <a class="btn-floating right btn-large waves-effect waves-light blue mr-10 mb-10 modal-trigger" href="#modalcharts"><i class="mdi mdi-chart-arc"></i></a>
     <div id="modalmsg" class="modal">
         <div class="modal-content">
@@ -44,15 +44,15 @@
             </div>
         </div>
     </div>
-</footer>
+</footer> #}
 
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script>
+    {# <script src="{{ base_url() }}/js/jquery.easypiechart.min.js"></script> #}
     <script>
         var col;
-        function info() {
+        {# function info() {
             $.ajax({
                 type: "GET",
                 url: "/product/info/{{ product_id }}",
@@ -79,7 +79,7 @@
                     console.log(a);
                 }
             });
-        };
+        }; #}
 
         
         function callModal(style,title,message) {
@@ -202,16 +202,16 @@
         });
 
         $(document).on('click', '.modal-trigger', function() {
-            info();
+            // info();
         });
     </script>
     <script type="text/javascript">
         var idleTime = 0;
         $(document).ready(function () {
-            info();
+            // info();
 
             //Increment the idle time counter every minute.
-            var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+            // var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
         
             //Zero the idle timer on mouse movement.
             $(this).mousemove(function (e) {
@@ -222,11 +222,11 @@
             });
         });
         
-        function timerIncrement() {
+        {# function timerIncrement() {
             idleTime = idleTime + 1;
             if (idleTime > 9) { // 20 minutes
                 window.location.reload();
             }
-        }
+        } #}
     </script>   
 {% endblock %}
