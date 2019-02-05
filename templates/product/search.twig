@@ -148,7 +148,7 @@
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script>
-        function info() {
+        {# function info() {
             $.ajax({
                 type: "GET",
                 url: "/product/info/{{ product.product_id }}",
@@ -198,7 +198,7 @@
         }
         
         $(document).on('click', '.modal-trigger', function() {
-            info();
+            // info();
         });
 
         $(document).on('click', '.verification', function(event) {
