@@ -126,7 +126,7 @@
     </main>
 {% endblock %}
 {% block footer %}
-<footer>
+{# <footer>
     <a class="btn-floating right btn-large waves-effect waves-light blue mr-10 mb-10 modal-trigger" href="#modalcharts"><i class="mdi mdi-chart-arc"></i></a>
     <div id="modalmsg" class="modal">
         <div class="modal-content">
@@ -135,20 +135,20 @@
             <a href="#0" class="modal-close waves-effect white-text waves-white btn-flat">Cerrar</a>
         </div>
     </div>
-     <div id="modalcharts" class="modal bottom-sheet">
+    <div id="modalcharts" class="modal bottom-sheet">
         <div class="modal-content">
             <div class="row">
             </div>
         </div>
     </div>
-</footer>
+</footer> #}
 
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ base_url() }}/js/searchtable.js"></script>
     <script>
-        var info = function () {
+        {# var info = function () {
             $.ajax({
                 type: "GET",
                 url: "/product/info/{{ product.product_id }}",
@@ -177,7 +177,7 @@
                     setTimeout(info, 60000);
                 }
             });
-        };
+        }; #}
 
         function callModal(style,title,message) {
             $('#modalmsg').modal('open');
@@ -218,7 +218,7 @@
                     context: this,
                     cache: false,
                     success: function(a) {
-
+                        console.log(a);
                         for (var key in a.metadata) {
                             metadata += '<li><strong>'+key+'</strong>: '+a.metadata[key]+'</li>';
                         }
@@ -236,6 +236,7 @@
                         setTimeout(function() {cleanner() }, 2000);
                     },
                     error: function(jqXHR) {
+                        console.log(jqXHR);
                         var response = JSON.parse(jqXHR.responseText);
                         
                         if (jqXHR.status == 403) {
@@ -291,7 +292,7 @@
         });
         var idleTime = 0;
         $(document).ready(function () {
-            info();
+            // info();
             //Increment the idle time counter every minute.
             var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
         
