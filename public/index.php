@@ -20,6 +20,8 @@ error_reporting(-1);
 // Errores en archivo log o en pantalla si estamos en desarrollo
 ini_set('ignore_repeated_source', 0);
 ini_set('ignore_repeated_errors', 1); // do not log repeating errors
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../storage/logs/' . date('Y-m-d') . '_error.log');
 // source of error plays role in determining if errors are different
 if ($settings['settings']['displayErrorDetails']) {
     ini_set('display_errors', 1); // Mostramos los errores en pantalla
@@ -27,8 +29,6 @@ if ($settings['settings']['displayErrorDetails']) {
 } else {
     ini_set('display_errors', 0);
     ini_set('display_startup_errors', 0);
-    ini_set('log_errors', 1);
-    ini_set('error_log', __DIR__ . '/../storage/logs/' . date('Y-m-d') . '_error.log');
 }
 
 // Set up session

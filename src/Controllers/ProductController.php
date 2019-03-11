@@ -95,7 +95,10 @@ class ProductController
             $registrations = json_decode($apiRequest->getBody());
         } catch (ClientException $e) {
             $apiResponse = json_decode($e->getResponse()->getBody());
+            error_log($e->getResponse()->getBody());
+            error_log($e->getMessage());
         } catch (Exception $e) {
+            error_log($e->getMessage());
             $this->flash->addMessage('danger', $e->getMessage());
 
             return $response->withRedirect($this->router->pathFor('auth.signin'));
