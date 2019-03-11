@@ -37,6 +37,7 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
+                                <th>Fila</th>
                                 <th>Orden</th>
                                 <th>Acciones</th>
                             </tr>
@@ -79,6 +80,9 @@
                                                 {{ meta.meta_value }}
                                             {% endif %}
                                         {% endfor %}
+                                    </td>
+                                    <td>
+                                        {{ registration.metadata.fila }}
                                     </td>
                                     <td>
                                         {{ registration.metadata.orden }}
