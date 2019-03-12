@@ -45,6 +45,16 @@ $container['view'] = function ($container) {
     ));
     $view->addExtension(new Twig_Extension_Debug());
 
+    $view->getEnvironment()->addFilter(new \Twig\TwigFilter('cast_to_array', function ($stdClassObject) {
+        $response = [];
+
+        foreach ($stdClassObject as $key => $value) {
+            $response[$key] = $value;
+        }
+
+        return $response;
+    }));
+
     // $view->getEnvironment()->addGlobal('auth', [
     //     'status' => $container->auth->getStatus(),
     //     'user' => $container->auth->getUserData()
