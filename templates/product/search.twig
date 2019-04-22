@@ -37,8 +37,7 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th>Fila</th>
-                                <th>Orden</th>
+                                <th>Otros</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -82,10 +81,9 @@
                                         {% endfor %}
                                     </td>
                                     <td>
-                                        {{ registration.metadata.fila }}
-                                    </td>
-                                    <td>
-                                        {{ registration.metadata.orden }}
+                                        {% for key, metadata in registration.metadata|cast_to_array %}
+                                            {{ key }}: {{ metadata }}
+                                        {% endfor %}
                                     </td>
                                     <td>
                                         {% if registration.state == 'verified'  %}
@@ -110,7 +108,7 @@
                                 <th>Nombre Apellidos</th>
                                 <th>DNI</th>
                                 <th>Empresa</th>
-                                <th>Orden</th>
+                                <th>Otros</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
