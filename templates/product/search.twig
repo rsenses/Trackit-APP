@@ -81,9 +81,11 @@
                                         {% endfor %}
                                     </td>
                                     <td>
-                                        {% for key, metadata in registration.metadata|cast_to_array %}
-                                            {{ key }}: {{ metadata }}
-                                        {% endfor %}
+                                        {% if registration.metadata %}
+                                            {% for key, metadata in registration.metadata|cast_to_array %}
+                                                {{ key }}: {{ metadata }}
+                                            {% endfor %}
+                                        {% endif %}
                                     </td>
                                     <td>
                                         {% if registration.state == 'verified'  %}
