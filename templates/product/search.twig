@@ -89,7 +89,7 @@
                                     </td>
                                     <td>
                                         {% if registration.state == 'verified'  %}
-                                            {% if registration.state == 'verified'  %}
+                                            {% if registration.rooms.count()  %}
                                                 <a href="#0" class="verification grey-text"  data-uniqueid="{{ registration.unique_id }}">
                                                     <i class="mdi mdi-checkbox-multiple-marked-circle"></i>
                                                 </a>
