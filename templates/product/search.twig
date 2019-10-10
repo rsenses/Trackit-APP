@@ -89,7 +89,13 @@
                                     </td>
                                     <td>
                                         {% if registration.state == 'verified'  %}
-                                            <i class="mdi mdi-check green-text"></i>
+                                            {% if registration.state == 'verified'  %}
+                                                <a href="#0" class="verification grey-text"  data-uniqueid="{{ registration.unique_id }}">
+                                                    <i class="mdi mdi-checkbox-multiple-marked-circle"></i>
+                                                </a>
+                                            {% else %}
+                                                <i class="mdi mdi-check green-text"></i>
+                                            {% endif %}
                                         {% else %}
                                             {% if registration.state == 'rejected' or registration.state == 'cancelled' %}
                                                 <i class="black-text mdi mdi-block-helper"></i>
