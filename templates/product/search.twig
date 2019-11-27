@@ -90,7 +90,7 @@
                                     <td>
                                         {% if registration.state == 'verified'  %}
                                             {% if registration.rooms|length  %}
-                                                <a href="#0" class="verification grey-text"  data-uniqueid="{{ registration.unique_id }}">
+                                                <a href="#0" class="verification grey-text" data-uniqueid="{{ registration.unique_id }}" data-productid="{{ product.product_id }}">
                                                     <i class="mdi mdi-checkbox-multiple-marked-circle"></i>
                                                 </a>
                                             {% else %}
@@ -100,7 +100,7 @@
                                             {% if registration.state == 'rejected' or registration.state == 'cancelled' %}
                                                 <i class="black-text mdi mdi-block-helper"></i>
                                             {% else %}
-                                                <a href="#0" class="verification grey-text"  data-uniqueid="{{ registration.unique_id }}">
+                                                <a href="#0" class="verification grey-text" data-uniqueid="{{ registration.unique_id }}" data-productid="{{ product.product_id }}">
                                                     <i class="mdi mdi-check"></i>
                                                 </a>
                                             {% endif %}
@@ -214,6 +214,7 @@
         $(document).on('click', '.verification', function(event) {
             event.preventDefault();
             var unique_id = $(this).data('uniqueid');
+            var product_id = $(this).data('productid');
 
             $(this).removeClass('verification');
             $(this).children('i').removeClass (function (index, className) { return (className.match (/(^|\s)mdi-\S+/g) || []).join(' ');}).removeClass('grey-text').addClass('mdi-loading mdi-spin blue-text');
@@ -223,7 +224,7 @@
                 var metadata = '';
                 $.ajax({
                     type: "GET",
-                    url: "/registration/verify/"+unique_id+"?method=manual",
+                    url: "/registration/verify/"+unique_id+"?method=manual&product_id="+product_id,
                     dataType: "json",
                     context: this,
                     cache: false,

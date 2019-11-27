@@ -120,7 +120,8 @@ class RegistrationController
                     'Content-Type' => 'application/x-www-form-urlencoded',
                 ],
                 'form_params' => [
-                    'unique_id' => $args['qr']
+                    'unique_id' => $args['qr'],
+                    'product_id' => $request->getParam('product_id'),
                 ]
             ]);
 
