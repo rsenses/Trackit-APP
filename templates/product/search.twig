@@ -89,13 +89,13 @@
                                     </td>
                                     <td>
                                         {% if registration.state == 'verified'  %}
-                                            {% if registration.rooms|length  %}
+                                            {# {% if registration.rooms|length  %} #}
                                                 <a href="#0" class="verification grey-text" data-uniqueid="{{ registration.unique_id }}" data-productid="{{ product.product_id }}">
-                                                    <i class="mdi mdi-checkbox-multiple-marked-circle"></i>
+                                                    <i class="mdi mdi-checkbox-multiple-marked-circle green-text"></i>
                                                 </a>
-                                            {% else %}
-                                                <i class="mdi mdi-check green-text"></i>
-                                            {% endif %}
+                                            {# {% else %} #}
+                                                {# <i class="mdi mdi-check green-text"></i> #}
+                                            {# {% endif %} #}
                                         {% else %}
                                             {% if registration.state == 'rejected' or registration.state == 'cancelled' %}
                                                 <i class="black-text mdi mdi-block-helper"></i>
